@@ -1,0 +1,16 @@
+// Spring Roo 1.3.1.RELEASE [rev f4f5256] log opened at 2016-02-21 20:59:05
+project --topLevelPackage com.app2.app2t --projectName APP2_Security --java 7
+persistence setup --provider HIBERNATE --database DERBY_EMBEDDED
+entity jpa --class ~base.BaseEntity --abstract --mappedSuperclass --activeRecord
+field string createdBy
+field string updatedBy
+field string status
+field date --fieldName createdDate --type java.util.Date --dateFormat SHORT --dateTimeFormatPattern "dd/MM/yyyy"
+field date --fieldName updatedDate --type java.util.Date --dateFormat SHORT --dateTimeFormatPattern "dd/MM/yyyy"
+json all 
+json all --deepSerialize 
+web mvc setup
+web mvc all --package ~.web.em
+web mvc json all 
+quit
+// Spring Roo 1.3.1.RELEASE [rev f4f5256] log closed at 2016-02-21 21:01:31
