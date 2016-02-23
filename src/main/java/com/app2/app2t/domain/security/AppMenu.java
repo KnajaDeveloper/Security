@@ -9,13 +9,33 @@ import org.springframework.roo.addon.json.RooJson;
 @RooToString
 @RooJpaActiveRecord(inheritanceType = "TABLE_PER_CLASS")
 @RooJson
-public class AppRole extends BaseEntity {
+public class AppMenu extends BaseEntity {
 
     /**
      */
-    private String roleName;
+    private String link;
 
     /**
      */
-    private String roleCode;
+    private String controller;
+
+    /**
+     */
+    private Integer menuLevel;
+
+    /**
+     */
+    private Integer segment;
+
+    /**
+     */
+    private Long parent;
+
+    /**
+     */
+    private String menu_t_name;
+
+    /**
+     */
+    private String menu_e_name;
 }

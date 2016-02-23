@@ -9,7 +9,7 @@
             <table:column id="c_com_app2_app2t_domain_security_AppRole_status" property="status" z="4Jf/+Yb584G1rtieVTwsbcr0rqI="/>
             <table:column date="true" dateTimePattern="${appRole_createddate_date_format}" id="c_com_app2_app2t_domain_security_AppRole_createdDate" property="createdDate" z="6OmGHA3iOL9jBZtgf9/i5k9d5Ao="/>
             <table:column date="true" dateTimePattern="${appRole_updateddate_date_format}" id="c_com_app2_app2t_domain_security_AppRole_updatedDate" property="updatedDate" z="3PL/mhoPLSEuTAlvyt68j0ZAb3Q="/>
-            <table:column id="c_com_app2_app2t_domain_security_AppRole_RoleName" property="roleName" z="wC2PRo+CUC/eabwm5WCcVNoWTO8="/>
+            <table:column id="c_com_app2_app2t_domain_security_AppRole_roleName" property="roleName" z="8p/biQwW5voS++EEEpXSB+89IQM="/>
         </table:table>
     </page:list>
 </div>

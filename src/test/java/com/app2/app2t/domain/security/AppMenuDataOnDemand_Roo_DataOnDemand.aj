@@ -3,8 +3,8 @@
 
 package com.app2.app2t.domain.security;
 
-import com.app2.app2t.domain.security.AppRole;
-import com.app2.app2t.domain.security.AppRoleDataOnDemand;
+import com.app2.app2t.domain.security.AppMenu;
+import com.app2.app2t.domain.security.AppMenuDataOnDemand;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -17,62 +17,92 @@ import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import org.springframework.stereotype.Component;
 
-privileged aspect AppRoleDataOnDemand_Roo_DataOnDemand {
+privileged aspect AppMenuDataOnDemand_Roo_DataOnDemand {
     
-    declare @type: AppRoleDataOnDemand: @Component;
+    declare @type: AppMenuDataOnDemand: @Component;
     
-    private Random AppRoleDataOnDemand.rnd = new SecureRandom();
+    private Random AppMenuDataOnDemand.rnd = new SecureRandom();
     
-    private List<AppRole> AppRoleDataOnDemand.data;
+    private List<AppMenu> AppMenuDataOnDemand.data;
     
-    public AppRole AppRoleDataOnDemand.getNewTransientAppRole(int index) {
-        AppRole obj = new AppRole();
+    public AppMenu AppMenuDataOnDemand.getNewTransientAppMenu(int index) {
+        AppMenu obj = new AppMenu();
+        setController(obj, index);
         setCreatedBy(obj, index);
         setCreatedDate(obj, index);
-        setRoleCode(obj, index);
-        setRoleName(obj, index);
+        setLink(obj, index);
+        setMenuLevel(obj, index);
+        setMenu_e_name(obj, index);
+        setMenu_t_name(obj, index);
+        setParent(obj, index);
+        setSegment(obj, index);
         setStatus(obj, index);
         setUpdatedBy(obj, index);
         setUpdatedDate(obj, index);
         return obj;
     }
     
-    public void AppRoleDataOnDemand.setCreatedBy(AppRole obj, int index) {
+    public void AppMenuDataOnDemand.setController(AppMenu obj, int index) {
+        String controller = "controller_" + index;
+        obj.setController(controller);
+    }
+    
+    public void AppMenuDataOnDemand.setCreatedBy(AppMenu obj, int index) {
         String createdBy = "createdBy_" + index;
         obj.setCreatedBy(createdBy);
     }
     
-    public void AppRoleDataOnDemand.setCreatedDate(AppRole obj, int index) {
+    public void AppMenuDataOnDemand.setCreatedDate(AppMenu obj, int index) {
         Date createdDate = new GregorianCalendar(Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.MONTH), Calendar.getInstance().get(Calendar.DAY_OF_MONTH), Calendar.getInstance().get(Calendar.HOUR_OF_DAY), Calendar.getInstance().get(Calendar.MINUTE), Calendar.getInstance().get(Calendar.SECOND) + new Double(Math.random() * 1000).intValue()).getTime();
         obj.setCreatedDate(createdDate);
     }
     
-    public void AppRoleDataOnDemand.setRoleCode(AppRole obj, int index) {
-        String roleCode = "roleCode_" + index;
-        obj.setRoleCode(roleCode);
+    public void AppMenuDataOnDemand.setLink(AppMenu obj, int index) {
+        String link = "link_" + index;
+        obj.setLink(link);
     }
     
-    public void AppRoleDataOnDemand.setRoleName(AppRole obj, int index) {
-        String roleName = "roleName_" + index;
-        obj.setRoleName(roleName);
+    public void AppMenuDataOnDemand.setMenuLevel(AppMenu obj, int index) {
+        Integer menuLevel = new Integer(index);
+        obj.setMenuLevel(menuLevel);
     }
     
-    public void AppRoleDataOnDemand.setStatus(AppRole obj, int index) {
+    public void AppMenuDataOnDemand.setMenu_e_name(AppMenu obj, int index) {
+        String menu_e_name = "menu_e_name_" + index;
+        obj.setMenu_e_name(menu_e_name);
+    }
+    
+    public void AppMenuDataOnDemand.setMenu_t_name(AppMenu obj, int index) {
+        String menu_t_name = "menu_t_name_" + index;
+        obj.setMenu_t_name(menu_t_name);
+    }
+    
+    public void AppMenuDataOnDemand.setParent(AppMenu obj, int index) {
+        Long parent = new Integer(index).longValue();
+        obj.setParent(parent);
+    }
+    
+    public void AppMenuDataOnDemand.setSegment(AppMenu obj, int index) {
+        Integer segment = new Integer(index);
+        obj.setSegment(segment);
+    }
+    
+    public void AppMenuDataOnDemand.setStatus(AppMenu obj, int index) {
         String status = "status_" + index;
         obj.setStatus(status);
     }
     
-    public void AppRoleDataOnDemand.setUpdatedBy(AppRole obj, int index) {
+    public void AppMenuDataOnDemand.setUpdatedBy(AppMenu obj, int index) {
         String updatedBy = "updatedBy_" + index;
         obj.setUpdatedBy(updatedBy);
     }
     
-    public void AppRoleDataOnDemand.setUpdatedDate(AppRole obj, int index) {
+    public void AppMenuDataOnDemand.setUpdatedDate(AppMenu obj, int index) {
         Date updatedDate = new GregorianCalendar(Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.MONTH), Calendar.getInstance().get(Calendar.DAY_OF_MONTH), Calendar.getInstance().get(Calendar.HOUR_OF_DAY), Calendar.getInstance().get(Calendar.MINUTE), Calendar.getInstance().get(Calendar.SECOND) + new Double(Math.random() * 1000).intValue()).getTime();
         obj.setUpdatedDate(updatedDate);
     }
     
-    public AppRole AppRoleDataOnDemand.getSpecificAppRole(int index) {
+    public AppMenu AppMenuDataOnDemand.getSpecificAppMenu(int index) {
         init();
         if (index < 0) {
             index = 0;
@@ -80,36 +110,36 @@ privileged aspect AppRoleDataOnDemand_Roo_DataOnDemand {
         if (index > (data.size() - 1)) {
             index = data.size() - 1;
         }
-        AppRole obj = data.get(index);
+        AppMenu obj = data.get(index);
         Long id = obj.getId();
-        return AppRole.findAppRole(id);
+        return AppMenu.findAppMenu(id);
     }
     
-    public AppRole AppRoleDataOnDemand.getRandomAppRole() {
+    public AppMenu AppMenuDataOnDemand.getRandomAppMenu() {
         init();
-        AppRole obj = data.get(rnd.nextInt(data.size()));
+        AppMenu obj = data.get(rnd.nextInt(data.size()));
         Long id = obj.getId();
-        return AppRole.findAppRole(id);
+        return AppMenu.findAppMenu(id);
     }
     
-    public boolean AppRoleDataOnDemand.modifyAppRole(AppRole obj) {
+    public boolean AppMenuDataOnDemand.modifyAppMenu(AppMenu obj) {
         return false;
     }
     
-    public void AppRoleDataOnDemand.init() {
+    public void AppMenuDataOnDemand.init() {
         int from = 0;
         int to = 10;
-        data = AppRole.findAppRoleEntries(from, to);
+        data = AppMenu.findAppMenuEntries(from, to);
         if (data == null) {
-            throw new IllegalStateException("Find entries implementation for 'AppRole' illegally returned null");
+            throw new IllegalStateException("Find entries implementation for 'AppMenu' illegally returned null");
         }
         if (!data.isEmpty()) {
             return;
         }
         
-        data = new ArrayList<AppRole>();
+        data = new ArrayList<AppMenu>();
         for (int i = 0; i < 10; i++) {
-            AppRole obj = getNewTransientAppRole(i);
+            AppMenu obj = getNewTransientAppMenu(i);
             try {
                 obj.persist();
             } catch (final ConstraintViolationException e) {

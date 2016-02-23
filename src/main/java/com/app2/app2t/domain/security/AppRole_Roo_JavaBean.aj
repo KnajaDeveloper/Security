@@ -8,11 +8,19 @@ import com.app2.app2t.domain.security.AppRole;
 privileged aspect AppRole_Roo_JavaBean {
     
     public String AppRole.getRoleName() {
-        return this.RoleName;
+        return this.roleName;
     }
     
-    public void AppRole.setRoleName(String RoleName) {
-        this.RoleName = RoleName;
+    public void AppRole.setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
+    
+    public String AppRole.getRoleCode() {
+        return this.roleCode;
+    }
+    
+    public void AppRole.setRoleCode(String roleCode) {
+        this.roleCode = roleCode;
     }
     
 }
