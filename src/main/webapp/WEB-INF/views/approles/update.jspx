@@ -8,6 +8,7 @@
         <field:input field="status" id="c_com_app2_app2t_domain_security_AppRole_status" z="Owsuqw5DA5Wnr3tIn0xe76s743E="/>
         <field:datetime dateTimePattern="${appRole_createddate_date_format}" field="createdDate" id="c_com_app2_app2t_domain_security_AppRole_createdDate" z="B50zw25aq5yspuufXXWz83uWgKI="/>
         <field:datetime dateTimePattern="${appRole_updateddate_date_format}" field="updatedDate" id="c_com_app2_app2t_domain_security_AppRole_updatedDate" z="qPll1+N4Vbl6awDFJ+MeBt+vjFM="/>
-        <field:input field="RoleName" id="c_com_app2_app2t_domain_security_AppRole_RoleName" z="jRDtfXo03IKrpEA8dMqkZdZQIbs="/>
+        <field:input field="roleCode" id="c_com_app2_app2t_domain_security_AppRole_roleCode" z="4V430FS3RzbEWROBy40jD9CLXvg="/>
+        <field:input field="roleName" id="c_com_app2_app2t_domain_security_AppRole_roleName" z="g2qAd4fgP1AY5ciW7nY86LiiCMQ="/>
     </form:update>
 </div>

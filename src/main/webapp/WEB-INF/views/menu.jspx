@@ -7,5 +7,13 @@
             <menu:item id="i_approle_new" messageCode="global_menu_new" url="/approles?form" z="M2wjb51DSDER7FzvMEN6iwd9qe0="/>
             <menu:item id="i_approle_list" messageCode="global_menu_list" url="/approles?page=1&amp;size=${empty param.size ? 10 : param.size}" z="6P9Z/GJhHaCRZ5uH/jV9UaYvRfo="/>
         </menu:category>
+        <menu:category id="c_approlemenu" z="EvN+Q806CT7vNMgQqn2Kvsc5qUI=">
+            <menu:item id="i_approlemenu_new" messageCode="global_menu_new" url="/approlemenus?form" z="JNmBgBRkKssQ8BNNB3rSOGBvFJ0="/>
+            <menu:item id="i_approlemenu_list" messageCode="global_menu_list" url="/approlemenus?page=1&amp;size=${empty param.size ? 10 : param.size}" z="2GuTyWBNCjDKZuLovEGYXqMO1No="/>
+        </menu:category>
+        <menu:category id="c_appmenu" z="wOyRvFTrGbs4h9hXb79QBFUNq7A=">
+            <menu:item id="i_appmenu_new" messageCode="global_menu_new" url="/appmenus?form" z="R21fkLhpLLssPwzm3GU2MYfB+1g="/>
+            <menu:item id="i_appmenu_list" messageCode="global_menu_list" url="/appmenus?page=1&amp;size=${empty param.size ? 10 : param.size}" z="x5qelJhSwJunD8LKe8PWjAIqZwA="/>
+        </menu:category>
     </menu:menu>
 </div>

@@ -3,7 +3,9 @@
 
 package com.app2.app2t.web.security;
 
+import com.app2.app2t.domain.security.AppMenu;
 import com.app2.app2t.domain.security.AppRole;
+import com.app2.app2t.domain.security.AppRoleMenu;
 import com.app2.app2t.web.security.ApplicationConversionServiceFactoryBean;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.core.convert.converter.Converter;
@@ -12,6 +14,30 @@ import org.springframework.format.FormatterRegistry;
 privileged aspect ApplicationConversionServiceFactoryBean_Roo_ConversionService {
     
     declare @type: ApplicationConversionServiceFactoryBean: @Configurable;
+    
+    public Converter<AppMenu, String> ApplicationConversionServiceFactoryBean.getAppMenuToStringConverter() {
+        return new org.springframework.core.convert.converter.Converter<com.app2.app2t.domain.security.AppMenu, java.lang.String>() {
+            public String convert(AppMenu appMenu) {
+                return new StringBuilder().append(appMenu.getCreatedBy()).append(' ').append(appMenu.getUpdatedBy()).append(' ').append(appMenu.getStatus()).append(' ').append(appMenu.getCreatedDate()).toString();
+            }
+        };
+    }
+    
+    public Converter<Long, AppMenu> ApplicationConversionServiceFactoryBean.getIdToAppMenuConverter() {
+        return new org.springframework.core.convert.converter.Converter<java.lang.Long, com.app2.app2t.domain.security.AppMenu>() {
+            public com.app2.app2t.domain.security.AppMenu convert(java.lang.Long id) {
+                return AppMenu.findAppMenu(id);
+            }
+        };
+    }
+    
+    public Converter<String, AppMenu> ApplicationConversionServiceFactoryBean.getStringToAppMenuConverter() {
+        return new org.springframework.core.convert.converter.Converter<java.lang.String, com.app2.app2t.domain.security.AppMenu>() {
+            public com.app2.app2t.domain.security.AppMenu convert(String id) {
+                return getObject().convert(getObject().convert(id, Long.class), AppMenu.class);
+            }
+        };
+    }
     
     public Converter<AppRole, String> ApplicationConversionServiceFactoryBean.getAppRoleToStringConverter() {
         return new org.springframework.core.convert.converter.Converter<com.app2.app2t.domain.security.AppRole, java.lang.String>() {
@@ -37,10 +63,40 @@ privileged aspect ApplicationConversionServiceFactoryBean_Roo_ConversionService 
         };
     }
     
+    public Converter<AppRoleMenu, String> ApplicationConversionServiceFactoryBean.getAppRoleMenuToStringConverter() {
+        return new org.springframework.core.convert.converter.Converter<com.app2.app2t.domain.security.AppRoleMenu, java.lang.String>() {
+            public String convert(AppRoleMenu appRoleMenu) {
+                return new StringBuilder().append(appRoleMenu.getCreatedBy()).append(' ').append(appRoleMenu.getUpdatedBy()).append(' ').append(appRoleMenu.getStatus()).append(' ').append(appRoleMenu.getCreatedDate()).toString();
+            }
+        };
+    }
+    
+    public Converter<Long, AppRoleMenu> ApplicationConversionServiceFactoryBean.getIdToAppRoleMenuConverter() {
+        return new org.springframework.core.convert.converter.Converter<java.lang.Long, com.app2.app2t.domain.security.AppRoleMenu>() {
+            public com.app2.app2t.domain.security.AppRoleMenu convert(java.lang.Long id) {
+                return AppRoleMenu.findAppRoleMenu(id);
+            }
+        };
+    }
+    
+    public Converter<String, AppRoleMenu> ApplicationConversionServiceFactoryBean.getStringToAppRoleMenuConverter() {
+        return new org.springframework.core.convert.converter.Converter<java.lang.String, com.app2.app2t.domain.security.AppRoleMenu>() {
+            public com.app2.app2t.domain.security.AppRoleMenu convert(String id) {
+                return getObject().convert(getObject().convert(id, Long.class), AppRoleMenu.class);
+            }
+        };
+    }
+    
     public void ApplicationConversionServiceFactoryBean.installLabelConverters(FormatterRegistry registry) {
+        registry.addConverter(getAppMenuToStringConverter());
+        registry.addConverter(getIdToAppMenuConverter());
+        registry.addConverter(getStringToAppMenuConverter());
         registry.addConverter(getAppRoleToStringConverter());
         registry.addConverter(getIdToAppRoleConverter());
         registry.addConverter(getStringToAppRoleConverter());
+        registry.addConverter(getAppRoleMenuToStringConverter());
+        registry.addConverter(getIdToAppRoleMenuConverter());
+        registry.addConverter(getStringToAppRoleMenuConverter());
     }
     
     public void ApplicationConversionServiceFactoryBean.afterPropertiesSet() {
