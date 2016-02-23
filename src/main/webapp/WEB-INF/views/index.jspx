@@ -10,5 +10,20 @@
     <p>
       <spring:message code="welcome_text" />
     </p>
+    <input id="userName" type="text" value=""></input>
+    <br/>
+    <input id="password" type="password" value=""></input>
+    <br/>
+    <button id="btnSetSession" type="buttom">SetSessionService</button>
+    <br/>
+    <button id="btnGetSessionGeneral" type="buttom">btnGetSessionGeneral</button>
+    <br/>
+    <button id="btnGetSession" type="buttom">GetSession</button>
+    <script>
+      var contextPath = '${pageContext.request.contextPath}';
+    </script>
+    <spring:url value="/resources/scripts/security/index.js" var="index" />
+    <script src="${index}" type="text/javascript"><!--Not Empty --></script>
+
   </util:panel>
 </div>
