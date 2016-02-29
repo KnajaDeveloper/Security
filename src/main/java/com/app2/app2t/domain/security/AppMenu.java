@@ -24,6 +24,7 @@ public class AppMenu extends BaseEntity {
     private Integer menuLevel;
 
     /**
+     * front end use "sequent"
      */
     private Integer segment;
 

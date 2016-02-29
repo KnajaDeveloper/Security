@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields"
+     xmlns:form="urn:jsptagdir:/WEB-INF/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:spring="http://www.springframework.org/tags" xmlns:component="urn:jsptagdir:/WEB-INF/tags/component"
+     version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+
+    <style>
+        .checkbox label.col-sm-12 input {
+            margin-top: -0.5px;
+        }
+    </style>
+
+    <br/>
+
+    <h1>เมนูเลเวล 0</h1>
+    <!-- add/delete button - menu level 0 -->
+    <div class="row">
+        <div class="form-inline">
+            <div class="form-group">
+                <button id="btnAddMenuLv0" class="btn btn-primary" type="button">เพิ่มเมนู</button>
+                <button id="btnDeleteMenuLv0" class="btn btn-danger" type="button">ลบที่เลือก</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- table content - menu level 0 -->
+    <div class="row">
+        <div id="penaltyTableContainer" class="table-responsive">
+            <table id="Table" class="table table-hover">
+                <thead>
+                <tr class="info">
+                    <th width="5%" class="text-center">
+                        <input type="checkbox" id="chkCheckAllLv0"/>
+                    </th>
+                    <th width="10%" class="text-center">แก้ไข</th>
+                    <th width="10%" class="text-center">ลำดับ</th>
+                    <th width="25%" class="text-center">ลิงค์</th>
+                    <th width="20%" class="text-center">เมนูภาษาไทย</th>
+                    <th width="20%" class="text-center">เมนูภาษาอังกฤษ</th>
+                    <th width="10%" class="text-center">คอนโทรเลอร์</th>
+                </tr>
+                </thead>
+                <tbody id="tbAppMenuLv0" style="cursor:pointer"></tbody>
+            </table>
+        </div>
+        <div class="form-horizontal">
+            <div class="form-group">
+                <component:pagging id="paggingAppMenuLv0"/>
+            </div>
+        </div>
+    </div>
+
+    <h1>เมนูเลเวล 1</h1>
+    <!-- add/delete button - menu level 1 -->
+    <div class="row">
+        <div class="form-inline">
+            <div class="form-group">
+                <button id="btnAddMenuLv1" class="btn btn-primary" type="button">เพิ่มเมนู</button>
+                <button id="btnDeleteMenuLv1" class="btn btn-danger" type="button">ลบที่เลือก</button>
+            </div>
+        </div>
+    </div>
+    <!-- table content - menu level 1 -->
+    <div class="row">
+        <div id="penaltyTableContainer" class="table-responsive">
+            <table id="Table" class="table table-hover">
+                <thead>
+                <tr class="info">
+                    <th width="5%" class="text-center">
+                        <input type="checkbox" id="chkCheckAllLv1"/>
+                    </th>
+                    <th width="10%" class="text-center">แก้ไข</th>
+                    <th width="10%" class="text-center">ลำดับ</th>
+                    <th width="25%" class="text-center">ลิงค์</th>
+                    <th width="10%" class="text-center">เมนูภาษาไทย</th>
+                    <th width="10%" class="text-center">เมนูภาษาอังกฤษ</th>
+                    <th width="10%" class="text-center">คอนโทรเลอร์</th>
+                    <th width="20%" class="text-center">รูทเมนู</th>
+                </tr>
+                </thead>
+                <tbody id="tbAppMenuLv1" style="cursor:pointer"></tbody>
+            </table>
+        </div>
+        <div class="form-horizontal">
+            <div class="form-group">
+                <component:pagging id="paggingAppMenuLv1"/>
+            </div>
+        </div>
+    </div>
+
+    <h1>เมนูเลเวล 2</h1>
+    <!-- add/delete button - menu level 2 -->
+    <div class="row">
+        <div class="form-inline">
+            <div class="form-group">
+                <button id="btnAddMenuLv2" class="btn btn-primary" type="button">เพิ่มเมนู</button>
+                <button id="btnDeleteMenuLv2" class="btn btn-danger" type="button">ลบที่เลือก</button>
+            </div>
+        </div>
+    </div>
+    <!-- table content - menu level 2 -->
+    <div class="row">
+        <div id="penaltyTableContainer" class="table-responsive">
+            <table id="Table" class="table table-hover">
+                <thead>
+                <tr class="info">
+                    <th width="5%" class="text-center">
+                        <input type="checkbox" id="chkCheckAllLv2"/>
+                    </th>
+                    <th width="10%" class="text-center">แก้ไข</th>
+                    <th width="10%" class="text-center">ลำดับ</th>
+                    <th width="25%" class="text-center">ลิงค์</th>
+                    <th width="10%" class="text-center">เมนูภาษาไทย</th>
+                    <th width="10%" class="text-center">เมนูภาษาอังกฤษ</th>
+                    <th width="10%" class="text-center">คอนโทรเลอร์</th>
+                    <th width="20%" class="text-center">รูทเมนู</th>
+                </tr>
+                </thead>
+                <tbody id="tbAppMenuLv2" style="cursor:pointer"></tbody>
+            </table>
+        </div>
+        <div class="form-horizontal">
+            <div class="form-group">
+                <component:pagging id="paggingAppMenuLv2"/>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- add menu modal -->
+    <div class="modal fade" id="mdAddMenu" level="" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <h4 class="modal-title">เพิ่มเมนู</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-horizontal">
+                        <!-- Link -->
+                        <div class="form-group">
+                            <label class="control-label col-xs-3 required">ลิงค์ </label>
+
+                            <div class="col-xs-6">
+                                <input id="txtAddLink" type="text" class="form-control"
+                                       data-placement="bottom" data-content="กรุณาระบุลิงค์"/>
+                            </div>
+                        </div>
+                        <!-- Menu thai -->
+                        <div class="form-group">
+                            <label class="control-label col-xs-3 required">เมนูภาษาไทย </label>
+
+                            <div class="col-xs-6">
+                                <input id="txtAddMenuTh" type="text" class="form-control"
+                                       data-placement="bottom" data-content="กรุณาระบุเมนูภาษาไทย"/>
+                            </div>
+                        </div>
+                        <!-- Menu english -->
+                        <div class="form-group">
+                            <label class="control-label col-xs-3 required">เมนูภาษาอังกฤษ </label>
+
+                            <div class="col-xs-6">
+                                <input id="txtAddMenuEn" type="text" class="form-control"
+                                       data-placement="bottom" data-content="กรุณาระบุเมนูภาษาอังกฤษ"/>
+                            </div>
+                        </div>
+                        <!-- Controller -->
+                        <div class="form-group">
+                            <label class="control-label col-xs-3 required">คอนโทรเลอร์ </label>
+
+                            <div class="col-xs-6">
+                                <input id="txtAddController" type="text" class="form-control"
+                                       data-placement="bottom" data-content="กรุณาระบุคอนโทรเลอร์"/>
+                            </div>
+                        </div>
+                        <!-- Sequent -->
+                        <div class="form-group">
+                            <label class="control-label col-xs-3 required">ลำดับ </label>
+
+                            <div class="col-xs-6">
+                                <input id="txtAddSequent" type="text" class="form-control"
+                                       data-placement="bottom" data-content="กรุณาระบุลำดับ"/>
+                            </div>
+                        </div>
+                        <!-- Parent -->
+                        <div class="form-group">
+                            <label class="control-label col-xs-3">รูทเมนู </label>
+
+                            <div class="col-xs-6">
+                                <select id="ddlAddParent" class="form-control"
+                                        data-placement="bottom" data-content="">
+                                    <option value="0">กรุณาเลือก</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- Role -->
+                        <div class="form-group">
+                            <label class="control-label required col-xs-3">สิทธิ์ </label>
+
+                            <div id="grpAddRule" class="col-xs-6">
+                                <jsp:text/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="modal-footer">
+                        <button id="btnSaveAddMenu" type="button" class="btn btn-primary">บันทึก</button>
+                        <button id="btnCancelAdd" type="button" class="btn btn-danger">ยกเลิก</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- edit menu modal -->
+    <div class="modal fade" id="mdEditMenu" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <h4 class="modal-title">แก้ไขเมนู</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-horizontal">
+                        <!-- Menu id -->
+                        <input type="hidden" id="hiddenEditMenuId"/>
+                        <!-- Link -->
+                        <div class="form-group">
+                            <label class="control-label col-xs-3 required">ลิงค์ </label>
+
+                            <div class="col-xs-6">
+                                <input id="txtEditLink" type="text" class="form-control"
+                                       data-placement="bottom" data-content=""/>
+                            </div>
+                        </div>
+                        <!-- Menu thai -->
+                        <div class="form-group">
+                            <label class="control-label col-xs-3 required">เมนูภาษาไทย </label>
+
+                            <div class="col-xs-6">
+                                <input id="txtEditMenuTh" type="text" class="form-control"
+                                       data-placement="bottom" data-content=""/>
+                            </div>
+                        </div>
+                        <!-- Menu english -->
+                        <div class="form-group">
+                            <label class="control-label col-xs-3 required">เมนูภาษาอังกฤษ </label>
+
+                            <div class="col-xs-6">
+                                <input id="txtEditMenuEn" type="text" class="form-control"
+                                       data-placement="bottom" data-content=""/>
+                            </div>
+                        </div>
+                        <!-- Controller -->
+                        <div class="form-group">
+                            <label class="control-label col-xs-3 required">คอนโทรเลอร์ </label>
+
+                            <div class="col-xs-6">
+                                <input id="txtEditController" type="text" class="form-control"
+                                       data-placement="bottom" data-content=""/>
+                            </div>
+                        </div>
+                        <!-- Sequent -->
+                        <div class="form-group">
+                            <label class="control-label col-xs-3 required">ลำดับ </label>
+
+                            <div class="col-xs-6">
+                                <input id="txtEditSequent" type="text" class="form-control"
+                                       data-placement="bottom" data-content=""/>
+                            </div>
+                        </div>
+                        <!-- Parent -->
+                        <div class="form-group">
+                            <label class="control-label col-xs-3">รูทเมนู </label>
+
+                            <div class="col-xs-6">
+                                <select id="ddlEditParent" class="form-control"
+                                        data-placement="bottom" data-content="">
+                                    <option value="0">กรุณาเลือก</option>
+                                    <option value="1">มี</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- Role -->
+                        <div class="form-group">
+                            <label class="control-label required col-xs-3">สิทธิ์ </label>
+
+                            <div id="grpEditRule" class="col-xs-6">
+                                <jsp:text/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="modal-footer">
+                        <button id="btnSaveEditMenu" type="button" class="btn btn-primary">บันทึก</button>
+                        <button id="btnCancelEdit" type="button" class="btn btn-danger">ยกเลิก</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var contextPath = '${pageContext.request.contextPath}';
+    </script>
+
+    <spring:url value="/resources/scripts/component/UtilPagination.js" var="UtilPagination"/>
+    <script src="${UtilPagination}" type="text/javascript"><!--Not Empty --></script>
+    <spring:url value="/resources/scripts/appmenu/appmenu.js" var="appmenu"/>
+    <script src="${appmenu}" type="text/javascript"><!--Not Empty --></script>
+</div>

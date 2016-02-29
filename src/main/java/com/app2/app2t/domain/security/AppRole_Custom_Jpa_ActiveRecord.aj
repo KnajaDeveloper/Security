@@ -3,12 +3,14 @@
 
 package com.app2.app2t.domain.security;
 
+import java.util.List;
+
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import java.util.List;
 
 privileged aspect AppRole_Custom_Jpa_ActiveRecord {
 
@@ -27,5 +29,47 @@ privileged aspect AppRole_Custom_Jpa_ActiveRecord {
         }
         return criteria.list();
     }
-    
+
+    public static AppRole AppRole.insertAppRole(String roleCode, String roleName) {
+        AppRole appRole = new AppRole();
+        appRole.setRoleCode(roleCode);
+        appRole.setRoleName(roleName);
+        appRole.setVersion(0);
+        appRole.persist();
+
+        return appRole;
+    }
+
+    public static AppRole AppRole.updateRole(Long roleId, String roleCode, String roleName) {
+        try {
+            AppRole appRole = AppRole.findAppRole(roleId);
+            appRole.setRoleCode(roleCode);
+            appRole.setRoleName(roleName);
+            appRole.merge();
+            return appRole;
+        } catch (Exception ex) {
+
+        }
+
+        return null;
+    }
+
+    public static List<AppRole> AppRole.findByRoleCode(String roleCode) {
+        EntityManager ent = AppRole.entityManager();
+        Criteria criteria = ((Session) ent.getDelegate()).createCriteria(AppRole.class);
+        criteria.add(Restrictions.eq("roleCode", roleCode));
+        return criteria.list();
+    }
+
+    public static boolean AppRole.deleteRole(Long roleId) {
+        try {
+            AppRole appRole = AppRole.findAppRole(roleId);
+            appRole.remove();
+            return true;
+        } catch (Exception ex) {
+
+        }
+        return false;
+    }
+
 }
