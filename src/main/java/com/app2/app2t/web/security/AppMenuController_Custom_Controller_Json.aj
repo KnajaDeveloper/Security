@@ -38,7 +38,7 @@ privileged aspect AppMenuController_Custom_Controller_Json {
             // check duplicate link, controller, sequent (same level)
             List<AppMenu> appMenuByLink = AppMenu.findAppMenuByLink(link);
             List<AppMenu> appMenuByController = AppMenu.findAppMenuByController(controller);
-            List<AppMenu> appMenuBySequent = AppMenu.findAppMenuBySequent(sequent, level);
+            List<AppMenu> appMenuBySequent = AppMenu.findAppMenuBySequent(sequent, level, parent);
             int rowCountSameLink = appMenuByLink.size();
             int rowCountSameController = appMenuByController.size();
             int rowCountSameSequent = appMenuBySequent.size();
@@ -86,7 +86,7 @@ privileged aspect AppMenuController_Custom_Controller_Json {
             // check duplicate link, controller, sequent (same level)
             List<AppMenu> appMenuByLink = AppMenu.findAppMenuByLink(link);
             List<AppMenu> appMenuByController = AppMenu.findAppMenuByController(controller);
-            List<AppMenu> appMenuBySequent = AppMenu.findAppMenuBySequent(sequent, level);
+            List<AppMenu> appMenuBySequent = AppMenu.findAppMenuBySequent(sequent, level, parent);
 
             for (int i = 0; i < appMenuByLink.size(); i++) {
                 if (appMenuByLink.get(i).getId() == menuId) {
@@ -208,7 +208,6 @@ privileged aspect AppMenuController_Custom_Controller_Json {
             return new ResponseEntity<String>("{\"ERROR\":" + e.getMessage() + "\"}", headers, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
     @RequestMapping(value = "/findMenu", method = RequestMethod.GET, headers = "Accept=application/json")
     public ResponseEntity<String> AppMenuController.findMenu(
             @RequestParam(value = "id", required = false) Long menuId
@@ -233,6 +232,38 @@ privileged aspect AppMenuController_Custom_Controller_Json {
                 listRoleId.add(appRoleMenu.getAppRole().getId());
             }
             result.put("role", listRoleId);
+
+            return new ResponseEntity<String>(new JSONSerializer().exclude("*.class").deepSerialize(result), headers, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<String>("{\"ERROR\":" + e.getMessage() + "\"}", headers, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @RequestMapping(value = "/findMenuByAppRoleCode", method = RequestMethod.GET, headers = "Accept=application/json")
+    public ResponseEntity<String> AppMenuController.findMenuByAppRoleCode(
+            @RequestParam(value = "appRoleCode", required = false) String appRoleCode
+    ) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/json;charset=UTF-8");
+        try {
+            List<AppRole> listAppRole = AppRole.findByRoleCode(appRoleCode);
+            AppRole appRole = listAppRole.get(0);
+            List<AppMenu> listAppMenu = AppMenu.findAppMenuByRole(appRole.getId());
+
+            List<Map<String, Object>> result = new ArrayList<>();
+            for(AppMenu appMenu : listAppMenu) {
+                Map<String, Object> map = new HashMap<>();
+                map.put("id", appMenu.getId());
+                map.put("controller", appMenu.getController());
+                map.put("link", appMenu.getLink());
+                map.put("menuLevel", appMenu.getMenuLevel());
+                map.put("menu_e_name", appMenu.getMenu_e_name());
+                map.put("menu_t_name", appMenu.getMenu_t_name());
+                map.put("parent", appMenu.getParent());
+                map.put("sequent", appMenu.getSegment());
+
+                result.add(map);
+            }
 
             return new ResponseEntity<String>(new JSONSerializer().exclude("*.class").deepSerialize(result), headers, HttpStatus.OK);
         } catch (Exception e) {
@@ -301,7 +332,7 @@ privileged aspect AppMenuController_Custom_Controller_Json {
         headers.add("Content-Type", "application/json;charset=UTF-8");
         try {
             List<AppMenu> result = AppMenu.findAppMenuByLevel(level);
-            Map data = new HashMap();
+            Map<String, Object> data = new HashMap();
             data.put("size", result.size());
             return new ResponseEntity<String>(new JSONSerializer().exclude("*.class").deepSerialize(data), headers, HttpStatus.OK);
         } catch (Exception e) {

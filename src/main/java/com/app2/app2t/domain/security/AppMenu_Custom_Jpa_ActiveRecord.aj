@@ -3,7 +3,7 @@
 
 package com.app2.app2t.domain.security;
 
-import com.app2.app2t.domain.security.AppMenu;
+import com.app2.app2t.domain.security.*;
 
 import java.util.List;
 
@@ -95,11 +95,12 @@ privileged aspect AppMenu_Custom_Jpa_ActiveRecord {
         return criteria.list();
     }
 
-    public static List<AppMenu> AppMenu.findAppMenuBySequent(int sequent, int level) {
+    public static List<AppMenu> AppMenu.findAppMenuBySequent(int sequent, int level, long parentId) {
         EntityManager ent = AppMenu.entityManager();
         Criteria criteria = ((Session) ent.getDelegate()).createCriteria(AppMenu.class);
         criteria.add(Restrictions.eq("menuLevel", level));
         criteria.add(Restrictions.eq("segment", sequent));
+        criteria.add(Restrictions.eq("parent", parentId));
         return criteria.list();
     }
 
@@ -107,7 +108,22 @@ privileged aspect AppMenu_Custom_Jpa_ActiveRecord {
         EntityManager ent = AppMenu.entityManager();
         Criteria criteria = ((Session) ent.getDelegate()).createCriteria(AppMenu.class);
         criteria.add(Restrictions.eq("menuLevel", level));
+        criteria.addOrder(Order.asc("parent"));
         criteria.addOrder(Order.asc("menuLevel"));
+        return criteria.list();
+    }
+
+    public static List<AppMenu> AppMenu.findAppMenuByRole(Long appRoleId) {
+        DetachedCriteria subCriteria = DetachedCriteria.forClass(AppRoleMenu.class);
+        subCriteria.add(Restrictions.eq("appRole.id", appRoleId));
+        subCriteria.setProjection(Projections.distinct(Projections.property("appMenu")));
+
+        EntityManager ent = AppMenu.entityManager();
+        Criteria criteria = ((Session) ent.getDelegate()).createCriteria(AppMenu.class);
+        criteria.add(Subqueries.propertyIn("id", subCriteria));
+        criteria.addOrder(Order.asc("menuLevel"));
+        criteria.addOrder(Order.asc("segment"));
+
         return criteria.list();
     }
 

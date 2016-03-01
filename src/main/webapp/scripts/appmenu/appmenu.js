@@ -1,10 +1,6 @@
 var _language = commonData.language;
-var pagginationAppMenuLv0 = $.extend({}, UtilPaggination);
-var pagginationAppMenuLv1 = $.extend({}, UtilPaggination);
-var pagginationAppMenuLv2 = $.extend({}, UtilPaggination);
 
 $(document).ready(function () {
-
     loadAllMenuLevel_0();
     loadAllMenuLevel_1();
     loadAllMenuLevel_2();
@@ -312,141 +308,6 @@ $('#tbAppMenuLv2').on('change', '[id^=chkMenuLv2_]', function () {
 });
 
 // ---------------------------------------------------------------------------------------------------------------------
-pagginationAppMenuLv0.setEventPaggingBtn("paggingAppMenuLv0", pagginationAppMenuLv0);
-pagginationAppMenuLv1.setEventPaggingBtn("paggingAppMenuLv1", pagginationAppMenuLv1);
-pagginationAppMenuLv2.setEventPaggingBtn("paggingAppMenuLv2", pagginationAppMenuLv2);
-
-pagginationAppMenuLv0.loadTable = function loadTable(jsonData) {
-    if (jsonData.length <= 0)
-        bootbox.alert("ไม่พบข้อมูล");
-
-    $('#tbAppMenuLv0').empty();
-    jsonData.forEach(function (v) {
-
-        $('#chkCheckAllLv0').prop('checked', false);
-
-        $('#tbAppMenuLv0').append('<tr>' +
-            '<td class="text-center">' +
-            '<input type="checkbox" id="chkMenuLv0_' + v.id + '"/>' +
-            '</td>' +
-            '<td class="text-center">' +
-            '<button id="btnEditMenu_' + v.id + '" type="button" class="btn btn-warning">แก้ไข</button>' +
-            '</td>' +
-            '<td class="text-center">' + v.sequent + '</td>' +
-            '<td>' + v.link + '</td>' +
-            '<td>' + v.menu_th + '</td>' +
-            '<td>' + v.menu_en + '</td>' +
-            '<td>' + v.controller + '</td>' +
-            '</tr>'
-        );
-    });
-
-};
-pagginationAppMenuLv1.loadTable = function loadTable(jsonData) {
-    if (jsonData.length <= 0)
-        bootbox.alert("ไม่พบข้อมูล");
-
-    $('#tbAppMenuLv1').empty();
-    jsonData.forEach(function (v) {
-        var parentMenuName = 'ไม่มี';
-        if (v.parent != 0) {
-            if (_language == 'TH') {
-                parentMenuName = v.parent_t_name;
-            } else {
-                parentMenuName = v.parent_e_name;
-            }
-        }
-
-        $('#chkCheckAllLv1').prop('checked', false);
-
-        $('#tbAppMenuLv1').append('<tr>' +
-            '<td class="text-center">' +
-            '<input type="checkbox" id="chkMenuLv1_' + v.id + '"/>' +
-            '</td>' +
-            '<td class="text-center">' +
-            '<button id="btnEditMenu_' + v.id + '" type="button" class="btn btn-warning">แก้ไข</button>' +
-            '</td>' +
-            '<td class="text-center">' + v.sequent + '</td>' +
-            '<td>' + v.link + '</td>' +
-            '<td>' + v.menu_th + '</td>' +
-            '<td>' + v.menu_en + '</td>' +
-            '<td>' + v.controller + '</td>' +
-            '<td>' + parentMenuName + '</td>' +
-            '</tr>'
-        );
-    });
-
-};
-pagginationAppMenuLv2.loadTable = function loadTable(jsonData) {
-    if (jsonData.length <= 0)
-        bootbox.alert("ไม่พบข้อมูล");
-
-    $('#tbAppMenuLv2').empty();
-    jsonData.forEach(function (v) {
-        var parentMenuName = 'ไม่มี';
-        if (v.parent != 0) {
-            if (_language == 'TH') {
-                parentMenuName = v.parent_t_name;
-            } else {
-                parentMenuName = v.parent_e_name;
-            }
-        }
-
-        $('#chkCheckAllLv2').prop('checked', false);
-
-        $('#tbAppMenuLv2').append('<tr>' +
-            '<td class="text-center">' +
-            '<input type="checkbox" id="chkMenuLv2_' + v.id + '"/>' +
-            '</td>' +
-            '<td class="text-center">' +
-            '<button id="btnEditMenu_' + v.id + '" type="button" class="btn btn-warning">แก้ไข</button>' +
-            '</td>' +
-            '<td class="text-center">' + v.sequent + '</td>' +
-            '<td>' + v.link + '</td>' +
-            '<td>' + v.menu_th + '</td>' +
-            '<td>' + v.menu_en + '</td>' +
-            '<td>' + v.controller + '</td>' +
-            '<td>' + parentMenuName + '</td>' +
-            '</tr>'
-        );
-    });
-
-};
-
-function loadAllMenuLevel_0() {
-
-    pagginationAppMenuLv0.setOptionJsonData({
-        url: contextPath + "/appmenus/findPaggingDataAppMenu",
-        data: {level: 0}
-    });
-    pagginationAppMenuLv0.setOptionJsonSize({
-        url: contextPath + "/appmenus/findPaggingSizeAppMenu",
-        data: {level: 0}
-    });
-    pagginationAppMenuLv0.search(pagginationAppMenuLv0);
-}
-function loadAllMenuLevel_1() {
-    pagginationAppMenuLv1.setOptionJsonData({
-        url: contextPath + "/appmenus/findPaggingDataAppMenu",
-        data: {level: 1}
-    });
-    pagginationAppMenuLv1.setOptionJsonSize({
-        url: contextPath + "/appmenus/findPaggingSizeAppMenu",
-        data: {level: 1}
-    });
-    pagginationAppMenuLv1.search(pagginationAppMenuLv1);
-}
-function loadAllMenuLevel_2() {
-    pagginationAppMenuLv2.setOptionJsonData({
-        url: contextPath + "/appmenus/findPaggingDataAppMenu",
-        data: {level: 2}
-    });
-    pagginationAppMenuLv2.setOptionJsonSize({
-        url: contextPath + "/appmenus/findPaggingSizeAppMenu",
-        data: {level: 2}
-    });
-    pagginationAppMenuLv2.search(pagginationAppMenuLv2);
-}
 function loadMenuParent(idDDLParent, lvlMenuParent) {
     if (lvlMenuParent >= 0) {
         $.ajax({
@@ -603,5 +464,6 @@ function deleteMenu(arrMenuId, menuLv) {
         }
     );
 }
+
 
 
