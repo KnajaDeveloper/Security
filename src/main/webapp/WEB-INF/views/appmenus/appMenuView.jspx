@@ -305,9 +305,19 @@
     <script>
         var contextPath = '${pageContext.request.contextPath}';
     </script>
-
-    <spring:url value="/resources/scripts/component/UtilPagination.js" var="UtilPagination"/>
-    <script src="${UtilPagination}" type="text/javascript"><!--Not Empty --></script>
+    
     <spring:url value="/resources/scripts/appmenu/appmenu.js" var="appmenu"/>
     <script src="${appmenu}" type="text/javascript"><!--Not Empty --></script>
+	<spring:url value="/resources/scripts/component/UtilPagination.js" var="UtilPagination"/>
+    <script src="${UtilPagination}" type="text/javascript"><!--Not Empty --></script>
+    <spring:url value="/resources/scripts/appmenu/menu_level0.js" var="menu_level0"/>
+    <script src="${menu_level0}" type="text/javascript"><!--Not Empty --></script>
+    <spring:url value="/resources/scripts/component/UtilPagination.js" var="UtilPagination"/>
+    <script src="${UtilPagination}" type="text/javascript"><!--Not Empty --></script>
+    <spring:url value="/resources/scripts/appmenu/menu_level1.js" var="menu_level1"/>
+    <script src="${menu_level1}" type="text/javascript"><!--Not Empty --></script>
+    <spring:url value="/resources/scripts/component/UtilPagination.js" var="UtilPagination"/>
+    <script src="${UtilPagination}" type="text/javascript"><!--Not Empty --></script>
+    <spring:url value="/resources/scripts/appmenu/menu_level2.js" var="menu_level2"/>
+    <script src="${menu_level2}" type="text/javascript"><!--Not Empty --></script>
 </div>
