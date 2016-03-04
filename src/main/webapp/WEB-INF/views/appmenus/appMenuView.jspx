@@ -6,135 +6,150 @@
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
 
-    <style>
-        .checkbox label.col-sm-12 input {
-            margin-top: -0.5px;
-        }
-    </style>
-
-    <br/>
-
-    <h1>เมนูเลเวล 0</h1>
-    <!-- add/delete button - menu level 0 -->
     <div class="row">
-        <div class="form-inline">
-            <div class="form-group">
-                <button id="btnAddMenuLv0" class="btn btn-primary" type="button">เพิ่มเมนู</button>
-                <button id="btnDeleteMenuLv0" class="btn btn-danger" type="button">ลบที่เลือก</button>
+        <div class="col-xs-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <div class="title">เมนูเลเวล 0</div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <!-- add/delete button - menu level 0 -->
+                    <div class="form-inline">
+                        <div class="form-group">
+                            <button id="btnAddMenuLv0" class="btn btn-primary" type="button">เพิ่มเมนู</button>
+                            <button id="btnDeleteMenuLv0" class="btn btn-danger" type="button" style="margin-left: 5px;">ลบที่เลือก</button>
+                        </div>
+                    </div>
+                    <!-- table content - menu level 0 -->
+                    <div id="penaltyTableContainer" class="table-responsive">
+                        <table id="Table" class="table table-bordered table-stripted table-hover">
+                            <thead>
+                            <tr>
+                                <th width="5%" class="text-center">
+                                    <input type="checkbox" id="chkCheckAllLv0"/>
+                                </th>
+                                <th width="5%" class="text-center">แก้ไข</th>
+                                <th width="5%" class="text-center">ลำดับ</th>
+                                <th width="20%" class="text-center">ลิงค์</th>
+                                <th width="5%" class="text-center">ไอคอน</th>
+                                <th width="20%" class="text-center">เมนูภาษาไทย</th>
+                                <th width="20%" class="text-center">เมนูภาษาอังกฤษ</th>
+                                <th width="20%" class="text-center">คอนโทรเลอร์</th>
+                            </tr>
+                            </thead>
+                            <tbody id="tbAppMenuLv0" style="cursor:pointer"></tbody>
+                        </table>
+                    </div>
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <component:pagging id="paggingAppMenuLv0"/>
+                        </div>
+                    </div>
+                </div>  <!-- end div card body -->
             </div>
         </div>
     </div>
 
-    <!-- table content - menu level 0 -->
     <div class="row">
-        <div id="penaltyTableContainer" class="table-responsive">
-            <table id="Table" class="table table-hover">
-                <thead>
-                <tr class="info">
-                    <th width="5%" class="text-center">
-                        <input type="checkbox" id="chkCheckAllLv0"/>
-                    </th>
-                    <th width="10%" class="text-center">แก้ไข</th>
-                    <th width="10%" class="text-center">ลำดับ</th>
-                    <th width="25%" class="text-center">ลิงค์</th>
-                    <th width="20%" class="text-center">เมนูภาษาไทย</th>
-                    <th width="20%" class="text-center">เมนูภาษาอังกฤษ</th>
-                    <th width="10%" class="text-center">คอนโทรเลอร์</th>
-                </tr>
-                </thead>
-                <tbody id="tbAppMenuLv0" style="cursor:pointer"></tbody>
-            </table>
-        </div>
-        <div class="form-horizontal">
-            <div class="form-group">
-                <component:pagging id="paggingAppMenuLv0"/>
+        <div class="col-xs-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <div class="title">เมนูเลเวล 1</div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <!-- add/delete button - menu level 1 -->
+                    <div class="form-inline">
+                        <div class="form-group">
+                            <button id="btnAddMenuLv1" class="btn btn-primary" type="button">เพิ่มเมนู</button>
+                            <button id="btnDeleteMenuLv1" class="btn btn-danger" type="button" style="margin-left: 5px;">ลบที่เลือก</button>
+                        </div>
+                    </div>
+                    <!-- table content - menu level 1 -->
+                    <div id="penaltyTableContainer" class="table-responsive">
+                        <table id="Table" class="table table-bordered table-stripted table-hover">
+                            <thead>
+                            <tr>
+                                <th width="5%" class="text-center">
+                                    <input type="checkbox" id="chkCheckAllLv1"/>
+                                </th>
+                                <th width="5%" class="text-center">แก้ไข</th>
+                                <th width="5%" class="text-center">ลำดับ</th>
+                                <th width="20%" class="text-center">ลิงค์</th>
+                                <th width="10%" class="text-center">เมนูภาษาไทย</th>
+                                <th width="10%" class="text-center">เมนูภาษาอังกฤษ</th>
+                                <th width="25%" class="text-center">คอนโทรเลอร์</th>
+                                <th width="20%" class="text-center">รูทเมนู</th>
+                            </tr>
+                            </thead>
+                            <tbody id="tbAppMenuLv1" style="cursor:pointer"></tbody>
+                        </table>
+                    </div>
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <component:pagging id="paggingAppMenuLv1"/>
+                        </div>
+                    </div>
+                </div>  <!-- end div card body -->
             </div>
         </div>
     </div>
 
-    <h1>เมนูเลเวล 1</h1>
-    <!-- add/delete button - menu level 1 -->
     <div class="row">
-        <div class="form-inline">
-            <div class="form-group">
-                <button id="btnAddMenuLv1" class="btn btn-primary" type="button">เพิ่มเมนู</button>
-                <button id="btnDeleteMenuLv1" class="btn btn-danger" type="button">ลบที่เลือก</button>
+        <div class="col-xs-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <div class="title">เมนูเลเวล 2</div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <!-- add/delete button - menu level 2 -->
+                    <div class="form-inline">
+                        <div class="form-group">
+                            <button id="btnAddMenuLv2" class="btn btn-primary" type="button">เพิ่มเมนู</button>
+                            <button id="btnDeleteMenuLv2" class="btn btn-danger" type="button" style="margin-left: 5px;">ลบที่เลือก</button>
+                        </div>
+                    </div>
+                    <!-- table content - menu level 2 -->
+                    <div id="penaltyTableContainer" class="table-responsive">
+                        <table id="Table" class="table table-bordered table-stripted table-hover">
+                            <thead>
+                                <tr>
+                                    <th width="5%" class="text-center">
+                                    <input type="checkbox" id="chkCheckAllLv2"/>
+                                </th>
+                                <th width="5%" class="text-center">แก้ไข</th>
+                                <th width="5%" class="text-center">ลำดับ</th>
+                                <th width="20%" class="text-center">ลิงค์</th>
+                                <th width="10%" class="text-center">เมนูภาษาไทย</th>
+                                <th width="10%" class="text-center">เมนูภาษาอังกฤษ</th>
+                                <th width="25%" class="text-center">คอนโทรเลอร์</th>
+                                <th width="20%" class="text-center">รูทเมนู</th>
+                            </tr>
+                            </thead>
+                            <tbody id="tbAppMenuLv2" style="cursor:pointer"></tbody>
+                        </table>
+                    </div>
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <component:pagging id="paggingAppMenuLv2"/>
+                        </div>
+                    </div>
+                </div>  <!-- end div card body -->
             </div>
         </div>
     </div>
-    <!-- table content - menu level 1 -->
-    <div class="row">
-        <div id="penaltyTableContainer" class="table-responsive">
-            <table id="Table" class="table table-hover">
-                <thead>
-                <tr class="info">
-                    <th width="5%" class="text-center">
-                        <input type="checkbox" id="chkCheckAllLv1"/>
-                    </th>
-                    <th width="10%" class="text-center">แก้ไข</th>
-                    <th width="10%" class="text-center">ลำดับ</th>
-                    <th width="25%" class="text-center">ลิงค์</th>
-                    <th width="10%" class="text-center">เมนูภาษาไทย</th>
-                    <th width="10%" class="text-center">เมนูภาษาอังกฤษ</th>
-                    <th width="10%" class="text-center">คอนโทรเลอร์</th>
-                    <th width="20%" class="text-center">รูทเมนู</th>
-                </tr>
-                </thead>
-                <tbody id="tbAppMenuLv1" style="cursor:pointer"></tbody>
-            </table>
-        </div>
-        <div class="form-horizontal">
-            <div class="form-group">
-                <component:pagging id="paggingAppMenuLv1"/>
-            </div>
-        </div>
-    </div>
-
-    <h1>เมนูเลเวล 2</h1>
-    <!-- add/delete button - menu level 2 -->
-    <div class="row">
-        <div class="form-inline">
-            <div class="form-group">
-                <button id="btnAddMenuLv2" class="btn btn-primary" type="button">เพิ่มเมนู</button>
-                <button id="btnDeleteMenuLv2" class="btn btn-danger" type="button">ลบที่เลือก</button>
-            </div>
-        </div>
-    </div>
-    <!-- table content - menu level 2 -->
-    <div class="row">
-        <div id="penaltyTableContainer" class="table-responsive">
-            <table id="Table" class="table table-hover">
-                <thead>
-                <tr class="info">
-                    <th width="5%" class="text-center">
-                        <input type="checkbox" id="chkCheckAllLv2"/>
-                    </th>
-                    <th width="10%" class="text-center">แก้ไข</th>
-                    <th width="10%" class="text-center">ลำดับ</th>
-                    <th width="25%" class="text-center">ลิงค์</th>
-                    <th width="10%" class="text-center">เมนูภาษาไทย</th>
-                    <th width="10%" class="text-center">เมนูภาษาอังกฤษ</th>
-                    <th width="10%" class="text-center">คอนโทรเลอร์</th>
-                    <th width="20%" class="text-center">รูทเมนู</th>
-                </tr>
-                </thead>
-                <tbody id="tbAppMenuLv2" style="cursor:pointer"></tbody>
-            </table>
-        </div>
-        <div class="form-horizontal">
-            <div class="form-group">
-                <component:pagging id="paggingAppMenuLv2"/>
-            </div>
-        </div>
-    </div>
-
 
     <!-- add menu modal -->
     <div class="modal fade" id="mdAddMenu" level="" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header bg-primary">
-                    <h4 class="modal-title">เพิ่มเมนู</h4>
+                    <h5 class="modal-title">เพิ่มเมนู</h5>
                 </div>
                 <div class="modal-body">
                     <div class="form-horizontal">
@@ -194,6 +209,22 @@
                                 </select>
                             </div>
                         </div>
+                        <!--Icon-->
+                        <div class="form-group">
+                            <label class="control-label col-xs-3 required">เมนูไอคอน </label>
+
+                            <div class="col-xs-6">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default">
+                                        <span id="ddlAddMenuIcon" class=""></span>
+                                    </button>
+                                    <button type="button" class="icp icp-dd btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <div class="dropdown-menu"><!----></div>
+                                </div>
+                            </div>
+                        </div>
                         <!-- Role -->
                         <div class="form-group">
                             <label class="control-label required col-xs-3">สิทธิ์ </label>
@@ -205,10 +236,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <div class="modal-footer">
-                        <button id="btnSaveAddMenu" type="button" class="btn btn-primary">บันทึก</button>
-                        <button id="btnCancelAdd" type="button" class="btn btn-danger">ยกเลิก</button>
-                    </div>
+                    <button id="btnSaveAddMenu" type="button" class="btn btn-primary">บันทึก</button>
+                    <button id="btnCancelAdd" type="button" class="btn btn-danger">ยกเลิก</button>
                 </div>
             </div>
         </div>
@@ -219,7 +248,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header bg-primary">
-                    <h4 class="modal-title">แก้ไขเมนู</h4>
+                    <h5 class="modal-title">แก้ไขเมนู</h5>
                 </div>
                 <div class="modal-body">
                     <div class="form-horizontal">
@@ -282,6 +311,22 @@
                                 </select>
                             </div>
                         </div>
+                        <!--Icon-->
+                        <div class="form-group">
+                            <label class="control-label col-xs-3 required">เมนูไอคอน </label>
+
+                            <div class="col-xs-6">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default">
+                                        <span id="ddlEditMenuIcon" class=""></span>
+                                    </button>
+                                    <button type="button" class="icp icp-dd btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <div class="dropdown-menu"><!----></div>
+                                </div>
+                            </div>
+                        </div>
                         <!-- Role -->
                         <div class="form-group">
                             <label class="control-label required col-xs-3">สิทธิ์ </label>
@@ -293,10 +338,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <div class="modal-footer">
-                        <button id="btnSaveEditMenu" type="button" class="btn btn-primary">บันทึก</button>
-                        <button id="btnCancelEdit" type="button" class="btn btn-danger">ยกเลิก</button>
-                    </div>
+                    <button id="btnSaveEditMenu" type="button" class="btn btn-primary">บันทึก</button>
+                    <button id="btnCancelEdit" type="button" class="btn btn-danger">ยกเลิก</button>
                 </div>
             </div>
         </div>
@@ -320,4 +363,5 @@
     <script src="${UtilPagination}" type="text/javascript"><!--Not Empty --></script>
     <spring:url value="/resources/scripts/appmenu/menu_level2.js" var="menu_level2"/>
     <script src="${menu_level2}" type="text/javascript"><!--Not Empty --></script>
+
 </div>

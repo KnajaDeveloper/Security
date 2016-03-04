@@ -39,4 +39,8 @@ public class AppMenu extends BaseEntity {
     /**
      */
     private String menu_e_name;
+
+    /**
+     */
+    private String menuIcon;
 }

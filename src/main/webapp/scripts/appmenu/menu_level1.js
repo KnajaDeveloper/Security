@@ -23,7 +23,7 @@ pagginationAppMenuLv1.loadTable = function loadTable(jsonData) {
             '<input type="checkbox" id="chkMenuLv1_' + v.id + '"/>' +
             '</td>' +
             '<td class="text-center">' +
-            '<button id="btnEditMenu_' + v.id + '" type="button" class="btn btn-warning">แก้ไข</button>' +
+            '<button id="btnEditMenu_' + v.id + '" type="button" class="btn btn-xs btn-info"><span class="glyphicon glyphicon-pencil"><span/></button>' +
             '</td>' +
             '<td class="text-center">' + v.sequent + '</td>' +
             '<td>' + v.link + '</td>' +

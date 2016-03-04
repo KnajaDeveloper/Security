@@ -4,6 +4,19 @@ $(document).ready(function () {
     loadAllMenuLevel_0();
     loadAllMenuLevel_1();
     loadAllMenuLevel_2();
+
+    $('.icp-dd').each(function () {
+        $(this).iconpicker({
+            container: $(' ~ .dropdown-menu:first', $(this))
+        });
+    });
+    $('.iconpicker-item').on('click', function () {
+        var icon = $(this).attr('title').substr(1);
+        $('#ddlAddMenuIcon').attr('class', 'fa ' + icon);
+        $('#ddlEditMenuIcon').attr('class', 'fa ' + icon);
+    });
+    $('.popover-title').hide();
+
 });
 
 // Add menu ------------------------------------------------------------------------------------------------------------
@@ -31,6 +44,10 @@ $('#btnSaveAddMenu').click(function () {
     var menuLv = $('#mdAddMenu').attr('level');
     var sequent = $('#txtAddSequent').val();
     var parent = $('#ddlAddParent').val();
+    var menuIcon = $('#ddlAddMenuIcon').attr('class').split(' ')[1];
+	if(menuIcon == null || menuIcon == undefined) {
+		menuIcon = '';
+	}
     var arrRoleId = [];
     $('[id^=chkAddRole_]:checked').each(function () {
         var id = this.id.split('_')[1];
@@ -51,6 +68,8 @@ $('#btnSaveAddMenu').click(function () {
         $('#txtAddSequent').attr('data-content', 'กรุณาระบุตัวเลขที่มากกว่าหรือเท่ากับ 1').popover('show');
     } else if (menuLv > 0 && parent == 0) {
         $('#ddlAddParent').attr('data-content', 'กรุณาระบุเมนูแม่').popover('show');
+    } else if (menuLv == 0 && (menuIcon == undefined || menuIcon == null || menuIcon == '')) {
+        bootbox.alert('กรุณาระบุเมนูไอคอน');
     } else if (arrRoleId.length == 0) {
         bootbox.alert('กรุณาระบุสิทธิ์');
     } else {
@@ -70,6 +89,7 @@ $('#btnSaveAddMenu').click(function () {
                 level: menuLv,
                 sequent: sequent,
                 parent: parent,
+                menuIcon: menuIcon,
                 arrRoleId: arrRoleId
             }),
             success: function (data, status, xhr) {
@@ -133,6 +153,8 @@ $('#btnSaveEditMenu').click(function () {
     var menuLv = $('#mdEditMenu').attr('level');
     var sequent = $('#txtEditSequent').val();
     var parent = $('#ddlEditParent').val();
+    var menuIcon = $('#ddlEditMenuIcon').attr('class').split(' ')[1];
+    
     var roles = [];
     $('[id^=chkEditRole_]').each(function () {
         var id = this.id.split('_')[1];
@@ -156,6 +178,8 @@ $('#btnSaveEditMenu').click(function () {
         $('#txtEditSequent').attr('data-content', 'กรุณาระบุตัวเลขที่มากกว่าหรือเท่ากับ 1').popover('show');
     } else if (menuLv > 0 && parent == 0) {
         $('#ddlEditParent').attr('data-content', 'กรุณาระบุเมนูแม่').popover('show');
+    } else if (menuLv == 0 && (menuIcon == undefined || menuIcon == null || menuIcon == '')) {
+        bootbox.alert('กรุณาระบุเมนูไอคอน');
     } else if ($('[id^=chkEditRole_]:checked').length == 0) {
         bootbox.alert('กรุณาระบุสิทธิ์');
     } else {
@@ -176,6 +200,7 @@ $('#btnSaveEditMenu').click(function () {
                     level: menuLv,
                     sequent: sequent,
                     parent: parent,
+                    menuIcon: menuIcon,
                     roles: roles
                 }
             ),
@@ -205,8 +230,7 @@ $('#btnSaveEditMenu').click(function () {
                 } else {
                     bootbox.alert("บันทึกข้อมูลไม่สำเร็จ");
                 }
-            }
-            ,
+            },
             async: false
         });
     }
@@ -254,7 +278,7 @@ $('#btnDeleteMenuLv2').click(function () {
     if (arrMenuId.length > 0) {
         bootbox.confirm('คุณต้องการลบข้อมูลที่เลือกใช่หรือไม่', function (result) {
             if (result) {
-                deleteMenu(arrMenuId,2);
+                deleteMenu(arrMenuId, 2);
             }
         });
     } else {
@@ -352,7 +376,7 @@ function loadAllRole(idGroupRule, idCheckboxBase) {
             if (xhr.status === 200) {
                 $('#' + idGroupRule).empty();
                 $.each(data, function (k, v) {
-                    $('#' + idGroupRule).append('<div class="row checkbox">' +
+                    $('#' + idGroupRule).append('<div class="checkbox">' +
                         '<label class="col-sm-12">' +
                         '<input id="' + idCheckboxBase + v.id + '" type="checkbox" />' + v.roleName +
                         '</label>' +
@@ -372,9 +396,13 @@ function openModalAddMenu(menuLevel) {
     $('#txtAddSequent').val('');
 
     if (menuLevel == 0) {
+        $('#ddlAddMenuIcon').attr('class', 'fa fa-adjust');
+        $('#ddlAddMenuIcon').parent().parent().parent().parent().show();
         $('#ddlAddParent').parent().parent().hide();
     } else {
+        $('#ddlAddMenuIcon').parent().parent().parent().parent().hide();
         $('#ddlAddParent').parent().parent().show();
+        $('#ddlAddMenuIcon').attr('class', '');
     }
     loadMenuParent('ddlAddParent', menuLevel - 1);
 
@@ -392,9 +420,13 @@ function openModalEditMenu(menuId, menuLevel) {
     loadAllRole('grpEditRule', 'chkEditRole_');
 
     if (menuLevel == 0) {
+        $('#ddlEditMenuIcon').attr('class', '');
+        $('#ddlEditMenuIcon').parent().parent().parent().parent().show();
         $('#ddlEditParent').parent().parent().hide();
     } else {
+        $('#ddlEditMenuIcon').parent().parent().parent().parent().hide();
         $('#ddlEditParent').parent().parent().show();
+        $('#ddlEditMenuIcon').attr('class', '');
     }
 
     var menu = null;
@@ -419,6 +451,7 @@ function openModalEditMenu(menuId, menuLevel) {
     $('#txtEditController').val(menu.controller);
     $('#txtEditSequent').val(menu.sequent);
     $('#ddlEditParent').val(menu.parent);
+    $('#ddlEditMenuIcon').attr('class', 'fa ' + menu.menuIcon);
     $('[id^=chkEditRole_]').prop('checked', false);                     // clear check
     menu.role.forEach(function (roleId) {                               // loop add check
         $('[id^=chkEditRole_' + roleId + ']').prop('checked', true);

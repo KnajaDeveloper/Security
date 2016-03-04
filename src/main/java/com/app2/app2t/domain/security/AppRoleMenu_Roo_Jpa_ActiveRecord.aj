@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 privileged aspect AppRoleMenu_Roo_Jpa_ActiveRecord {
     
-    public static final List<String> AppRoleMenu.fieldNames4OrderClauseFilter = java.util.Arrays.asList("appRole", "appMenu");
+    public static final List<String> AppRoleMenu.fieldNames4OrderClauseFilter = java.util.Arrays.asList("LOGGER", "appRole", "appMenu");
     
     public static long AppRoleMenu.countAppRoleMenus() {
         return entityManager().createQuery("SELECT COUNT(o) FROM AppRoleMenu o", Long.class).getSingleResult();
