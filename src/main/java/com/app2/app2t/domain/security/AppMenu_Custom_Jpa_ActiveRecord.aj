@@ -18,7 +18,7 @@ import javax.persistence.EntityManager;
 
 privileged aspect AppMenu_Custom_Jpa_ActiveRecord {
 
-    public static AppMenu AppMenu.insertAppMenu(String link, String menuTh, String menuEn, String controller, int menuLevel, int segment, long parent) {
+    public static AppMenu AppMenu.insertAppMenu(String link, String menuTh, String menuEn, String controller, int menuLevel, int segment, long parent, String menuIcon) {
         AppMenu appMenu = new AppMenu();
         appMenu.setLink(link);
         appMenu.setMenu_t_name(menuTh);
@@ -27,13 +27,14 @@ privileged aspect AppMenu_Custom_Jpa_ActiveRecord {
         appMenu.setMenuLevel(menuLevel);
         appMenu.setSegment(segment);
         appMenu.setParent(parent);
+        appMenu.setMenuIcon(menuIcon);
         appMenu.setVersion(0);
         appMenu.persist();
 
         return appMenu;
     }
 
-    public static AppMenu AppMenu.updateAppMenu(Long menuId, String link, String menuTh, String menuEn, String controller, int menuLevel, int segment, long parent) {
+    public static AppMenu AppMenu.updateAppMenu(Long menuId, String link, String menuTh, String menuEn, String controller, int menuLevel, int segment, long parent, String menuIcon) {
         AppMenu appMenu = AppMenu.findAppMenu(menuId);
         appMenu.setLink(link);
         appMenu.setMenu_t_name(menuTh);
@@ -42,6 +43,7 @@ privileged aspect AppMenu_Custom_Jpa_ActiveRecord {
         appMenu.setMenuLevel(menuLevel);
         appMenu.setSegment(segment);
         appMenu.setParent(parent);
+        appMenu.setMenuIcon(menuIcon);
         appMenu.merge();
 
         return appMenu;

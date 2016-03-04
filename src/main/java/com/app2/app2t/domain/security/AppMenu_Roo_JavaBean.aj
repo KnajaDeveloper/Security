@@ -63,4 +63,12 @@ privileged aspect AppMenu_Roo_JavaBean {
         this.menu_e_name = menu_e_name;
     }
     
+    public String AppMenu.getMenuIcon() {
+        return this.menuIcon;
+    }
+    
+    public void AppMenu.setMenuIcon(String menuIcon) {
+        this.menuIcon = menuIcon;
+    }
+    
 }

@@ -15,5 +15,6 @@
         <field:input field="parent" id="c_com_app2_app2t_domain_security_AppMenu_parent" validationMessageCode="field_invalid_integer" z="ZHI7Ce1LcI22NPRUfgO7CzoysII="/>
         <field:input field="menu_t_name" id="c_com_app2_app2t_domain_security_AppMenu_menu_t_name" z="JCBCfvTMER1VG9L3m5Tsc2p6mnQ="/>
         <field:input field="menu_e_name" id="c_com_app2_app2t_domain_security_AppMenu_menu_e_name" z="EKoXGDpYRDm4NJ5cP/R9Xl4EJOA="/>
+        <field:input field="menuIcon" id="c_com_app2_app2t_domain_security_AppMenu_menuIcon" z="Ng4IyItkrNXBrsx5ZWoop27J3ZE="/>
     </form:update>
 </div>

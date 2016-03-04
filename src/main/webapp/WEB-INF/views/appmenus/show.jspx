@@ -15,5 +15,6 @@
         <field:display field="parent" id="s_com_app2_app2t_domain_security_AppMenu_parent" object="${appmenu}" z="IcYqbOk0p6cwBrJFkZwNX5YoKtI="/>
         <field:display field="menu_t_name" id="s_com_app2_app2t_domain_security_AppMenu_menu_t_name" object="${appmenu}" z="2H3+m8vtk9FWuC//MEDZn5SJXII="/>
         <field:display field="menu_e_name" id="s_com_app2_app2t_domain_security_AppMenu_menu_e_name" object="${appmenu}" z="FEGz9fx4qrY/Gnr/nNwYGi4CgKE="/>
+        <field:display field="menuIcon" id="s_com_app2_app2t_domain_security_AppMenu_menuIcon" object="${appmenu}" z="NTwIs4kE9VJfseRDcf3/bVQtQTw="/>
     </page:show>
 </div>

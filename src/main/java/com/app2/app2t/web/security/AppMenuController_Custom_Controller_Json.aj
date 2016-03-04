@@ -33,6 +33,7 @@ privileged aspect AppMenuController_Custom_Controller_Json {
             int level = Integer.parseInt(obj.get("level").toString());
             int sequent = Integer.parseInt(obj.get("sequent").toString());
             long parent = Long.parseLong(obj.get("parent").toString());
+            String menuIcon = obj.get("menuIcon").toString();
             JSONArray arrRoleId = obj.getJSONArray("arrRoleId");
 
             // check duplicate link, controller, sequent (same level)
@@ -45,7 +46,7 @@ privileged aspect AppMenuController_Custom_Controller_Json {
             int rowCount = rowCountSameLink + rowCountSameController + rowCountSameSequent;
 
             if (rowCount == 0) {
-                AppMenu appMenu = AppMenu.insertAppMenu(link, menuTh, menuEn, controller, level, sequent, parent);
+                AppMenu appMenu = AppMenu.insertAppMenu(link, menuTh, menuEn, controller, level, sequent, parent, menuIcon);
 
                 for (int i = 0; i < arrRoleId.length(); i++) {
                     long appRoleId = Long.parseLong(arrRoleId.get(i).toString());
@@ -81,6 +82,7 @@ privileged aspect AppMenuController_Custom_Controller_Json {
             int level = Integer.parseInt(obj.get("level").toString());
             int sequent = Integer.parseInt(obj.get("sequent").toString());
             long parent = Long.parseLong(obj.get("parent").toString());
+            String menuIcon = obj.get("menuIcon").toString();
             JSONArray arrRoles = obj.getJSONArray("roles");
 
             // check duplicate link, controller, sequent (same level)
@@ -112,7 +114,7 @@ privileged aspect AppMenuController_Custom_Controller_Json {
             int rowCount = rowCountSameLink + rowCountSameController + rowCountSameSequent;
 
             if (rowCount == 0) {
-                AppMenu appMenu = AppMenu.updateAppMenu(menuId, link, menuTh, menuEn, controller, level, sequent, parent);
+                AppMenu appMenu = AppMenu.updateAppMenu(menuId, link, menuTh, menuEn, controller, level, sequent, parent, menuIcon);
 
                 for (int i = 0; i < arrRoles.length(); i++) {
                     JSONObject role = arrRoles.getJSONObject(i);
@@ -224,6 +226,7 @@ privileged aspect AppMenuController_Custom_Controller_Json {
             result.put("menu_e_name", appMenu.getMenu_e_name());
             result.put("menu_t_name", appMenu.getMenu_t_name());
             result.put("parent", appMenu.getParent());
+            result.put("menuIcon", appMenu.getMenuIcon());
             result.put("sequent", appMenu.getSegment());
 
             List<AppRoleMenu> appRoleMenuList = AppRoleMenu.findAppRoleMenuByMenuId(menuId);
@@ -286,6 +289,7 @@ privileged aspect AppMenuController_Custom_Controller_Json {
             for (int i = 0; i < listMenuConstraint.size(); i++) {
                 arrMenuContraint[i] = listMenuConstraint.get(i).getId();
             }
+
             List<AppMenu> result = AppMenu.findAppMenuByLevel(level);
             List<Map<String, Object>> list = new ArrayList<>();
             for (int i = firstResult; i < maxResult + firstResult && i < result.size(); i++) {
@@ -300,6 +304,7 @@ privileged aspect AppMenuController_Custom_Controller_Json {
                 map.put("level", appMenu.getMenuLevel());
                 map.put("sequent", appMenu.getSegment());
                 map.put("parent", appMenu.getParent());
+                map.put("menuIcon", appMenu.getMenuIcon());
 
                 if (Arrays.binarySearch(arrMenuContraint, appMenu.getId()) >= 0) {          // constraint
                     map.put("constraint", true);

@@ -31,6 +31,7 @@ privileged aspect AppMenuDataOnDemand_Roo_DataOnDemand {
         setCreatedBy(obj, index);
         setCreatedDate(obj, index);
         setLink(obj, index);
+        setMenuIcon(obj, index);
         setMenuLevel(obj, index);
         setMenu_e_name(obj, index);
         setMenu_t_name(obj, index);
@@ -60,6 +61,11 @@ privileged aspect AppMenuDataOnDemand_Roo_DataOnDemand {
     public void AppMenuDataOnDemand.setLink(AppMenu obj, int index) {
         String link = "link_" + index;
         obj.setLink(link);
+    }
+    
+    public void AppMenuDataOnDemand.setMenuIcon(AppMenu obj, int index) {
+        String menuIcon = "menuIcon_" + index;
+        obj.setMenuIcon(menuIcon);
     }
     
     public void AppMenuDataOnDemand.setMenuLevel(AppMenu obj, int index) {
