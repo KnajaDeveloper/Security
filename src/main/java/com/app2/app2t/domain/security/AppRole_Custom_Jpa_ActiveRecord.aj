@@ -22,7 +22,7 @@ privileged aspect AppRole_Custom_Jpa_ActiveRecord {
         try {
             List<AppRole> appRoles = criteria.list();
             AppRole appRole = appRoles.get(0);
-            System.out.print(appRoles.get(0));
+
         } catch (IndexOutOfBoundsException e) {
 
             return criteria.list();
