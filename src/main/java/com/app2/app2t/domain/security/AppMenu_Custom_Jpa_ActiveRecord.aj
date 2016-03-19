@@ -52,9 +52,9 @@ privileged aspect AppMenu_Custom_Jpa_ActiveRecord {
     public static List<AppMenu> AppMenu.findMenuParent(int level) {
         EntityManager ent = AppMenu.entityManager();
         Criteria criteria = ((Session) ent.getDelegate()).createCriteria(AppMenu.class);
-        if(level == 0) {
+        if (level == 0) {
             criteria.add(Restrictions.eq("parent", 0L));
-        } else if(level == 1) {
+        } else if (level == 1) {
             DetachedCriteria subCriteria = DetachedCriteria.forClass(AppMenu.class);
             subCriteria.add(Restrictions.eq("parent", 0L));
             subCriteria.setProjection(Projections.property("id"));
@@ -67,7 +67,6 @@ privileged aspect AppMenu_Custom_Jpa_ActiveRecord {
 
     public static boolean AppMenu.deleteMenu(Long menuId) {
         try {
-
             // Delete in AppRoleMenu table
             AppRoleMenu.deleteAppRoleMenu(menuId);
 
@@ -106,13 +105,26 @@ privileged aspect AppMenu_Custom_Jpa_ActiveRecord {
         return criteria.list();
     }
 
-    public static List<AppMenu> AppMenu.findAppMenuByLevel(int level) {
-        EntityManager ent = AppMenu.entityManager();
-        Criteria criteria = ((Session) ent.getDelegate()).createCriteria(AppMenu.class);
+    public static Criteria AppMenu.findAppMenuByLevelPagging(int level) {
+        Session session = (Session) AppMenu.entityManager().getDelegate();
+        Criteria criteria = session.createCriteria(AppMenu.class);
         criteria.add(Restrictions.eq("menuLevel", level));
-        criteria.addOrder(Order.asc("parent"));
-        criteria.addOrder(Order.asc("menuLevel"));
+        return criteria;
+    }
+
+    public static List<AppMenu> AppMenu.findAppMenuByLevelPaggingData(int level, int firstResult, int maxResult) {
+        Criteria criteria = AppMenu.findAppMenuByLevelPagging(level)
+                .addOrder(Order.asc("parent"))
+                .addOrder(Order.asc("segment"))
+                .setFirstResult(firstResult)
+                .setMaxResults(maxResult);
         return criteria.list();
+    }
+
+    public static Long AppMenu.findAppMenuByLevelPaggingSize(int level) {
+        Criteria criteria = AppMenu.findAppMenuByLevelPagging(level)
+                .setProjection(Projections.rowCount());
+        return (Long) criteria.uniqueResult();
     }
 
     public static List<AppMenu> AppMenu.findAppMenuByRole(Long appRoleId) {

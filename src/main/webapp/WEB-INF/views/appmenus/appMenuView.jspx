@@ -6,140 +6,182 @@
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
 
+    <c:set var="LABEL_EDIT" scope="request"><spring:message text="L0001"/></c:set>
+    <c:set var="LABEL_SEQUENT" scope="request"><spring:message text="L0002"/></c:set>
+    <c:set var="LABEL_LINK" scope="request"><spring:message text="L0003"/></c:set>
+    <c:set var="LABEL_ICON" scope="request"><spring:message text="L0004"/></c:set>
+    <c:set var="LABEL_MENU_TH" scope="request"><spring:message text="L0006"/></c:set>
+    <c:set var="LABEL_MENU_EN" scope="request"><spring:message text="L0005"/></c:set>
+    <c:set var="LABEL_CONTROLLER" scope="request"><spring:message text="L0007"/></c:set>
+    <c:set var="LABEL_PARENT" scope="request"><spring:message text="L0008"/></c:set>
+    <c:set var="LABEL_ROLE" scope="request"><spring:message text="L0009"/></c:set>
+    <c:set var="LABEL_ADD_MENU" scope="request"><spring:message text="L0010"/></c:set>
+    <c:set var="LABEL_EDIT_MENU" scope="request"><spring:message text="L0011"/></c:set>
+    <c:set var="LABEL_NO_RESULT" scope="request"><spring:message text="L0012"/></c:set>
+    <c:set var="LABEL_MENU_LEVEL_0" scope="request"><spring:message text="L0013"/></c:set>
+    <c:set var="LABEL_MENU_LEVEL_1" scope="request"><spring:message text="L0014"/></c:set>
+    <c:set var="LABEL_MENU_LEVEL_2" scope="request"><spring:message text="L0015"/></c:set>
+
+    <c:set var="BUTTON_ADD_MENU" scope="request"><spring:message text="B0001"/></c:set>
+    <c:set var="BUTTON_DELETE_MENU" scope="request"><spring:message text="B0002"/></c:set>
+    <c:set var="BUTTON_SAVE" scope="request"><spring:message text="B0003"/></c:set>
+    <c:set var="BUTTON_CANCEL" scope="request"><spring:message text="B0004"/></c:set>
+
+    <c:set var="MESSAGE_COMPLETE_FIELD" scope="request"><spring:message text="M0001"/></c:set>
+    <c:set var="MESSAGE_COMPLETE_NUMBER_GT_0" scope="request"><spring:message text="M0002"/></c:set>
+    <c:set var="MESSAGE_DUPLICATE_LINK" scope="request"><spring:message text="M0003"/></c:set>
+    <c:set var="MESSAGE_DUPLICATE_SEQUENT" scope="request"><spring:message text="M0004"/></c:set>
+    <c:set var="MESSAGE_DUPLICATE_CONTROLLER" scope="request"><spring:message text="M0005"/></c:set>
+    
+    <c:set var="MESSAGE_ALERT_MENU_ICON" scope="request"><spring:message text="M0013"/></c:set>
+    <c:set var="MESSAGE_ALERT_MENU_ROLE" scope="request"><spring:message text="M0014"/></c:set>
+    <c:set var="MESSAGE_ALERT_SAVE_COMPLETED" scope="request"><spring:message text="M0006"/></c:set>
+    <c:set var="MESSAGE_ALERT_SAVE_FAILED" scope="request"><spring:message text="M0007"/></c:set>
+    <c:set var="MESSAGE_ALERT_DELETE_COMPLETED" scope="request"><spring:message text="M0008"/></c:set>
+    <c:set var="MESSAGE_ALERT_DELETE_FAILED" scope="request"><spring:message text="M0009"/></c:set>
+    <c:set var="MESSAGE_ALERT_CONFIRM_DELETE" scope="request"><spring:message text="M0010"/></c:set>
+    <c:set var="MESSAGE_ALERT_SELECT_ROW" scope="request"><spring:message text="M0011"/></c:set>
+    <c:set var="MESSAGE_ALERT_RECORD" scope="request"><spring:message text="M0012"/></c:set>
+
+    <script>
+        var MESSAGE = {};
+        var LABEL = {};
+
+        MESSAGE.COMPLETE_FIELD = '${MESSAGE_COMPLETE_FIELD}';
+        MESSAGE.COMPLETE_NUMBER_GT_0 = '${MESSAGE_COMPLETE_NUMBER_GT_0}';
+        MESSAGE.DUPLICATE_LINK = '${MESSAGE_DUPLICATE_LINK}';
+        MESSAGE.DUPLICATE_SEQUENT = '${MESSAGE_DUPLICATE_SEQUENT}';
+        MESSAGE.DUPLICATE_CONTROLLER = '${MESSAGE_DUPLICATE_CONTROLLER}';
+        
+        MESSAGE.ALERT_MENU_ICON = '${MESSAGE_ALERT_MENU_ICON}';
+        MESSAGE.ALERT_MENU_ROLE = '${MESSAGE_ALERT_MENU_ROLE}';
+        MESSAGE.ALERT_SAVE_COMPLETED = '${MESSAGE_ALERT_SAVE_COMPLETED}';
+        MESSAGE.ALERT_SAVE_FAILED = '${MESSAGE_ALERT_SAVE_FAILED}';
+        MESSAGE.ALERT_DELETE_COMPLETED = '${MESSAGE_ALERT_DELETE_COMPLETED}';
+        MESSAGE.ALERT_DELETE_FAILED = '${MESSAGE_ALERT_DELETE_FAILED}';
+        MESSAGE.ALERT_CONFIRM_DELETE = '${MESSAGE_ALERT_CONFIRM_DELETE}';
+        MESSAGE.ALERT_SELECT_ROW = '${MESSAGE_ALERT_SELECT_ROW}';
+        MESSAGE.ALERT_RECORD = '${MESSAGE_ALERT_RECORD}';
+
+        LABEL.NO_RESULT = '${LABEL_NO_RESULT}';
+    </script>
+
     <div class="row">
-        <div class="col-xs-12">
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title">
-                        <div class="title">เมนูเลเวล 0</div>
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">
+                    <div class="title">${LABEL_MENU_LEVEL_0}</div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <button id="btnAddMenuLv0" class="btn btn-primary" type="button">${BUTTON_ADD_MENU}</button>
+                    <button id="btnDeleteMenuLv0" class="btn btn-danger" type="button" style="margin-left: 5px;">${BUTTON_DELETE_MENU}</button>
+                </div>  
+                <div class="table-responsive">
+                    <table class="table table-bordered table-stripted table-hover">
+                        <thead>
+                        <tr>
+                            <th width="5%" class="text-center">
+                                <input type="checkbox" id="chkCheckAllLv0"/>
+                            </th>
+                            <th width="5%" class="text-center">${LABEL_EDIT}</th>
+                            <th width="5%" class="text-center">${LABEL_SEQUENT}</th>
+                            <th width="20%" class="text-center">${LABEL_LINK}</th>
+                            <th width="5%" class="text-center">${LABEL_ICON}</th>
+                            <th width="20%" class="text-center">${LABEL_MENU_TH}</th>
+                            <th width="20%" class="text-center">${LABEL_MENU_EN}</th>
+                            <th width="20%" class="text-center">${LABEL_CONTROLLER}</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tbAppMenuLv0" style="cursor:pointer"></tbody>
+                    </table>
+                </div>
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <component:pagging id="paggingAppMenuLv0"/>
                     </div>
                 </div>
-                <div class="card-body">
-                    <!-- add/delete button - menu level 0 -->
-                    <div class="form-inline">
-                        <div class="form-group">
-                            <button id="btnAddMenuLv0" class="btn btn-primary" type="button">เพิ่มเมนู</button>
-                            <button id="btnDeleteMenuLv0" class="btn btn-danger" type="button" style="margin-left: 5px;">ลบที่เลือก</button>
-                        </div>
+            </div> 
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">
+                    <div class="title">${LABEL_MENU_LEVEL_1}</div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <button id="btnAddMenuLv1" class="btn btn-primary" type="button">${BUTTON_ADD_MENU}</button>
+                    <button id="btnDeleteMenuLv1" class="btn btn-danger" type="button" style="margin-left: 5px;">${BUTTON_DELETE_MENU}</button>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-stripted table-hover">
+                        <thead>
+                        <tr>
+                            <th width="5%" class="text-center">
+                                <input type="checkbox" id="chkCheckAllLv1"/>
+                            </th>
+                            <th width="5%" class="text-center">${LABEL_EDIT}</th>
+                            <th width="5%" class="text-center">${LABEL_SEQUENT}</th>
+                            <th width="20%" class="text-center">${LABEL_LINK}</th>
+                            <th width="10%" class="text-center">${LABEL_MENU_TH}</th>
+                            <th width="10%" class="text-center">${LABEL_MENU_EN}</th>
+                            <th width="25%" class="text-center">${LABEL_CONTROLLER}</th>
+                            <th width="20%" class="text-center">${LABEL_PARENT}</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tbAppMenuLv1" style="cursor:pointer"></tbody>
+                    </table>
+                </div>
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <component:pagging id="paggingAppMenuLv1"/>
                     </div>
-                    <!-- table content - menu level 0 -->
-                    <div id="penaltyTableContainer" class="table-responsive">
-                        <table id="Table" class="table table-bordered table-stripted table-hover">
-                            <thead>
-                            <tr>
-                                <th width="5%" class="text-center">
-                                    <input type="checkbox" id="chkCheckAllLv0"/>
-                                </th>
-                                <th width="5%" class="text-center">แก้ไข</th>
-                                <th width="5%" class="text-center">ลำดับ</th>
-                                <th width="20%" class="text-center">ลิงค์</th>
-                                <th width="5%" class="text-center">ไอคอน</th>
-                                <th width="20%" class="text-center">เมนูภาษาไทย</th>
-                                <th width="20%" class="text-center">เมนูภาษาอังกฤษ</th>
-                                <th width="20%" class="text-center">คอนโทรเลอร์</th>
-                            </tr>
-                            </thead>
-                            <tbody id="tbAppMenuLv0" style="cursor:pointer"></tbody>
-                        </table>
-                    </div>
-                    <div class="form-horizontal">
-                        <div class="form-group">
-                            <component:pagging id="paggingAppMenuLv0"/>
-                        </div>
-                    </div>
-                </div>  <!-- end div card body -->
+                </div>
             </div>
         </div>
     </div>
-
+    <br/>
     <div class="row">
-        <div class="col-xs-12">
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title">
-                        <div class="title">เมนูเลเวล 1</div>
-                    </div>
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">
+                    <div class="title">${LABEL_MENU_LEVEL_2}</div>
                 </div>
-                <div class="card-body">
-                    <!-- add/delete button - menu level 1 -->
-                    <div class="form-inline">
-                        <div class="form-group">
-                            <button id="btnAddMenuLv1" class="btn btn-primary" type="button">เพิ่มเมนู</button>
-                            <button id="btnDeleteMenuLv1" class="btn btn-danger" type="button" style="margin-left: 5px;">ลบที่เลือก</button>
-                        </div>
-                    </div>
-                    <!-- table content - menu level 1 -->
-                    <div id="penaltyTableContainer" class="table-responsive">
-                        <table id="Table" class="table table-bordered table-stripted table-hover">
-                            <thead>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <button id="btnAddMenuLv2" class="btn btn-primary" type="button">${BUTTON_ADD_MENU}</button>
+                    <button id="btnDeleteMenuLv2" class="btn btn-danger" type="button" style="margin-left: 5px;">${BUTTON_DELETE_MENU}</button>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-stripted table-hover">
+                        <thead>
                             <tr>
                                 <th width="5%" class="text-center">
-                                    <input type="checkbox" id="chkCheckAllLv1"/>
-                                </th>
-                                <th width="5%" class="text-center">แก้ไข</th>
-                                <th width="5%" class="text-center">ลำดับ</th>
-                                <th width="20%" class="text-center">ลิงค์</th>
-                                <th width="10%" class="text-center">เมนูภาษาไทย</th>
-                                <th width="10%" class="text-center">เมนูภาษาอังกฤษ</th>
-                                <th width="25%" class="text-center">คอนโทรเลอร์</th>
-                                <th width="20%" class="text-center">รูทเมนู</th>
-                            </tr>
-                            </thead>
-                            <tbody id="tbAppMenuLv1" style="cursor:pointer"></tbody>
-                        </table>
-                    </div>
-                    <div class="form-horizontal">
-                        <div class="form-group">
-                            <component:pagging id="paggingAppMenuLv1"/>
-                        </div>
-                    </div>
-                </div>  <!-- end div card body -->
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title">
-                        <div class="title">เมนูเลเวล 2</div>
+                                <input type="checkbox" id="chkCheckAllLv2"/>
+                            </th>
+                            <th width="5%" class="text-center">${LABEL_EDIT}</th>
+                            <th width="5%" class="text-center">${LABEL_SEQUENT}</th>
+                            <th width="20%" class="text-center">${LABEL_LINK}</th>
+                            <th width="10%" class="text-center">${LABEL_MENU_TH}</th>
+                            <th width="10%" class="text-center">${LABEL_MENU_EN}</th>
+                            <th width="25%" class="text-center">${LABEL_CONTROLLER}</th>
+                            <th width="20%" class="text-center">${LABEL_PARENT}</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tbAppMenuLv2" style="cursor:pointer"></tbody>
+                    </table>
+                </div>
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <component:pagging id="paggingAppMenuLv2"/>
                     </div>
                 </div>
-                <div class="card-body">
-                    <!-- add/delete button - menu level 2 -->
-                    <div class="form-inline">
-                        <div class="form-group">
-                            <button id="btnAddMenuLv2" class="btn btn-primary" type="button">เพิ่มเมนู</button>
-                            <button id="btnDeleteMenuLv2" class="btn btn-danger" type="button" style="margin-left: 5px;">ลบที่เลือก</button>
-                        </div>
-                    </div>
-                    <!-- table content - menu level 2 -->
-                    <div id="penaltyTableContainer" class="table-responsive">
-                        <table id="Table" class="table table-bordered table-stripted table-hover">
-                            <thead>
-                                <tr>
-                                    <th width="5%" class="text-center">
-                                    <input type="checkbox" id="chkCheckAllLv2"/>
-                                </th>
-                                <th width="5%" class="text-center">แก้ไข</th>
-                                <th width="5%" class="text-center">ลำดับ</th>
-                                <th width="20%" class="text-center">ลิงค์</th>
-                                <th width="10%" class="text-center">เมนูภาษาไทย</th>
-                                <th width="10%" class="text-center">เมนูภาษาอังกฤษ</th>
-                                <th width="25%" class="text-center">คอนโทรเลอร์</th>
-                                <th width="20%" class="text-center">รูทเมนู</th>
-                            </tr>
-                            </thead>
-                            <tbody id="tbAppMenuLv2" style="cursor:pointer"></tbody>
-                        </table>
-                    </div>
-                    <div class="form-horizontal">
-                        <div class="form-group">
-                            <component:pagging id="paggingAppMenuLv2"/>
-                        </div>
-                    </div>
-                </div>  <!-- end div card body -->
             </div>
         </div>
     </div>
@@ -149,69 +191,69 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header bg-primary">
-                    <h5 class="modal-title">เพิ่มเมนู</h5>
+                    <h5 class="modal-title">${LABEL_ADD_MENU}</h5>
                 </div>
                 <div class="modal-body">
                     <div class="form-horizontal">
                         <!-- Link -->
                         <div class="form-group">
-                            <label class="control-label col-xs-3 required">ลิงค์ </label>
+                            <label class="control-label col-xs-4 required">${LABEL_LINK} </label>
 
                             <div class="col-xs-6">
                                 <input id="txtAddLink" type="text" class="form-control"
-                                       data-placement="bottom" data-content="กรุณาระบุลิงค์"/>
+                                       data-placement="bottom" data-content=""/>
                             </div>
                         </div>
                         <!-- Menu thai -->
                         <div class="form-group">
-                            <label class="control-label col-xs-3 required">เมนูภาษาไทย </label>
+                            <label class="control-label col-xs-4 required">${LABEL_MENU_TH} </label>
 
                             <div class="col-xs-6">
                                 <input id="txtAddMenuTh" type="text" class="form-control"
-                                       data-placement="bottom" data-content="กรุณาระบุเมนูภาษาไทย"/>
+                                       data-placement="bottom" data-content=""/>
                             </div>
                         </div>
                         <!-- Menu english -->
                         <div class="form-group">
-                            <label class="control-label col-xs-3 required">เมนูภาษาอังกฤษ </label>
+                            <label class="control-label col-xs-4 required">${LABEL_MENU_EN} </label>
 
                             <div class="col-xs-6">
                                 <input id="txtAddMenuEn" type="text" class="form-control"
-                                       data-placement="bottom" data-content="กรุณาระบุเมนูภาษาอังกฤษ"/>
+                                       data-placement="bottom" data-content=""/>
                             </div>
                         </div>
                         <!-- Controller -->
                         <div class="form-group">
-                            <label class="control-label col-xs-3 required">คอนโทรเลอร์ </label>
+                            <label class="control-label col-xs-4 required">${LABEL_CONTROLLER} </label>
 
                             <div class="col-xs-6">
                                 <input id="txtAddController" type="text" class="form-control"
-                                       data-placement="bottom" data-content="กรุณาระบุคอนโทรเลอร์"/>
+                                       data-placement="bottom" data-content=""/>
                             </div>
                         </div>
                         <!-- Sequent -->
                         <div class="form-group">
-                            <label class="control-label col-xs-3 required">ลำดับ </label>
+                            <label class="control-label col-xs-4 required">${LABEL_SEQUENT} </label>
 
                             <div class="col-xs-6">
                                 <input id="txtAddSequent" type="text" class="form-control"
-                                       data-placement="bottom" data-content="กรุณาระบุลำดับ"/>
+                                       data-placement="bottom" data-content=""/>
                             </div>
                         </div>
                         <!-- Parent -->
                         <div class="form-group">
-                            <label class="control-label col-xs-3">รูทเมนู </label>
+                            <label class="control-label col-xs-4">${LABEL_PARENT} </label>
 
                             <div class="col-xs-6">
                                 <select id="ddlAddParent" class="form-control"
                                         data-placement="bottom" data-content="">
-                                    <option value="0">กรุณาเลือก</option>
+                                    <option value="0"></option>
                                 </select>
                             </div>
                         </div>
                         <!--Icon-->
                         <div class="form-group">
-                            <label class="control-label col-xs-3 required">เมนูไอคอน </label>
+                            <label class="control-label col-xs-4 required">${LABEL_ICON} </label>
 
                             <div class="col-xs-6">
                                 <div class="btn-group">
@@ -227,7 +269,7 @@
                         </div>
                         <!-- Role -->
                         <div class="form-group">
-                            <label class="control-label required col-xs-3">สิทธิ์ </label>
+                            <label class="control-label required col-xs-4">${LABEL_ROLE} </label>
 
                             <div id="grpAddRule" class="col-xs-6">
                                 <jsp:text/>
@@ -236,8 +278,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button id="btnSaveAddMenu" type="button" class="btn btn-primary">บันทึก</button>
-                    <button id="btnCancelAdd" type="button" class="btn btn-danger">ยกเลิก</button>
+                    <button id="btnSaveAddMenu" type="button" class="btn btn-primary">${BUTTON_SAVE}</button>
+                    <button id="btnCancelAdd" type="button" class="btn btn-danger">${BUTTON_CANCEL}</button>
                 </div>
             </div>
         </div>
@@ -248,7 +290,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header bg-primary">
-                    <h5 class="modal-title">แก้ไขเมนู</h5>
+                    <h5 class="modal-title">${LABEL_EDIT_MENU}</h5>
                 </div>
                 <div class="modal-body">
                     <div class="form-horizontal">
@@ -256,7 +298,7 @@
                         <input type="hidden" id="hiddenEditMenuId"/>
                         <!-- Link -->
                         <div class="form-group">
-                            <label class="control-label col-xs-3 required">ลิงค์ </label>
+                            <label class="control-label col-xs-4 required">${LABEL_LINK} </label>
 
                             <div class="col-xs-6">
                                 <input id="txtEditLink" type="text" class="form-control"
@@ -265,7 +307,7 @@
                         </div>
                         <!-- Menu thai -->
                         <div class="form-group">
-                            <label class="control-label col-xs-3 required">เมนูภาษาไทย </label>
+                            <label class="control-label col-xs-4 required">${LABEL_MENU_TH} </label>
 
                             <div class="col-xs-6">
                                 <input id="txtEditMenuTh" type="text" class="form-control"
@@ -274,7 +316,7 @@
                         </div>
                         <!-- Menu english -->
                         <div class="form-group">
-                            <label class="control-label col-xs-3 required">เมนูภาษาอังกฤษ </label>
+                            <label class="control-label col-xs-4 required">${LABEL_MENU_EN} </label>
 
                             <div class="col-xs-6">
                                 <input id="txtEditMenuEn" type="text" class="form-control"
@@ -283,7 +325,7 @@
                         </div>
                         <!-- Controller -->
                         <div class="form-group">
-                            <label class="control-label col-xs-3 required">คอนโทรเลอร์ </label>
+                            <label class="control-label col-xs-4 required">${LABEL_CONTROLLER} </label>
 
                             <div class="col-xs-6">
                                 <input id="txtEditController" type="text" class="form-control"
@@ -292,7 +334,7 @@
                         </div>
                         <!-- Sequent -->
                         <div class="form-group">
-                            <label class="control-label col-xs-3 required">ลำดับ </label>
+                            <label class="control-label col-xs-4 required">${LABEL_SEQUENT} </label>
 
                             <div class="col-xs-6">
                                 <input id="txtEditSequent" type="text" class="form-control"
@@ -301,19 +343,18 @@
                         </div>
                         <!-- Parent -->
                         <div class="form-group">
-                            <label class="control-label col-xs-3">รูทเมนู </label>
+                            <label class="control-label col-xs-4">${LABEL_PARENT} </label>
 
                             <div class="col-xs-6">
                                 <select id="ddlEditParent" class="form-control"
                                         data-placement="bottom" data-content="">
-                                    <option value="0">กรุณาเลือก</option>
-                                    <option value="1">มี</option>
+                                    <option value="0"></option>
                                 </select>
                             </div>
                         </div>
                         <!--Icon-->
                         <div class="form-group">
-                            <label class="control-label col-xs-3 required">เมนูไอคอน </label>
+                            <label class="control-label col-xs-4 required">${LABEL_ICON} </label>
 
                             <div class="col-xs-6">
                                 <div class="btn-group">
@@ -329,7 +370,7 @@
                         </div>
                         <!-- Role -->
                         <div class="form-group">
-                            <label class="control-label required col-xs-3">สิทธิ์ </label>
+                            <label class="control-label required col-xs-4">${LABEL_ROLE} </label>
 
                             <div id="grpEditRule" class="col-xs-6">
                                 <jsp:text/>
@@ -338,8 +379,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button id="btnSaveEditMenu" type="button" class="btn btn-primary">บันทึก</button>
-                    <button id="btnCancelEdit" type="button" class="btn btn-danger">ยกเลิก</button>
+                    <button id="btnSaveEditMenu" type="button" class="btn btn-primary">${BUTTON_SAVE}</button>
+                    <button id="btnCancelEdit" type="button" class="btn btn-danger">${BUTTON_CANCEL}</button>
                 </div>
             </div>
         </div>

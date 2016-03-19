@@ -55,5 +55,9 @@
             </ul>
         </div>
     </nav>
-
+    <script>
+        var contextPath = '${pageContext.request.contextPath}';
+        var commonData = new Object();
+        commonData.language = '${lang}';
+    </script>
 </div>
