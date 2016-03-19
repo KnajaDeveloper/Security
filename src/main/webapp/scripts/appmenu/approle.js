@@ -5,145 +5,85 @@ $(document).ready(function () {
     loadAllAppRole();
 });
 
-// Add role ------------------------------------------------------------------------------------------------------------
+// Add-Edit Role management ------------------------------------------------------------------------------------------------------------
 $('#btnAddRole').click(function () {
     openModalAddRole();
 });
-$('#btnCancelAdd').click(function () {
-    $('#mdAddRole').modal('hide');
+
+$('#ResultAppRole').on('click', '[name=btnEditRole]', function () {
+    var roleId = $(this).attr('roleId');
+    var roleCode = $(this).parent().parent().children()[2].innerHTML;
+    var roleName = $(this).parent().parent().children()[3].innerHTML;
+    openModalEditRole(roleId, roleCode, roleName);
 });
-$('#btnSaveAddRole').click(function () {
-    var roleCode = $('#txtAddRoleCode').val();
-    var roleName = $('#txtAddRoleName').val();
+
+$('#btnCancel').click(function () {
+    $('#modalRole').modal('hide');
+});
+
+$('#btnSaveRole').click(function() {
+    var mode = $('#modalRole').attr('mode');
+    var roleId = $('#modalRole').attr('roleId');
+    var roleCodeOld = $('#modalRole').attr('roleCode');
+    var roleNameOld = $('#modalRole').attr('roleName');
+
+    var roleCode = $('#txtRoleCode').val();
+    var roleName = $('#txtRoleName').val();
 
     if (roleCode == '') {
-        $('#txtAddRoleCode').attr('data-content', 'กรุณาระบุชื่อย่อ').popover('show');
+        $('#txtRoleCode').attr('data-content', MESSAGE.COMPLETE_FIELD).popover('show');
     } else if (roleName == '') {
-        $('#txtAddRoleName').attr('data-content', 'กรุณาระบุสิทธิ์').popover('show');
+        $('#txtRoleName').attr('data-content', MESSAGE.COMPLETE_FIELD).popover('show');
     } else {
-        $.ajax({
-            type: "POST",
-            contentType: "application/json; charset=UTF-8",
-            dataType: "json",
-            headers: {
-                Accept: "application/json"
-            },
-            url: contextPath + '/approles/insertAppRole',
-            data: JSON.stringify({
-                roleCode: roleCode,
-                roleName: roleName
-            }),
-            success: function (data, status, xhr) {
-                if (xhr.status === 200) {
-                    if (data == 0) {
-                        bootbox.alert("บันทึกข้อมูลสำเร็จ");
-                        $('#mdAddRole').modal('hide');
-                        loadAllAppRole();
-                    } else {
-                        bootbox.alert("ชื่อย่อนีี้มีอยู๋แล้ว");
-                    }
-                } else {
-                    bootbox.alert("บันทึกข้อมูลไม่สำเร็จ");
-                }
-            },
-            async: false
-        });
-    }
-});
-
-// Edit role -----------------------------------------------------------------------------------------------------------
-$('#ResultAppRole').on('click', '[id^=btnEditRole_]', function () {
-    var id = this.id.split('_')[1];
-    openModalEditRole(id);
-});
-$('#btnCancelEdit').click(function () {
-    $('#mdEditRole').modal('hide');
-});
-$('#btnSaveEditRole').click(function () {
-    var roleId = $('#hiddenEditRoleId').val();
-    var roleCode = $('#txtEditRoleCode').val();
-    var roleName = $('#txtEditRoleName').val();
-
-    if (roleCode == '') {
-        $('#txtEditRoleCode').attr('data-content', 'กรุณาระบุชื่อย่อ').popover('show');
-    } else if (roleName == '') {
-        $('#txtEditRoleName').attr('data-content', 'กรุณาระบุสิทธิ์').popover('show');
-    } else {
-        $.ajax({
-            type: "POST",
-            contentType: "application/json; charset=UTF-8",
-            dataType: "json",
-            headers: {
-                Accept: "application/json"
-            },
-            url: contextPath + '/approles/updateAppRole',
-            data: JSON.stringify({
-                roleId: roleId,
-                roleCode: roleCode,
-                roleName: roleName
-            }),
-            success: function (data, status, xhr) {
-                if (xhr.status === 200) {
-                    if (data == 0) {
-                        bootbox.alert("บันทึกข้อมูลสำเร็จ");
-                        $('#mdEditRole').modal('hide');
-                        loadAllAppRole();
-                    } else {
-                        bootbox.alert("ชื่อย่อนีี้มีอยู๋แล้ว");
-                    }
-                } else {
-                    bootbox.alert("บันทึกข้อมูลไม่สำเร็จ");
-                }
-            },
-            async: false
-        });
+        if(mode == 'add') {
+            saveAddRole(roleCode, roleName);
+        } else if(mode == 'edit') {
+            if(roleCode == roleCodeOld && roleName == roleNameOld) {
+                bootbox.alert(MESSAGE.ALERT_NO_CHANGE);
+            } else {
+                saveEditRole(roleId, roleCode, roleName);    
+            }
+        } else {
+            console.log('mode = ' + mode);
+        }
     }
 });
 
 // Delete role ---------------------------------------------------------------------------------------------------------
 $('#btnDeleteRole').click(function () {
     var arrRoleId = [];
-    $('[id^=chkRole_]:checked').each(function () {
-        arrRoleId.push(this.id.split('_')[1]);
+
+    $('[name=chkRole]:checked').each(function () {
+        arrRoleId.push($(this).attr('roleId'));
     });
 
     if (arrRoleId.length > 0) {
-        bootbox.confirm('คุณต้องการลบข้อมูลที่เลือกใช่หรือไม่', function (result) {
+        bootbox.confirm(MESSAGE.ALERT_CONFIRM_DELETE, function (result) {
             if (result) {
                 deleteRole(arrRoleId);
             }
         });
     } else {
-        bootbox.alert("กรุณาเลือกข้อมูลที่ต้องการลบ");
+        bootbox.alert(MESSAGE.ALERT_SELECT_ROW);
     }
 });
 
 // Checkbox management -------------------------------------------------------------------------------------------------
 $('#chkCheckAll').change(function () {
-    $('[constraint]').prop('checked', false);
-
-    var checked = $(this).prop('checked');
-    var cbxChecked = $('[constraint=false]');
-    var cbxAll = $('[constraint]');
-    if (checked) {
+    if($(this).prop('checked'))
         $('[constraint=false]').prop('checked', true);
-
-        if (cbxChecked.length == cbxAll.length) {
-            $(this).prop('checked', true);
-        } else {
-            $(this).prop('checked', false);
-        }
-    }
+    else
+        $('[constraint]').prop('checked', false);
 });
 $('#ResultAppRole').on('change', '[constraint=true]', function () {
-    bootbox.alert('ข้อมูลถูกใช้งานอยู่');
+    bootbox.alert(MESSAGE.ALERT_DATA_IN_USED);
     $(this).prop('checked', false);
 });
 $('#ResultAppRole').on('change', '[constraint=false]', function () {
-    var cbxChecked = $('[id^=chkRole_]:checked');
-    var cbxAll = $('[id^=chkRole_]');
+    var cbxChecked = $('[name=chkRole]:checked');
+    var cbxAllowCheck = $('[constraint=false]');
 
-    if (cbxChecked.length == cbxAll.length)
+    if (cbxChecked.length == cbxAllowCheck.length)
         $('#chkCheckAll').prop('checked', true);
     else
         $('#chkCheckAll').prop('checked', false);
@@ -152,26 +92,28 @@ $('#ResultAppRole').on('change', '[constraint=false]', function () {
 // ---------------------------------------------------------------------------------------------------------------------
 pagginationAppRole.setEventPaggingBtn("paggingAppRole", pagginationAppRole);
 pagginationAppRole.loadTable = function loadTable(jsonData) {
-    if (jsonData.length <= 0)
-        bootbox.alert("ไม่พบข้อมูล");
-
     $('#ResultAppRole').empty();
-    jsonData.forEach(function (v) {
-        $('#chkCheckAll').prop('checked', false);
 
-        $('#ResultAppRole').append('<tr>' +
-            '<td class="text-center">' +
-            '<input type="checkbox" id="chkRole_' + v.id + '" constraint="' + v.constraint + '" />' +
-            '</td>' +
-            '<td class="text-center">' +
-            '<button id="btnEditRole_' + v.id + '" type="button" class="btn btn-warning">แก้ไข</button>' +
-            '</td>' +
-            '<td>' + v.roleCode + '</td>' +
-            '<td>' + v.roleName + '</td>' +
-            '</tr>'
-        );
-    });
+    if (jsonData.length <= 0) {
+        $('#ResultAppRole').append('<tr><td class="text-center" colspan="8">' + LABEL.NO_RESULT + '</td></tr>');
+    } else {
+        $('#ResultAppRole').empty();
+        jsonData.forEach(function (v) {
+            $('#chkCheckAll').prop('checked', false);
 
+            $('#ResultAppRole').append('<tr>' +
+                '<td class="text-center">' +
+                '<input type="checkbox" name="chkRole" roleId="'+v.id+'" constraint="' + v.constraint + '" />' +
+                '</td>' +
+                '<td class="text-center">' +
+                '<button name="btnEditRole" roleId="' + v.id + '" type="button" class="btn btn-xs btn-info"><span class="glyphicon glyphicon-pencil"><span/></button>' +
+                '</td>' +
+                '<td>' + v.roleCode + '</td>' +
+                '<td>' + v.roleName + '</td>' +
+                '</tr>'
+            );
+        });
+    }
 };
 
 function loadAllAppRole() {
@@ -186,42 +128,91 @@ function loadAllAppRole() {
     pagginationAppRole.search(pagginationAppRole);
 }
 
-function openModalAddRole() {
-    $('#txtAddRoleCode').val('');
-    $('#txtAddRoleName').val('');
-    $('#mdAddRole').modal({backdrop: 'static'});
+function openModalAddRole() {    
+    $('#txtRoleCode').val('');
+    $('#txtRoleName').val('');
 
-    // focus 1st element
-    setTimeout(function () {
-        $('#txtAddRoleCode').focus();
-    }, 200);
+    $('#modalRole').attr('mode', 'add');
+    $('#modalRole').attr('roleId', '');
+
+    $('#modalRole').modal({backdrop: 'static'});
+
+    focus1stElement('txtRoleCode');
 }
-function openModalEditRole(roleId) {
-    var role = null;
+
+function openModalEditRole(roleId, roleCode, roleName) {    
+    $('#txtRoleCode').val(roleCode);
+    $('#txtRoleName').val(roleName);
+
+    $('#modalRole').attr('mode', 'edit');
+    $('#modalRole').attr('roleId', roleId);
+    $('#modalRole').attr('roleCode', roleCode);
+    $('#modalRole').attr('roleName', roleName);
+
+    $('#modalRole').modal({backdrop: 'static'});
+
+    focus1stElement('txtRoleCode');
+}
+
+function saveAddRole(roleCode, roleName) {
     $.ajax({
-        type: "GET",
+        type: "POST",
         contentType: "application/json; charset=UTF-8",
         dataType: "json",
         headers: {
             Accept: "application/json"
         },
-        url: contextPath + '/approles/findRole?id=' + roleId,
+        url: contextPath + '/approles/insertAppRole',
+        data: JSON.stringify({
+            roleCode: roleCode,
+            roleName: roleName
+        }),
         success: function (data, status, xhr) {
-            role = data;
+            if (xhr.status === 200) {
+                if (data == 0) {
+                    bootbox.alert(MESSAGE.ALERT_SAVE_COMPLETED);
+                    $('#modalRole').modal('hide');
+                    loadAllAppRole();
+                } else {
+                    bootbox.alert(MESSAGE.ALERT_DUPLICATE_ROLE_CODE);
+                }
+            } else {
+                bootbox.alert(MESSAGE.ALERT_SAVE_FAILED);
+            }
         },
         async: false
     });
+}
 
-    $('#hiddenEditRoleId').val(role.id);
-    $('#txtEditRoleCode').val(role.roleCode);
-    $('#txtEditRoleName').val(role.roleName);
-
-    $('#mdEditRole').modal({backdrop: 'static'});
-
-    // focus 1st element
-    setTimeout(function () {
-        $('#txtEditRoleCode').focus();
-    }, 200);
+function saveEditRole(roleId, roleCode, roleName) {
+    $.ajax({
+        type: "POST",
+        contentType: "application/json; charset=UTF-8",
+        dataType: "json",
+        headers: {
+            Accept: "application/json"
+        },
+        url: contextPath + '/approles/updateAppRole',
+        data: JSON.stringify({
+            roleId: roleId,
+            roleCode: roleCode,
+            roleName: roleName
+        }),
+        success: function (data, status, xhr) {
+            if (xhr.status == 200) {
+                if (data == 0) {
+                    bootbox.alert(MESSAGE.ALERT_SAVE_COMPLETED);
+                    $('#modalRole').modal('hide');
+                    loadAllAppRole();
+                } else {
+                    bootbox.alert(MESSAGE.ALERT_DUPLICATE_ROLE_CODE);
+                }
+            } else {
+                bootbox.alert(MESSAGE.ALERT_SAVE_FAILED);
+            }
+        },
+        async: false
+    });
 }
 
 function deleteRole(arrRoleId) {
@@ -238,9 +229,9 @@ function deleteRole(arrRoleId) {
                 var notComplete = arrRoleId.length - data;
                 var text = '';
                 if (data > 0)
-                    text = 'ลบข้อมูลสำเร็จ ' + data + ' รายการ';
+                    text = MESSAGE.ALERT_DELETE_COMPLETED + data + MESSAGE.ALERT_RECORD;
                 if (notComplete > 0)
-                    text = '<br/>ลบข้อมูลไม่สำเร็จ ' + notComplete + ' รายการ';
+                    text = '<br/>'+ MESSAGE.ALERT_DELETE_FAILED + notComplete + MESSAGE.ALERT_RECORD;
 
                 bootbox.alert(text);
                 loadAllAppRole();
@@ -248,4 +239,10 @@ function deleteRole(arrRoleId) {
             async: false
         }
     );
+}
+
+function focus1stElement(elementId) {
+    setTimeout(function () {
+        $('#' + elementId).focus();
+    }, 200);
 }

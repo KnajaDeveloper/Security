@@ -3,112 +3,119 @@
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
 
-    <br/>
-    <!-- add/delete button -->
+    <c:set var="LABEL_EDIT" scope="request"><spring:message text="L0001"/></c:set>
+    <c:set var="LABEL_ROLE_CODE" scope="request"><spring:message text="L0016"/></c:set>
+    <c:set var="LABEL_ROLE_NAME" scope="request"><spring:message text="L0017"/></c:set>
+    <c:set var="LABEL_ADD_ROLE" scope="request"><spring:message text="L0018"/></c:set>
+    <c:set var="LABEL_EDIT_ROLE" scope="request"><spring:message text="L0019"/></c:set>
+    <c:set var="LABEL_NO_RESULT" scope="request"><spring:message text="L0012"/></c:set>
+
+    <c:set var="BUTTON_ADD_ROLE" scope="request"><spring:message text="B0005"/></c:set>
+    <c:set var="BUTTON_DELETE_ROLE" scope="request"><spring:message text="B0002"/></c:set>
+    <c:set var="BUTTON_SAVE" scope="request"><spring:message text="B0003"/></c:set>
+    <c:set var="BUTTON_CANCEL" scope="request"><spring:message text="B0004"/></c:set>
+
+    <c:set var="MESSAGE_COMPLETE_FIELD" scope="request"><spring:message text="M0001"/></c:set>
+    
+    <c:set var="MESSAGE_ALERT_SAVE_COMPLETED" scope="request"><spring:message text="M0006"/></c:set>
+    <c:set var="MESSAGE_ALERT_SAVE_FAILED" scope="request"><spring:message text="M0007"/></c:set>
+    <c:set var="MESSAGE_ALERT_DELETE_COMPLETED" scope="request"><spring:message text="M0008 "/></c:set>
+    <c:set var="MESSAGE_ALERT_DELETE_FAILED" scope="request"><spring:message text="M0009 "/></c:set>
+    <c:set var="MESSAGE_ALERT_DUPLICATE_ROLE_CODE" scope="request"><spring:message text="M0017"/></c:set>
+    <c:set var="MESSAGE_ALERT_CONFIRM_DELETE" scope="request"><spring:message text="M0010"/></c:set>
+    <c:set var="MESSAGE_ALERT_SELECT_ROW" scope="request"><spring:message text="M0011"/></c:set>
+    <c:set var="MESSAGE_ALERT_DATA_IN_USED" scope="request"><spring:message text="M0015"/></c:set>
+    <c:set var="MESSAGE_ALERT_RECORD" scope="request"><spring:message text="M0012"/></c:set>
+    <c:set var="MESSAGE_ALERT_NO_CHANGE" scope="request"><spring:message text="M0016"/></c:set>
+
+    <script>
+        var MESSAGE = {};
+        var LABEL = {};
+
+        MESSAGE.COMPLETE_FIELD = '${MESSAGE_COMPLETE_FIELD}';
+
+        MESSAGE.ALERT_SAVE_COMPLETED = '${MESSAGE_ALERT_SAVE_COMPLETED}';
+        MESSAGE.ALERT_SAVE_FAILED = '${MESSAGE_ALERT_SAVE_FAILED}';
+        MESSAGE.ALERT_DELETE_COMPLETED = '${MESSAGE_ALERT_DELETE_COMPLETED}';
+        MESSAGE.ALERT_DELETE_FAILED = '${MESSAGE_ALERT_DELETE_FAILED}';
+        MESSAGE.ALERT_DUPLICATE_ROLE_CODE = '${MESSAGE_ALERT_DUPLICATE_ROLE_CODE}';
+        MESSAGE.ALERT_CONFIRM_DELETE = '${MESSAGE_ALERT_CONFIRM_DELETE}';
+        MESSAGE.ALERT_SELECT_ROW = '${MESSAGE_ALERT_SELECT_ROW}';
+        MESSAGE.ALERT_DATA_IN_USED = '${MESSAGE_ALERT_DATA_IN_USED}';
+        MESSAGE.ALERT_RECORD = '${MESSAGE_ALERT_RECORD}';
+        MESSAGE.ALERT_NO_CHANGE = '${MESSAGE_ALERT_NO_CHANGE}';
+
+        LABEL.NO_RESULT = '${LABEL_NO_RESULT}';
+    </script>
+
     <div class="row">
-        <div class="form-inline">
-            <div class="form-group">
-                <button id="btnAddRole" class="btn btn-primary" type="button">เพิ่มสิทธิ์</button>
-                <button id="btnDeleteRole" class="btn btn-danger" type="button">ลบที่เลือก</button>
+        <div class="col-xs-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-body">
+                        <!-- add/delete button -->
+                        <div class="form-group">
+                            <button id="btnAddRole" class="btn btn-primary" type="button">${BUTTON_ADD_ROLE}</button>
+                            <button id="btnDeleteRole" class="btn btn-danger" type="button" style="margin-left: 5px;">${BUTTON_DELETE_ROLE}</button>
+                        </div>
+
+                        <!-- table content -->
+                        <div id="penaltyTableContainer" class="table-responsive">
+                            <table id="Table" class="table table-bordered table-stripted table-hover">
+                                <thead>
+                                    <tr>
+                                        <th width="5%" class="text-center">
+                                            <input type="checkbox" id="chkCheckAll"/>
+                                        </th>
+                                        <th width="5%" class="text-center">${LABEL_EDIT}</th>
+                                        <th width="45%" class="text-center">${LABEL_ROLE_CODE}</th>
+                                        <th width="45%" class="text-center">${LABEL_ROLE_NAME}</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="ResultAppRole" style="cursor:pointer"></tbody>
+                            </table>
+                        </div>
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <component:pagging id="paggingAppRole"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- table content -->
-    <div class="row">
-        <div id="penaltyTableContainer" class="table-responsive">
-            <table id="Table" class="table table-hover">
-                <thead>
-                    <tr class="info">
-                        <th width="5%" class="text-center">
-                            <input type="checkbox" id="chkCheckAll"/>
-                        </th>
-                        <th width="10%" class="text-center">แก้ไข</th>
-                        <th width="40%" class="text-center">ชื่อย่อ</th>
-                        <th width="45%" class="text-center">สิทธื</th>
-                    </tr>
-                </thead>
-                <tbody id="ResultAppRole" style="cursor:pointer"></tbody>
-            </table>
-        </div>
-        <div class="form-horizontal">
-            <div class="form-group">
-                <component:pagging id="paggingAppRole"/>
-            </div>
-        </div>
-    </div>
-
-    <!-- add role modal -->
-    <div class="modal fade" id="mdAddRole" role="dialog">
+    <!-- role modal -->
+    <div class="modal fade" id="modalRole" mode="" roleId="" roleCode="" roleName="" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header bg-primary">
-                    <h4 class="modal-title">เพิ่มสิทธิ์</h4>
+                    <h5 class="modal-title">${LABEL_ADD_ROLE}</h5>
                 </div>
                 <div class="modal-body">
                     <div class="form-horizontal">
                         <!-- Role code -->
                         <div class="form-group">
-                            <label class="control-label col-xs-3 required">ชื่อย่อ </label>
+                            <label class="control-label col-xs-4 required">${LABEL_ROLE_CODE} </label>
                             <div class="col-xs-6">
-                                <input id="txtAddRoleCode" type="text" class="form-control"
+                                <input id="txtRoleCode" type="text" class="form-control"
                                    data-placement="bottom" data-content=""/>
                             </div>
                         </div>
                         <!-- Role name -->
                         <div class="form-group">
-                            <label class="control-label col-xs-3 required">สิทธิ์ </label>
+                            <label class="control-label col-xs-4 required">${LABEL_ROLE_NAME} </label>
                             <div class="col-xs-6">
-                                <input id="txtAddRoleName" type="text" class="form-control"
+                                <input id="txtRoleName" type="text" class="form-control"
                                    data-placement="bottom" data-content=""/>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <div class="modal-footer">
-                        <button id="btnSaveAddRole" type="button" class="btn btn-primary">บันทึก</button>
-                        <button id="btnCancelAdd" type="button" class="btn btn-danger">ยกเลิก</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- edit role modal -->
-    <div class="modal fade" id="mdEditRole" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header bg-primary">
-                    <h4 class="modal-title">แก้ไขสิทธิ์</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="form-horizontal">
-                        <!-- Hidden id -->
-                        <input class="hidden" id="hiddenEditRoleId"/>
-                        <!-- Role code -->
-                        <div class="form-group">
-                            <label class="control-label col-xs-3 required">ชื่อย่อ </label>
-                            <div class="col-xs-6">
-                                <input id="txtEditRoleCode" type="text" class="form-control"
-                                   data-placement="bottom" data-content=""/>
-                            </div>
-                        </div>
-                        <!-- Role name -->
-                        <div class="form-group">
-                            <label class="control-label col-xs-3 required">สิทธิ์ </label>
-                            <div class="col-xs-6">
-                                <input id="txtEditRoleName" type="text" class="form-control"
-                                   data-placement="bottom" data-content=""/>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <div class="modal-footer">
-                        <button id="btnSaveEditRole" type="button" class="btn btn-primary">บันทึก</button>
-                        <button id="btnCancelEdit" type="button" class="btn btn-danger">ยกเลิก</button>
-                    </div>
+                    <button id="btnSaveRole" type="button" class="btn btn-primary">${BUTTON_SAVE}</button>
+                    <button id="btnCancel" type="button" class="btn btn-danger">${BUTTON_CANCEL}</button>
                 </div>
             </div>
         </div>

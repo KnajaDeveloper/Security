@@ -26,20 +26,21 @@ privileged aspect AppMenuController_Custom_Controller_Json {
         headers.add("Content-Type", "application/json;charset=UTF-8");
         try {
             JSONObject obj = new JSONObject(json);
-            String link = obj.get("link").toString();
-            String menuTh = obj.get("menuTh").toString();
-            String menuEn = obj.get("menuEn").toString();
-            String controller = obj.get("controller").toString();
-            int level = Integer.parseInt(obj.get("level").toString());
-            int sequent = Integer.parseInt(obj.get("sequent").toString());
-            long parent = Long.parseLong(obj.get("parent").toString());
-            String menuIcon = obj.get("menuIcon").toString();
+            String link = obj.getString("link");
+            String menuTh = obj.getString("menuTh");
+            String menuEn = obj.getString("menuEn");
+            String controller = obj.getString("controller");
+            int level = obj.getInt("level");
+            int sequent = obj.getInt("sequent");
+            long parent = obj.getLong("parent");
+            String menuIcon = obj.getString("menuIcon");
             JSONArray arrRoleId = obj.getJSONArray("arrRoleId");
 
-            // check duplicate link, controller, sequent (same level)
+            // check duplicate link, controller, sequent same level
             List<AppMenu> appMenuByLink = AppMenu.findAppMenuByLink(link);
             List<AppMenu> appMenuByController = AppMenu.findAppMenuByController(controller);
             List<AppMenu> appMenuBySequent = AppMenu.findAppMenuBySequent(sequent, level, parent);
+
             int rowCountSameLink = appMenuByLink.size();
             int rowCountSameController = appMenuByController.size();
             int rowCountSameSequent = appMenuBySequent.size();
@@ -47,10 +48,8 @@ privileged aspect AppMenuController_Custom_Controller_Json {
 
             if (rowCount == 0) {
                 AppMenu appMenu = AppMenu.insertAppMenu(link, menuTh, menuEn, controller, level, sequent, parent, menuIcon);
-
                 for (int i = 0; i < arrRoleId.length(); i++) {
-                    long appRoleId = Long.parseLong(arrRoleId.get(i).toString());
-                    AppRole appRole = AppRole.findAppRole(appRoleId);
+                    AppRole appRole = AppRole.findAppRole(arrRoleId.getLong(i));
                     AppRoleMenu.insertAppRoleMenu(appMenu, appRole);
                 }
             }
@@ -74,38 +73,35 @@ privileged aspect AppMenuController_Custom_Controller_Json {
         headers.add("Content-Type", "application/json;charset=UTF-8");
         try {
             JSONObject obj = new JSONObject(json);
-            Long menuId = Long.parseLong(obj.get("menuId").toString());
-            String link = obj.get("link").toString();
-            String menuTh = obj.get("menuTh").toString();
-            String menuEn = obj.get("menuEn").toString();
-            String controller = obj.get("controller").toString();
-            int level = Integer.parseInt(obj.get("level").toString());
-            int sequent = Integer.parseInt(obj.get("sequent").toString());
-            long parent = Long.parseLong(obj.get("parent").toString());
-            String menuIcon = obj.get("menuIcon").toString();
+            Long menuId = obj.getLong("menuId");
+            String link = obj.getString("link");
+            String menuTh = obj.getString("menuTh");
+            String menuEn = obj.getString("menuEn");
+            String controller = obj.getString("controller");
+            int level = obj.getInt("level");
+            int sequent = obj.getInt("sequent");
+            long parent = obj.getLong("parent");
+            String menuIcon = obj.getString("menuIcon");
             JSONArray arrRoles = obj.getJSONArray("roles");
 
-            // check duplicate link, controller, sequent (same level)
+            // check duplicate link, controller, sequent same level
             List<AppMenu> appMenuByLink = AppMenu.findAppMenuByLink(link);
             List<AppMenu> appMenuByController = AppMenu.findAppMenuByController(controller);
             List<AppMenu> appMenuBySequent = AppMenu.findAppMenuBySequent(sequent, level, parent);
 
             for (int i = 0; i < appMenuByLink.size(); i++) {
-                if (appMenuByLink.get(i).getId() == menuId) {
+                if (appMenuByLink.get(i).getId().equals(menuId))
                     appMenuByLink.remove(i);
-                }
             }
 
             for (int i = 0; i < appMenuByController.size(); i++) {
-                if (appMenuByController.get(i).getId() == menuId) {
+                if (appMenuByController.get(i).getId().equals(menuId))
                     appMenuByController.remove(i);
-                }
             }
 
             for (int i = 0; i < appMenuBySequent.size(); i++) {
-                if (appMenuBySequent.get(i).getId() == menuId) {
+                if (appMenuBySequent.get(i).getId().equals(menuId))
                     appMenuBySequent.remove(i);
-                }
             }
 
             int rowCountSameLink = appMenuByLink.size();
@@ -118,18 +114,17 @@ privileged aspect AppMenuController_Custom_Controller_Json {
 
                 for (int i = 0; i < arrRoles.length(); i++) {
                     JSONObject role = arrRoles.getJSONObject(i);
-                    long roleId = Long.parseLong(role.get("roleId").toString());
-                    boolean isCheck = Boolean.parseBoolean(role.get("used").toString());
+                    Long roleId = role.getLong("roleId");
+                    Boolean isCheck = role.getBoolean("used");
 
                     AppRole appRole = AppRole.findAppRole(roleId);
                     AppRoleMenu appRoleMenu = AppRoleMenu.findAppRoleMenuByMenuIdAndRoleId(menuId, roleId);
 
-                    if (isCheck && appRoleMenu == null) {   // create
+                    if (isCheck && appRoleMenu == null)     // create
                         AppRoleMenu.insertAppRoleMenu(appMenu, appRole);
-                    }
-                    if (!isCheck && appRoleMenu != null) {  // delete
+                    
+                    if (!isCheck && appRoleMenu != null)    // delete
                         AppRoleMenu.deleteAppRoleMenu(menuId, roleId);
-                    }
                 }
             }
 
@@ -154,7 +149,7 @@ privileged aspect AppMenuController_Custom_Controller_Json {
             int count = 0;
             JSONArray arrMenuId = new JSONArray(json);
             for (int i = 0; i < arrMenuId.length(); i++) {
-                Long menuId = Long.parseLong(arrMenuId.get(i).toString());
+                Long menuId = arrMenuId.getLong(i);
                 if (AppMenu.deleteMenu(menuId)) {
                     count++;
                 }
@@ -254,21 +249,22 @@ privileged aspect AppMenuController_Custom_Controller_Json {
             List<AppMenu> listAppMenu = AppMenu.findAppMenuByRole(appRole.getId());
 
             List<Map<String, Object>> result = new ArrayList<>();
-            for(AppMenu appMenu : listAppMenu) {
-                Map<String, Object> map = new HashMap<>();
-                map.put("id", appMenu.getId());
-                map.put("controller", appMenu.getController());
-                map.put("link", appMenu.getLink());
-                map.put("menuLevel", appMenu.getMenuLevel());
-                map.put("menu_e_name", appMenu.getMenu_e_name());
-                map.put("menu_t_name", appMenu.getMenu_t_name());
-                map.put("parent", appMenu.getParent());
-                map.put("sequent", appMenu.getSegment());
+            // for(AppMenu appMenu : listAppMenu) {
+            //     Map<String, Object> map = new HashMap<>();
+            //     map.put("id", appMenu.getId());
+            //     map.put("controller", appMenu.getController());
+            //     map.put("link", appMenu.getLink());
+            //     map.put("menuLevel", appMenu.getMenuLevel());
+            //     map.put("menu_e_name", appMenu.getMenu_e_name());
+            //     map.put("menu_t_name", appMenu.getMenu_t_name());
+            //     map.put("parent", appMenu.getParent());
+            //     map.put("sequent", appMenu.getSegment());
+            //     map.put("menuIcon", null);
 
-                result.add(map);
-            }
+            //     result.add(map);
+            // }
 
-            return new ResponseEntity<String>(new JSONSerializer().exclude("*.class").deepSerialize(result), headers, HttpStatus.OK);
+            return new ResponseEntity<String>(new JSONSerializer().exclude("*.class").deepSerialize(listAppMenu), headers, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<String>("{\"ERROR\":" + e.getMessage() + "\"}", headers, HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -283,26 +279,25 @@ privileged aspect AppMenuController_Custom_Controller_Json {
     ) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json;charset=UTF-8");
-        try {
+        try{
             List<AppMenu> listMenuConstraint = AppRoleMenu.findConstraintMenu();
             long[] arrMenuContraint = new long[listMenuConstraint.size()];
             for (int i = 0; i < listMenuConstraint.size(); i++) {
                 arrMenuContraint[i] = listMenuConstraint.get(i).getId();
             }
 
-            List<AppMenu> result = AppMenu.findAppMenuByLevel(level);
+            List<AppMenu> result = AppMenu.findAppMenuByLevelPaggingData(level, firstResult, maxResult);
             List<Map<String, Object>> list = new ArrayList<>();
-            for (int i = firstResult; i < maxResult + firstResult && i < result.size(); i++) {
+            for(int i = 0; i < result.size(); i++) {
                 AppMenu appMenu = result.get(i);
-
                 Map<String, Object> map = new HashMap<>();
                 map.put("id", appMenu.getId());
                 map.put("link", appMenu.getLink());
-                map.put("menu_en", appMenu.getMenu_e_name());
-                map.put("menu_th", appMenu.getMenu_t_name());
+                map.put("menu_e_name", appMenu.getMenu_e_name());
+                map.put("menu_t_name", appMenu.getMenu_t_name());
                 map.put("controller", appMenu.getController());
                 map.put("level", appMenu.getMenuLevel());
-                map.put("sequent", appMenu.getSegment());
+                map.put("segment", appMenu.getSegment());
                 map.put("parent", appMenu.getParent());
                 map.put("menuIcon", appMenu.getMenuIcon());
 
@@ -321,9 +316,9 @@ privileged aspect AppMenuController_Custom_Controller_Json {
 
                 list.add(map);
             }
+
             return new ResponseEntity<String>(new JSONSerializer().exclude("*.class").deepSerialize(list), headers, HttpStatus.OK);
-        } catch (Exception e) {
-//            LOGGER.error("findEvaPeriodTime :{}", e);
+        }catch (Exception e){
             return new ResponseEntity<String>("{\"ERROR\":" + e.getMessage() + "\"}", headers, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -335,13 +330,12 @@ privileged aspect AppMenuController_Custom_Controller_Json {
     ) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json;charset=UTF-8");
-        try {
-            List<AppMenu> result = AppMenu.findAppMenuByLevel(level);
-            Map<String, Object> data = new HashMap();
-            data.put("size", result.size());
-            return new ResponseEntity<String>(new JSONSerializer().exclude("*.class").deepSerialize(data), headers, HttpStatus.OK);
-        } catch (Exception e) {
-//            LOGGER.error("findEvaPeriodTime :{}", e);
+        try{
+            Long size = AppMenu.findAppMenuByLevelPaggingSize(level);
+            Map dataSendToFront = new HashMap();
+            dataSendToFront.put("size", size);
+            return new ResponseEntity<String>(new JSONSerializer().exclude("*.class").deepSerialize(dataSendToFront), headers, HttpStatus.OK);
+        }catch (Exception e){
             return new ResponseEntity<String>("{\"ERROR\":" + e.getMessage() + "\"}", headers, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

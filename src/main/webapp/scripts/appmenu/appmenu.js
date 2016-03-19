@@ -1,4 +1,5 @@
 var _language = commonData.language;
+var _oldMenu;
 
 $(document).ready(function () {
     loadAllMenuLevel_0();
@@ -55,23 +56,23 @@ $('#btnSaveAddMenu').click(function () {
     });
 
     if (link == '') {
-        $('#txtAddLink').popover('show');
+        $('#txtAddLink').attr('data-content', MESSAGE.COMPLETE_FIELD).popover('show');
     } else if (menuTh == '') {
-        $('#txtAddMenuTh').popover('show');
+        $('#txtAddMenuTh').attr('data-content', MESSAGE.COMPLETE_FIELD).popover('show');
     } else if (menuEn == '') {
-        $('#txtAddMenuEn').popover('show');
+        $('#txtAddMenuEn').attr('data-content', MESSAGE.COMPLETE_FIELD).popover('show');
     } else if (controller == '') {
-        $('#txtAddController').popover('show');
+        $('#txtAddController').attr('data-content', MESSAGE.COMPLETE_FIELD).popover('show');
     } else if (sequent == '') {
-        $('#txtAddSequent').attr('data-content', 'กรุณาระบลำดับ').popover('show');
+        $('#txtAddSequent').attr('data-content', MESSAGE.COMPLETE_FIELD).popover('show');
     } else if (!$.isNumeric(sequent) || sequent.indexOf('.') >= 0 || sequent < 1) {
-        $('#txtAddSequent').attr('data-content', 'กรุณาระบุตัวเลขที่มากกว่าหรือเท่ากับ 1').popover('show');
+        $('#txtAddSequent').attr('data-content', MESSAGE.COMPLETE_NUMBER_GT_0).popover('show');
     } else if (menuLv > 0 && parent == 0) {
-        $('#ddlAddParent').attr('data-content', 'กรุณาระบุเมนูแม่').popover('show');
+        $('#ddlAddParent').attr('data-content', MESSAGE.COMPLETE_FIELD).popover('show');
     } else if (menuLv == 0 && (menuIcon == undefined || menuIcon == null || menuIcon == '')) {
-        bootbox.alert('กรุณาระบุเมนูไอคอน');
+        bootbox.alert(MESSAGE.ALERT_MENU_ICON);
     } else if (arrRoleId.length == 0) {
-        bootbox.alert('กรุณาระบุสิทธิ์');
+        bootbox.alert(MESSAGE.ALERT_MENU_ROLE);
     } else {
         $.ajax({
             type: "POST",
@@ -95,18 +96,17 @@ $('#btnSaveAddMenu').click(function () {
             success: function (data, status, xhr) {
                 if (xhr.status === 200) {
                     if (data.rowCountSameLink > 0) {
-                        $('#txtAddLink').attr('data-content', 'ลิงค์นี้มีอยู่แล้ว').popover('show');
+                        $('#txtAddLink').attr('data-content', MESSAGE.DUPLICATE_LINK).popover('show');
                     }
                     if (data.rowCountSameController > 0) {
-                        $('#txtAddController').attr('data-content', 'คอนโทรเลอร์นี้มีอยู่แล้ว').popover('show');
+                        $('#txtAddController').attr('data-content', MESSAGE.DUPLICATE_CONTROLLER).popover('show');
                     }
                     if (data.rowCountSameSequent > 0) {
-                        $('#txtAddSequent').attr('data-content', 'ลำดับนี้มีอยู่แล้ว').popover('show');
+                        $('#txtAddSequent').attr('data-content', MESSAGE.DUPLICATE_SEQUENT).popover('show');
                     }
                     if (data.rowCountSameLink == 0 && data.rowCountSameController == 0 && data.rowCountSameSequent == 0) {
-                        bootbox.alert("บันทึกข้อมูลสำเร็จ");
+                        bootbox.alert(MESSAGE.ALERT_SAVE_COMPLETED);
                         $('#mdAddMenu').modal('hide');
-
                         if (menuLv == 0) {
                             loadAllMenuLevel_0();
                         } else if (menuLv == 1) {
@@ -116,7 +116,7 @@ $('#btnSaveAddMenu').click(function () {
                         }
                     }
                 } else {
-                    bootbox.alert("บันทึกข้อมูลไม่สำเร็จ");
+                    bootbox.alert(MESSAGE.ALERT_SAVE_FAILED);
                 }
             },
             async: false
@@ -163,25 +163,24 @@ $('#btnSaveEditMenu').click(function () {
             used: $(this).prop('checked')
         });
     });
-
     if (link == '') {
-        $('#txtEditLink').popover('show');
+        $('#txtEditLink').attr('data-content', MESSAGE.COMPLETE_FIELD).popover('show');
     } else if (menuTh == '') {
-        $('#txtEditMenuTh').popover('show');
+        $('#txtEditMenuTh').attr('data-content', MESSAGE.COMPLETE_FIELD).popover('show');
     } else if (menuEn == '') {
-        $('#txtEditMenuEn').popover('show');
+        $('#txtEditMenuEn').attr('data-content', MESSAGE.COMPLETE_FIELD).popover('show');
     } else if (controller == '') {
-        $('#txtEditController').popover('show');
+        $('#txtEditController').attr('data-content', MESSAGE.COMPLETE_FIELD).popover('show');
     } else if (sequent == '') {
-        $('#txtEditSequent').attr('data-content', 'กรุณาระบลำดับ').popover('show');
+        $('#txtEditSequent').attr('data-content', MESSAGE.COMPLETE_FIELD).popover('show');
     } else if (!$.isNumeric(sequent) || sequent.indexOf('.') >= 0 || sequent < 1) {
-        $('#txtEditSequent').attr('data-content', 'กรุณาระบุตัวเลขที่มากกว่าหรือเท่ากับ 1').popover('show');
+        $('#txtEditSequent').attr('data-content', MESSAGE.COMPLETE_NUMBER_GT_0).popover('show');
     } else if (menuLv > 0 && parent == 0) {
-        $('#ddlEditParent').attr('data-content', 'กรุณาระบุเมนูแม่').popover('show');
+        $('#ddlEditParent').attr('data-content', MESSAGE.COMPLETE_FIELD).popover('show');
     } else if (menuLv == 0 && (menuIcon == undefined || menuIcon == null || menuIcon == '')) {
-        bootbox.alert('กรุณาระบุเมนูไอคอน');
+        bootbox.alert(MESSAGE.ALERT_MENU_ICON);
     } else if ($('[id^=chkEditRole_]:checked').length == 0) {
-        bootbox.alert('กรุณาระบุสิทธิ์');
+        bootbox.alert(MESSAGE.ALERT_MENU_ROLE);
     } else {
         $.ajax({
             type: "POST",
@@ -207,16 +206,16 @@ $('#btnSaveEditMenu').click(function () {
             success: function (data, status, xhr) {
                 if (xhr.status === 200) {
                     if (data.rowCountSameLink > 0) {
-                        $('#txtEditLink').attr('data-content', 'ลิงค์นี้มีอยู่แล้ว').popover('show');
+                        $('#txtEditLink').attr('data-content', MESSAGE.DUPLICATE_LINK).popover('show');
                     }
                     if (data.rowCountSameController > 0) {
-                        $('#txtEditController').attr('data-content', 'คอนโทรเลอร์นี้มีอยู่แล้ว').popover('show');
+                        $('#txtEditController').attr('data-content', MESSAGE.DUPLICATE_CONTROLLER).popover('show');
                     }
                     if (data.rowCountSameSequent > 0) {
-                        $('#txtEditSequent').attr('data-content', 'ลำดับนี้มีอยู่แล้ว').popover('show');
+                        $('#txtEditSequent').attr('data-content', MESSAGE.DUPLICATE_SEQUENT).popover('show');
                     }
                     if (data.rowCountSameLink == 0 && data.rowCountSameController == 0 && data.rowCountSameSequent == 0) {
-                        bootbox.alert("บันทึกข้อมูลสำเร็จ");
+                        bootbox.alert(MESSAGE.ALERT_SAVE_COMPLETED);
                         $('#mdEditMenu').modal('hide');
 
                         if (menuLv == 0) {
@@ -228,7 +227,7 @@ $('#btnSaveEditMenu').click(function () {
                         }
                     }
                 } else {
-                    bootbox.alert("บันทึกข้อมูลไม่สำเร็จ");
+                    bootbox.alert(MESSAGE.ALERT_SAVE_FAILED);
                 }
             },
             async: false
@@ -244,13 +243,13 @@ $('#btnDeleteMenuLv0').click(function () {
     });
 
     if (arrMenuId.length > 0) {
-        bootbox.confirm('คุณต้องการลบข้อมูลที่เลือกใช่หรือไม่', function (result) {
+        bootbox.confirm(MESSAGE.ALERT_CONFIRM_DELETE, function (result) {
             if (result) {
                 deleteMenu(arrMenuId, 0);
             }
         });
     } else {
-        bootbox.alert("กรุณาเลือกข้อมูลที่ต้องการลบ");
+        bootbox.alert(MESSAGE.ALERT_SELECT_ROW);
     }
 });
 $('#btnDeleteMenuLv1').click(function () {
@@ -260,13 +259,13 @@ $('#btnDeleteMenuLv1').click(function () {
     });
 
     if (arrMenuId.length > 0) {
-        bootbox.confirm('คุณต้องการลบข้อมูลที่เลือกใช่หรือไม่', function (result) {
+        bootbox.confirm(MESSAGE.ALERT_CONFIRM_DELETE, function (result) {
             if (result) {
                 deleteMenu(arrMenuId, 1);
             }
         });
     } else {
-        bootbox.alert("กรุณาเลือกข้อมูลที่ต้องการลบ");
+        bootbox.alert(MESSAGE.ALERT_SELECT_ROW);
     }
 });
 $('#btnDeleteMenuLv2').click(function () {
@@ -276,13 +275,13 @@ $('#btnDeleteMenuLv2').click(function () {
     });
 
     if (arrMenuId.length > 0) {
-        bootbox.confirm('คุณต้องการลบข้อมูลที่เลือกใช่หรือไม่', function (result) {
+        bootbox.confirm(MESSAGE.ALERT_CONFIRM_DELETE, function (result) {
             if (result) {
                 deleteMenu(arrMenuId, 2);
             }
         });
     } else {
-        bootbox.alert("กรุณาเลือกข้อมูลที่ต้องการลบ");
+        bootbox.alert(MESSAGE.ALERT_SELECT_ROW);
     }
 });
 
@@ -440,6 +439,7 @@ function openModalEditMenu(menuId, menuLevel) {
         url: contextPath + '/appmenus/findMenu?id=' + menuId,
         success: function (data, status, xhr) {
             menu = data;
+            _oldMenu = data;
         },
         async: false
     });
@@ -479,9 +479,9 @@ function deleteMenu(arrMenuId, menuLv) {
                 var notComplete = arrMenuId.length - data;
                 var text = '';
                 if (data > 0)
-                    text = 'ลบข้อมูลสำเร็จ ' + data + ' รายการ';
+                    text = MESSAGE.ALERT_DELETE_COMPLETED +' '+ data +' '+ MESSAGE.ALERT_RECORD;
                 if (notComplete > 0)
-                    text = '<br/>ลบข้อมูลไม่สำเร็จ ' + notComplete + ' รายการ';
+                    text = '<br/>'+ MESSAGE.ALERT_DELETE_FAILED +' '+ notComplete +' '+ MESSAGE.ALERT_RECORD;
 
                 bootbox.alert(text);
 
