@@ -44,16 +44,17 @@ privileged aspect AppRoleController_Custom_Controller_Json {
         headers.add("Content-Type", "application/json;charset=UTF-8");
         try {
             JSONObject jsonPlan = new JSONObject(json);
-            String roleCode = jsonPlan.get("roleCode").toString();
-            String roleName = jsonPlan.get("roleName").toString();
+            String roleCode = jsonPlan.getString("roleCode");
+            String roleName = jsonPlan.getString("roleName");
 
-            List<AppRole> appRoleList = AppRole.findByRoleCode(roleCode);
-            int size = appRoleList.size();
-            if (size == 0) {
+            List<AppRole> appRoleList = AppRole.findByRoleCode(roleCode, null);
+            int rows = appRoleList.size();
+            if (rows == 0) {
                 AppRole.insertAppRole(roleCode, roleName);
+                return new ResponseEntity<String>(new JSONSerializer().exclude("*.class").deepSerialize(null), headers, HttpStatus.CREATED);
             }
+            return new ResponseEntity<String>(new JSONSerializer().exclude("*.class").deepSerialize(null), headers, HttpStatus.OK);
 
-            return new ResponseEntity<String>(new JSONSerializer().exclude("*.class").deepSerialize(size), headers, HttpStatus.OK);
         } catch (Exception e) {
 //            LOGGER.debug("error " + e);
             return new ResponseEntity<String>("{\"ERROR\":" + e.getMessage() + "\"}", headers, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -80,23 +81,17 @@ privileged aspect AppRoleController_Custom_Controller_Json {
         headers.add("Content-Type", "application/json;charset=UTF-8");
         try {
             JSONObject obj = new JSONObject(json);
-            long roleId = Long.parseLong(obj.get("roleId").toString());
-            String roleCode = obj.get("roleCode").toString();
-            String roleName = obj.get("roleName").toString();
+            long roleId = obj.getLong("roleId");
+            String roleCode = obj.getString("roleCode");
+            String roleName = obj.getString("roleName");
 
-            List<AppRole> appRoleList = AppRole.findByRoleCode(roleCode);
-            for (int i = 0; i < appRoleList.size(); i++) {
-                if (appRoleList.get(i).getId() == roleId) {
-                    appRoleList.remove(i);
-                }
-            }
-
+            List<AppRole> appRoleList = AppRole.findByRoleCode(roleCode, roleId);
             int size = appRoleList.size();
             if (size == 0) {
                 AppRole.updateRole(roleId, roleCode, roleName);
+                return new ResponseEntity<String>(new JSONSerializer().exclude("*.class").deepSerialize(null), headers, HttpStatus.CREATED);
             }
-
-            return new ResponseEntity<String>(new JSONSerializer().exclude("*.class").deepSerialize(size), headers, HttpStatus.OK);
+            return new ResponseEntity<String>(new JSONSerializer().exclude("*.class").deepSerialize(null), headers, HttpStatus.OK);
 
         } catch (Exception e) {
 //            LOGGER.debug("error " + e);
@@ -112,12 +107,15 @@ privileged aspect AppRoleController_Custom_Controller_Json {
             int count = 0;
             JSONArray arrRoleId = new JSONArray(json);
             for (int i = 0; i < arrRoleId.length(); i++) {
-                Long roleId = Long.parseLong(arrRoleId.get(i).toString());
+                Long roleId = arrRoleId.getLong(i);
                 if (AppRole.deleteRole(roleId)) {
                     count++;
                 }
             }
-            return new ResponseEntity<String>(new JSONSerializer().exclude("*.class").deepSerialize(count), headers, HttpStatus.OK);
+            Map<String, Integer> result = new HashMap<>();
+            result.put("countRemove", count);
+
+            return new ResponseEntity<String>(new JSONSerializer().exclude("*.class").deepSerialize(result), headers, HttpStatus.OK);
         } catch (Exception e) {
 //            LOGGER.debug("error " + e);
             return new ResponseEntity<String>("{\"ERROR\":" + e.getMessage() + "\"}", headers, HttpStatus.INTERNAL_SERVER_ERROR);

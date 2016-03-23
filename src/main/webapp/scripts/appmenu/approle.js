@@ -18,7 +18,23 @@ $('#ResultAppRole').on('click', '[name=btnEditRole]', function () {
 });
 
 $('#btnCancel').click(function () {
-    $('#modalRole').modal('hide');
+    var roleCode = $('#txtRoleCode').val();
+    var roleName = $('#txtRoleName').val();
+
+    var roleCodeOld = $('#modalRole').attr('roleCode');
+    var roleNameOld = $('#modalRole').attr('roleName');
+
+    var mode = $('#modalRole').attr('mode');
+
+    if(mode == 'edit' && (roleCode != roleCodeOld || roleName != roleNameOld)) {
+        bootbox.confirm(MESSAGE.ALERT_WAS_CHANGED, function (result) {
+            if (result) {
+                $('#modalRole').modal('hide');        
+            }
+        });
+    } else {
+        $('#modalRole').modal('hide');
+    }
 });
 
 $('#btnSaveRole').click(function() {
@@ -128,9 +144,9 @@ function loadAllAppRole() {
     pagginationAppRole.search(pagginationAppRole);
 }
 
-function openModalAddRole() {    
-    $('#txtRoleCode').val('');
-    $('#txtRoleName').val('');
+function openModalAddRole() {
+    $('#txtRoleCode').val('').popover('hide');
+    $('#txtRoleName').val('').popover('hide');
 
     $('#modalRole').attr('mode', 'add');
     $('#modalRole').attr('roleId', '');
@@ -141,8 +157,8 @@ function openModalAddRole() {
 }
 
 function openModalEditRole(roleId, roleCode, roleName) {    
-    $('#txtRoleCode').val(roleCode);
-    $('#txtRoleName').val(roleName);
+    $('#txtRoleCode').val(roleCode).popover('hide');
+    $('#txtRoleName').val(roleName).popover('hide');
 
     $('#modalRole').attr('mode', 'edit');
     $('#modalRole').attr('roleId', roleId);
@@ -168,14 +184,12 @@ function saveAddRole(roleCode, roleName) {
             roleName: roleName
         }),
         success: function (data, status, xhr) {
-            if (xhr.status === 200) {
-                if (data == 0) {
-                    bootbox.alert(MESSAGE.ALERT_SAVE_COMPLETED);
-                    $('#modalRole').modal('hide');
-                    loadAllAppRole();
-                } else {
-                    bootbox.alert(MESSAGE.ALERT_DUPLICATE_ROLE_CODE);
-                }
+            if (xhr.status == 201) {
+                bootbox.alert(MESSAGE.ALERT_SAVE_COMPLETED);
+                $('#modalRole').modal('hide');
+                loadAllAppRole();
+            } else if(xhr.status == 200) {
+                bootbox.alert(MESSAGE.ALERT_DUPLICATE_ROLE_CODE);
             } else {
                 bootbox.alert(MESSAGE.ALERT_SAVE_FAILED);
             }
@@ -199,14 +213,12 @@ function saveEditRole(roleId, roleCode, roleName) {
             roleName: roleName
         }),
         success: function (data, status, xhr) {
-            if (xhr.status == 200) {
-                if (data == 0) {
-                    bootbox.alert(MESSAGE.ALERT_SAVE_COMPLETED);
-                    $('#modalRole').modal('hide');
-                    loadAllAppRole();
-                } else {
-                    bootbox.alert(MESSAGE.ALERT_DUPLICATE_ROLE_CODE);
-                }
+            if (xhr.status == 201) {
+                bootbox.alert(MESSAGE.ALERT_SAVE_COMPLETED);
+                $('#modalRole').modal('hide');
+                loadAllAppRole();
+            } else if (xhr.status == 200) {
+                bootbox.alert(MESSAGE.ALERT_DUPLICATE_ROLE_CODE);
             } else {
                 bootbox.alert(MESSAGE.ALERT_SAVE_FAILED);
             }
@@ -226,12 +238,14 @@ function deleteRole(arrRoleId) {
             url: contextPath + '/approles/deleteAppRole',
             data: JSON.stringify(arrRoleId),
             success: function (data, status, xhr) {
-                var notComplete = arrRoleId.length - data;
+                var countDelComplete = data.countRemove;
+                var notComplete = arrRoleId.length - countDelComplete;
                 var text = '';
-                if (data > 0)
-                    text = MESSAGE.ALERT_DELETE_COMPLETED + data + MESSAGE.ALERT_RECORD;
+                
+                if (countDelComplete > 0)
+                    text = MESSAGE.ALERT_DELETE_COMPLETED +' '+ countDelComplete +' '+ MESSAGE.ALERT_RECORD;
                 if (notComplete > 0)
-                    text = '<br/>'+ MESSAGE.ALERT_DELETE_FAILED + notComplete + MESSAGE.ALERT_RECORD;
+                    text = '<br/>'+ MESSAGE.ALERT_DELETE_FAILED +' '+ notComplete +' '+ MESSAGE.ALERT_RECORD;
 
                 bootbox.alert(text);
                 loadAllAppRole();
