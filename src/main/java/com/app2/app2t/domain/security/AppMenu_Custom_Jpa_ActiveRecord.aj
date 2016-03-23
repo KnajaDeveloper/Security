@@ -65,14 +65,37 @@ privileged aspect AppMenu_Custom_Jpa_ActiveRecord {
         return criteria.list();
     }
 
+    public static List<AppMenu> AppMenu.findMenuChildren(Long parentId) {
+        EntityManager ent = AppMenu.entityManager();
+        Criteria criteria = ((Session) ent.getDelegate()).createCriteria(AppMenu.class);
+        criteria.add(Restrictions.eq("parent", parentId));
+        return criteria.list();
+    }
+
     public static boolean AppMenu.deleteMenu(Long menuId) {
         try {
+            List<AppMenu> menuChildrenLv1 = AppMenu.findMenuChildren(menuId);
+            
+            for(AppMenu menuLv1 : menuChildrenLv1) {
+                List<AppMenu> menuChildrenLv2 = AppMenu.findMenuChildren(menuLv1.getId());
+                
+                for(AppMenu menuLv2: menuChildrenLv2){
+                    AppRoleMenu.deleteAppRoleMenu(menuLv2.getId());
+                    AppMenu appMenuLv2 = AppMenu.findAppMenu(menuLv2.getId());
+                    appMenuLv2.remove();
+                }
+
+                AppRoleMenu.deleteAppRoleMenu(menuLv1.getId());
+                AppMenu appMenuLv1 = AppMenu.findAppMenu(menuLv1.getId());
+                appMenuLv1.remove();
+            }
+
             // Delete in AppRoleMenu table
             AppRoleMenu.deleteAppRoleMenu(menuId);
 
             // Delete in AppMenu table
-            AppMenu appMenu = AppMenu.findAppMenu(menuId);
-            appMenu.remove();
+            AppMenu appMenuLv0 = AppMenu.findAppMenu(menuId);
+            appMenuLv0.remove();
 
             return true;
 

@@ -6,42 +6,44 @@
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
 
-    <c:set var="LABEL_EDIT" scope="request"><spring:message text="L0001"/></c:set>
-    <c:set var="LABEL_SEQUENT" scope="request"><spring:message text="L0002"/></c:set>
-    <c:set var="LABEL_LINK" scope="request"><spring:message text="L0003"/></c:set>
-    <c:set var="LABEL_ICON" scope="request"><spring:message text="L0004"/></c:set>
-    <c:set var="LABEL_MENU_TH" scope="request"><spring:message text="L0006"/></c:set>
-    <c:set var="LABEL_MENU_EN" scope="request"><spring:message text="L0005"/></c:set>
-    <c:set var="LABEL_CONTROLLER" scope="request"><spring:message text="L0007"/></c:set>
-    <c:set var="LABEL_PARENT" scope="request"><spring:message text="L0008"/></c:set>
-    <c:set var="LABEL_ROLE" scope="request"><spring:message text="L0009"/></c:set>
-    <c:set var="LABEL_ADD_MENU" scope="request"><spring:message text="L0010"/></c:set>
-    <c:set var="LABEL_EDIT_MENU" scope="request"><spring:message text="L0011"/></c:set>
-    <c:set var="LABEL_NO_RESULT" scope="request"><spring:message text="L0012"/></c:set>
-    <c:set var="LABEL_MENU_LEVEL_0" scope="request"><spring:message text="L0013"/></c:set>
-    <c:set var="LABEL_MENU_LEVEL_1" scope="request"><spring:message text="L0014"/></c:set>
-    <c:set var="LABEL_MENU_LEVEL_2" scope="request"><spring:message text="L0015"/></c:set>
+    <c:set var="LABEL_EDIT" scope="request"><spring:message code="L0001"/></c:set>
+    <c:set var="LABEL_SEQUENT" scope="request"><spring:message code="L0002"/></c:set>
+    <c:set var="LABEL_LINK" scope="request"><spring:message code="L0003"/></c:set>
+    <c:set var="LABEL_ICON" scope="request"><spring:message code="L0004"/></c:set>
+    <c:set var="LABEL_MENU_TH" scope="request"><spring:message code="L0005"/></c:set>
+    <c:set var="LABEL_MENU_EN" scope="request"><spring:message code="L0006"/></c:set>
+    <c:set var="LABEL_CONTROLLER" scope="request"><spring:message code="L0007"/></c:set>
+    <c:set var="LABEL_PARENT" scope="request"><spring:message code="L0008"/></c:set>
+    <c:set var="LABEL_ROLE" scope="request"><spring:message code="L0009"/></c:set>
+    <c:set var="LABEL_ADD_MENU" scope="request"><spring:message code="L0010"/></c:set>
+    <c:set var="LABEL_EDIT_MENU" scope="request"><spring:message code="L0011"/></c:set>
+    <c:set var="LABEL_NO_RESULT" scope="request"><spring:message code="L0012"/></c:set>
+    <c:set var="LABEL_MENU_LEVEL_0" scope="request"><spring:message code="L0013"/></c:set>
+    <c:set var="LABEL_MENU_LEVEL_1" scope="request"><spring:message code="L0014"/></c:set>
+    <c:set var="LABEL_MENU_LEVEL_2" scope="request"><spring:message code="L0015"/></c:set>
 
-    <c:set var="BUTTON_ADD_MENU" scope="request"><spring:message text="B0001"/></c:set>
-    <c:set var="BUTTON_DELETE_MENU" scope="request"><spring:message text="B0002"/></c:set>
-    <c:set var="BUTTON_SAVE" scope="request"><spring:message text="B0003"/></c:set>
-    <c:set var="BUTTON_CANCEL" scope="request"><spring:message text="B0004"/></c:set>
+    <c:set var="BUTTON_ADD_MENU" scope="request"><spring:message code="B0001"/></c:set>
+    <c:set var="BUTTON_DELETE_MENU" scope="request"><spring:message code="B0002"/></c:set>
+    <c:set var="BUTTON_SAVE" scope="request"><spring:message code="B0003"/></c:set>
+    <c:set var="BUTTON_CANCEL" scope="request"><spring:message code="B0004"/></c:set>
 
-    <c:set var="MESSAGE_COMPLETE_FIELD" scope="request"><spring:message text="M0001"/></c:set>
-    <c:set var="MESSAGE_COMPLETE_NUMBER_GT_0" scope="request"><spring:message text="M0002"/></c:set>
-    <c:set var="MESSAGE_DUPLICATE_LINK" scope="request"><spring:message text="M0003"/></c:set>
-    <c:set var="MESSAGE_DUPLICATE_SEQUENT" scope="request"><spring:message text="M0004"/></c:set>
-    <c:set var="MESSAGE_DUPLICATE_CONTROLLER" scope="request"><spring:message text="M0005"/></c:set>
+    <c:set var="MESSAGE_COMPLETE_FIELD" scope="request"><spring:message code="M0001"/></c:set>
+    <c:set var="MESSAGE_COMPLETE_NUMBER_GT_0" scope="request"><spring:message code="M0002"/></c:set>
+    <c:set var="MESSAGE_DUPLICATE_LINK" scope="request"><spring:message code="M0003"/></c:set>
+    <c:set var="MESSAGE_DUPLICATE_SEQUENT" scope="request"><spring:message code="M0004"/></c:set>
+    <c:set var="MESSAGE_DUPLICATE_CONTROLLER" scope="request"><spring:message code="M0005"/></c:set>
     
-    <c:set var="MESSAGE_ALERT_MENU_ICON" scope="request"><spring:message text="M0013"/></c:set>
-    <c:set var="MESSAGE_ALERT_MENU_ROLE" scope="request"><spring:message text="M0014"/></c:set>
-    <c:set var="MESSAGE_ALERT_SAVE_COMPLETED" scope="request"><spring:message text="M0006"/></c:set>
-    <c:set var="MESSAGE_ALERT_SAVE_FAILED" scope="request"><spring:message text="M0007"/></c:set>
-    <c:set var="MESSAGE_ALERT_DELETE_COMPLETED" scope="request"><spring:message text="M0008"/></c:set>
-    <c:set var="MESSAGE_ALERT_DELETE_FAILED" scope="request"><spring:message text="M0009"/></c:set>
-    <c:set var="MESSAGE_ALERT_CONFIRM_DELETE" scope="request"><spring:message text="M0010"/></c:set>
-    <c:set var="MESSAGE_ALERT_SELECT_ROW" scope="request"><spring:message text="M0011"/></c:set>
-    <c:set var="MESSAGE_ALERT_RECORD" scope="request"><spring:message text="M0012"/></c:set>
+    <c:set var="MESSAGE_ALERT_MENU_ICON" scope="request"><spring:message code="M0013"/></c:set>
+    <c:set var="MESSAGE_ALERT_MENU_ROLE" scope="request"><spring:message code="M0014"/></c:set>
+    <c:set var="MESSAGE_ALERT_SAVE_COMPLETED" scope="request"><spring:message code="M0006"/></c:set>
+    <c:set var="MESSAGE_ALERT_SAVE_FAILED" scope="request"><spring:message code="M0007"/></c:set>
+    <c:set var="MESSAGE_ALERT_DELETE_COMPLETED" scope="request"><spring:message code="M0008"/></c:set>
+    <c:set var="MESSAGE_ALERT_DELETE_FAILED" scope="request"><spring:message code="M0009"/></c:set>
+    <c:set var="MESSAGE_ALERT_CONFIRM_DELETE" scope="request"><spring:message code="M0010"/></c:set>
+    <c:set var="MESSAGE_ALERT_SELECT_ROW" scope="request"><spring:message code="M0011"/></c:set>
+    <c:set var="MESSAGE_ALERT_RECORD" scope="request"><spring:message code="M0012"/></c:set>
+    <c:set var="MESSAGE_ALERT_NO_CHANGE" scope="request"><spring:message code="M0016"/></c:set>
+    <c:set var="MESSAGE_ALERT_WAS_CHANGED" scope="request"><spring:message code="M0018"/></c:set>
 
     <script>
         var MESSAGE = {};
@@ -62,6 +64,9 @@
         MESSAGE.ALERT_CONFIRM_DELETE = '${MESSAGE_ALERT_CONFIRM_DELETE}';
         MESSAGE.ALERT_SELECT_ROW = '${MESSAGE_ALERT_SELECT_ROW}';
         MESSAGE.ALERT_RECORD = '${MESSAGE_ALERT_RECORD}';
+        
+        MESSAGE.ALERT_NO_CHANGE = '${MESSAGE_ALERT_NO_CHANGE}';
+        MESSAGE.ALERT_WAS_CHANGED = '${MESSAGE_ALERT_WAS_CHANGED}';
 
         LABEL.NO_RESULT = '${LABEL_NO_RESULT}';
     </script>
@@ -279,7 +284,7 @@
                 </div>
                 <div class="modal-footer">
                     <button id="btnSaveAddMenu" type="button" class="btn btn-primary">${BUTTON_SAVE}</button>
-                    <button id="btnCancelAdd" type="button" class="btn btn-danger">${BUTTON_CANCEL}</button>
+                    <button id="btnCancelAdd" type="button" class="btn btn-primary">${BUTTON_CANCEL}</button>
                 </div>
             </div>
         </div>
@@ -380,7 +385,7 @@
                 </div>
                 <div class="modal-footer">
                     <button id="btnSaveEditMenu" type="button" class="btn btn-primary">${BUTTON_SAVE}</button>
-                    <button id="btnCancelEdit" type="button" class="btn btn-danger">${BUTTON_CANCEL}</button>
+                    <button id="btnCancelEdit" type="button" class="btn btn-primary">${BUTTON_CANCEL}</button>
                 </div>
             </div>
         </div>

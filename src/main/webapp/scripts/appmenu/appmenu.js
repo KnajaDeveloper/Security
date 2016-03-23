@@ -94,16 +94,15 @@ $('#btnSaveAddMenu').click(function () {
                 arrRoleId: arrRoleId
             }),
             success: function (data, status, xhr) {
-                if (xhr.status === 200) {
+                if (xhr.status === 201) {
                     if (data.rowCountSameLink > 0) {
-                        $('#txtAddLink').attr('data-content', MESSAGE.DUPLICATE_LINK).popover('show');
+                        bootbox.alert(MESSAGE.DUPLICATE_LINK);
+                    } else if (data.rowCountSameController > 0) {
+                        bootbox.alert(MESSAGE.DUPLICATE_CONTROLLER);
+                    } else if (data.rowCountSameSequent > 0) {
+                        bootbox.alert(MESSAGE.DUPLICATE_SEQUENT);
                     }
-                    if (data.rowCountSameController > 0) {
-                        $('#txtAddController').attr('data-content', MESSAGE.DUPLICATE_CONTROLLER).popover('show');
-                    }
-                    if (data.rowCountSameSequent > 0) {
-                        $('#txtAddSequent').attr('data-content', MESSAGE.DUPLICATE_SEQUENT).popover('show');
-                    }
+
                     if (data.rowCountSameLink == 0 && data.rowCountSameController == 0 && data.rowCountSameSequent == 0) {
                         bootbox.alert(MESSAGE.ALERT_SAVE_COMPLETED);
                         $('#mdAddMenu').modal('hide');
@@ -142,7 +141,15 @@ $('#tbAppMenuLv2').on('click', '[id^=btnEditMenu_]', function () {
 });
 
 $('#btnCancelEdit').click(function () {
-    $('#mdEditMenu').modal('hide');
+    if(checkChangeData()) {
+        bootbox.confirm(MESSAGE.ALERT_WAS_CHANGED, function (result) {
+            if (result) {
+                $('#mdEditMenu').modal('hide');
+            }
+        });
+    } else {
+        $('#mdEditMenu').modal('hide');
+    }
 });
 $('#btnSaveEditMenu').click(function () {
     var id = $('#hiddenEditMenuId').val();
@@ -182,56 +189,60 @@ $('#btnSaveEditMenu').click(function () {
     } else if ($('[id^=chkEditRole_]:checked').length == 0) {
         bootbox.alert(MESSAGE.ALERT_MENU_ROLE);
     } else {
-        $.ajax({
-            type: "POST",
-            contentType: "application/json; charset=UTF-8",
-            dataType: "json",
-            headers: {
-                Accept: "application/json"
-            },
-            url: contextPath + '/appmenus/updateAppMenu',
-            data: JSON.stringify({
-                    menuId: id,
-                    link: link,
-                    menuTh: menuTh,
-                    menuEn: menuEn,
-                    controller: controller,
-                    level: menuLv,
-                    sequent: sequent,
-                    parent: parent,
-                    menuIcon: menuIcon,
-                    roles: roles
-                }
-            ),
-            success: function (data, status, xhr) {
-                if (xhr.status === 200) {
-                    if (data.rowCountSameLink > 0) {
-                        $('#txtEditLink').attr('data-content', MESSAGE.DUPLICATE_LINK).popover('show');
+        if(checkChangeData()) {
+            $.ajax({
+                type: "POST",
+                contentType: "application/json; charset=UTF-8",
+                dataType: "json",
+                headers: {
+                    Accept: "application/json"
+                },
+                url: contextPath + '/appmenus/updateAppMenu',
+                data: JSON.stringify({
+                        menuId: id,
+                        link: link,
+                        menuTh: menuTh,
+                        menuEn: menuEn,
+                        controller: controller,
+                        level: menuLv,
+                        sequent: sequent,
+                        parent: parent,
+                        menuIcon: menuIcon,
+                        roles: roles
                     }
-                    if (data.rowCountSameController > 0) {
-                        $('#txtEditController').attr('data-content', MESSAGE.DUPLICATE_CONTROLLER).popover('show');
-                    }
-                    if (data.rowCountSameSequent > 0) {
-                        $('#txtEditSequent').attr('data-content', MESSAGE.DUPLICATE_SEQUENT).popover('show');
-                    }
-                    if (data.rowCountSameLink == 0 && data.rowCountSameController == 0 && data.rowCountSameSequent == 0) {
-                        bootbox.alert(MESSAGE.ALERT_SAVE_COMPLETED);
-                        $('#mdEditMenu').modal('hide');
-
-                        if (menuLv == 0) {
-                            loadAllMenuLevel_0();
-                        } else if (menuLv == 1) {
-                            loadAllMenuLevel_1();
-                        } else if (menuLv == 2) {
-                            loadAllMenuLevel_2();
+                ),
+                success: function (data, status, xhr) {
+                    if (xhr.status === 200) {
+                        if (data.rowCountSameLink > 0) {
+                            bootbox.alert(MESSAGE.DUPLICATE_LINK);
+                        } else if (data.rowCountSameController > 0) {
+                            bootbox.alert(MESSAGE.DUPLICATE_CONTROLLER);
+                        } else if (data.rowCountSameSequent > 0) {
+                            bootbox.alert(MESSAGE.DUPLICATE_SEQUENT);
                         }
+
+                        if (data.rowCountSameLink == 0 && data.rowCountSameController == 0 && data.rowCountSameSequent == 0) {
+                            bootbox.alert(MESSAGE.ALERT_SAVE_COMPLETED);
+                            $('#mdEditMenu').modal('hide');
+
+                            if (menuLv == 0) {
+                                loadAllMenuLevel_0();
+                            } else if (menuLv == 1) {
+                                loadAllMenuLevel_1();
+                            } else if (menuLv == 2) {
+                                loadAllMenuLevel_2();
+                            }
+                        }
+                    } else {
+                        bootbox.alert(MESSAGE.ALERT_SAVE_FAILED);
                     }
-                } else {
-                    bootbox.alert(MESSAGE.ALERT_SAVE_FAILED);
-                }
-            },
-            async: false
-        });
+                },
+                async: false
+            });
+        }else{
+            bootbox.alert(MESSAGE.ALERT_NO_CHANGE);
+        }
+        
     }
 });
 
@@ -388,11 +399,12 @@ function loadAllRole(idGroupRule, idCheckboxBase) {
 }
 
 function openModalAddMenu(menuLevel) {
-    $('#txtAddLink').val('');
-    $('#txtAddMenuTh').val('');
-    $('#txtAddMenuEn').val('');
-    $('#txtAddController').val('');
-    $('#txtAddSequent').val('');
+    $('#txtAddLink').val('').popover('hide');
+    $('#txtAddMenuTh').val('').popover('hide');
+    $('#txtAddMenuEn').val('').popover('hide');
+    $('#txtAddController').val('').popover('hide');
+    $('#txtAddSequent').val('').popover('hide');
+    $('#ddlAddParent').popover('hide');
 
     if (menuLevel == 0) {
         $('#ddlAddMenuIcon').attr('class', 'fa fa-adjust');
@@ -445,12 +457,12 @@ function openModalEditMenu(menuId, menuLevel) {
     });
 
     $('#hiddenEditMenuId').val(menu.id);
-    $('#txtEditLink').val(menu.link);
-    $('#txtEditMenuTh').val(menu.menu_t_name);
-    $('#txtEditMenuEn').val(menu.menu_e_name);
-    $('#txtEditController').val(menu.controller);
-    $('#txtEditSequent').val(menu.sequent);
-    $('#ddlEditParent').val(menu.parent);
+    $('#txtEditLink').val(menu.link).popover('hide');
+    $('#txtEditMenuTh').val(menu.menu_t_name).popover('hide');
+    $('#txtEditMenuEn').val(menu.menu_e_name).popover('hide');
+    $('#txtEditController').val(menu.controller).popover('hide');
+    $('#txtEditSequent').val(menu.sequent).popover('hide');
+    $('#ddlEditParent').val(menu.parent).popover('hide');
     $('#ddlEditMenuIcon').attr('class', 'fa ' + menu.menuIcon);
     $('[id^=chkEditRole_]').prop('checked', false);                     // clear check
     menu.role.forEach(function (roleId) {                               // loop add check
@@ -476,27 +488,56 @@ function deleteMenu(arrMenuId, menuLv) {
             url: contextPath + '/appmenus/deleteAppMenu',
             data: JSON.stringify(arrMenuId),
             success: function (data, status, xhr) {
-                var notComplete = arrMenuId.length - data;
-                var text = '';
-                if (data > 0)
-                    text = MESSAGE.ALERT_DELETE_COMPLETED +' '+ data +' '+ MESSAGE.ALERT_RECORD;
-                if (notComplete > 0)
-                    text = '<br/>'+ MESSAGE.ALERT_DELETE_FAILED +' '+ notComplete +' '+ MESSAGE.ALERT_RECORD;
+                bootbox.alert(MESSAGE.ALERT_DELETE_COMPLETED);
+                // var notComplete = arrMenuId.length - data;
+                // var text = '';
+                // if (data > 0)
+                //     text = MESSAGE.ALERT_DELETE_COMPLETED +' '+ data +' '+ MESSAGE.ALERT_RECORD;
+                // if (notComplete > 0)
+                //     text = '<br/>'+ MESSAGE.ALERT_DELETE_FAILED +' '+ notComplete +' '+ MESSAGE.ALERT_RECORD;
 
-                bootbox.alert(text);
+                // bootbox.alert(text);
 
-                if (menuLv == 0) {
+                // if (menuLv == 0) {
                     loadAllMenuLevel_0();
-                } else if (menuLv == 1) {
+                // } else if (menuLv == 1) {
                     loadAllMenuLevel_1();
-                } else if (menuLv == 2) {
+                // } else if (menuLv == 2) {
                     loadAllMenuLevel_2();
-                }
+                // }
             },
             async: false
         }
     );
 }
 
+function checkChangeData(){
+    var link = $('#txtEditLink').val();
+    var menuTh = $('#txtEditMenuTh').val();
+    var menuEn = $('#txtEditMenuEn').val();
+    var controller = $('#txtEditController').val();
+    var sequent = $('#txtEditSequent').val();
+    var parent = $('#ddlEditParent').val();
+    var icon = $('#ddlEditMenuIcon').attr('class').split(' ')[1];
+    var roles = [];
+    $('[id^=chkEditRole_]:checked').each(function(){
+        roles.push(this.id.split('_')[0]);
+    });
 
+    var changeRole = false;
+    if(roles.length != _oldMenu.role.length) {
+        changeRole = true;
+    } else {
+        $.each(roles, function(k, v) {
+            if(!$.inArray(v, _oldMenu.role))
+                changeRole = true;
+        });
+    }
+    if(link != _oldMenu.link || menuTh != _oldMenu.menu_t_name || menuEn != _oldMenu.menu_e_name || 
+        controller != _oldMenu.controller || sequent != _oldMenu.sequent || parent != _oldMenu.parent || 
+        icon != _oldMenu.menuIcon || changeRole) {
+        return true;
+    }
+    return false;
+}
 

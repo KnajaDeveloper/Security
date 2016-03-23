@@ -54,10 +54,12 @@ privileged aspect AppRole_Custom_Jpa_ActiveRecord {
         return null;
     }
 
-    public static List<AppRole> AppRole.findByRoleCode(String roleCode) {
+    public static List<AppRole> AppRole.findByRoleCode(String roleCode, Long roleId) {
         EntityManager ent = AppRole.entityManager();
         Criteria criteria = ((Session) ent.getDelegate()).createCriteria(AppRole.class);
         criteria.add(Restrictions.eq("roleCode", roleCode));
+        if(roleId != null)
+            criteria.add(Restrictions.ne("id", roleId));
         return criteria.list();
     }
 

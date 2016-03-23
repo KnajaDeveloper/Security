@@ -59,7 +59,7 @@ privileged aspect AppMenuController_Custom_Controller_Json {
             map.put("rowCountSameController", rowCountSameController);
             map.put("rowCountSameSequent", rowCountSameSequent);
 
-            return new ResponseEntity<String>(new JSONSerializer().exclude("*.class").deepSerialize(map), headers, HttpStatus.OK);
+            return new ResponseEntity<String>(new JSONSerializer().exclude("*.class").deepSerialize(map), headers, HttpStatus.CREATED);
 
         } catch (Exception e) {
 //            LOGGER.debug("error " + e);
@@ -244,25 +244,11 @@ privileged aspect AppMenuController_Custom_Controller_Json {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json;charset=UTF-8");
         try {
-            List<AppRole> listAppRole = AppRole.findByRoleCode(appRoleCode);
+            List<AppRole> listAppRole = AppRole.findByRoleCode(appRoleCode, null);
             AppRole appRole = listAppRole.get(0);
             List<AppMenu> listAppMenu = AppMenu.findAppMenuByRole(appRole.getId());
 
             List<Map<String, Object>> result = new ArrayList<>();
-            // for(AppMenu appMenu : listAppMenu) {
-            //     Map<String, Object> map = new HashMap<>();
-            //     map.put("id", appMenu.getId());
-            //     map.put("controller", appMenu.getController());
-            //     map.put("link", appMenu.getLink());
-            //     map.put("menuLevel", appMenu.getMenuLevel());
-            //     map.put("menu_e_name", appMenu.getMenu_e_name());
-            //     map.put("menu_t_name", appMenu.getMenu_t_name());
-            //     map.put("parent", appMenu.getParent());
-            //     map.put("sequent", appMenu.getSegment());
-            //     map.put("menuIcon", null);
-
-            //     result.add(map);
-            // }
 
             return new ResponseEntity<String>(new JSONSerializer().exclude("*.class").deepSerialize(listAppMenu), headers, HttpStatus.OK);
         } catch (Exception e) {
