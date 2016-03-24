@@ -14,7 +14,10 @@
         http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
     <http entry-point-ref="casEntryPoint">
-
+        <intercept-url pattern="/login/getUserName/**" access="permitAll or isAuthenticated()" />
+        <intercept-url pattern="/login/setSessionLogin/**" access="permitAll or isAuthenticated()" />
+        <intercept-url pattern="/approles/findSecurityAppRoleName/**" access="permitAll or isAuthenticated()" />
+        <intercept-url pattern="/appmenus/findMenuByAppRoleCode/**" access="permitAll or isAuthenticated()" />
         <!-- <intercept-url pattern="/caevauserforms/findFormFormEvaOrApprove/**" access="permitAll or isAuthenticated()" />
         <intercept-url pattern="/caevauserforms/findCaEvaUserFormByEmpCode/**" access="permitAll or isAuthenticated()" />
         <intercept-url pattern="/caevauserforms/findCaEvaTemplateMinerByYear/**" access="permitAll or isAuthenticated()" />
