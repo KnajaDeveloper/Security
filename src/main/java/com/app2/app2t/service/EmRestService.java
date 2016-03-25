@@ -7,7 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.app2.app2t.util.AuthorizeUtil;
-
+import org.json.JSONArray;
+import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -116,6 +117,23 @@ public class EmRestService extends AbstractAPP2Service {
         } catch (Exception e) {
             LOGGER.error("Error : {}", e.getMessage());
             return null;
+        }
+    }
+
+    public List<String> getRoleCodeInUsed() {
+        List<String> listRoleCode = new ArrayList<>();
+        try {
+            setWebServicesString("http://" + this.APP2Server + "/employees/findRoleCodeInUsed");
+            if (!getResultString().equals("[]")) {
+                JSONArray jArray = new JSONArray(getResultString());
+                for(int i = 0; i < jArray.length(); i++) {
+                    listRoleCode.add(jArray.getString(i));
+                }
+            }
+            return listRoleCode;
+        } catch (Exception e) {
+            LOGGER.error("Error : {}", e.getMessage());
+            return listRoleCode;
         }
     }
 

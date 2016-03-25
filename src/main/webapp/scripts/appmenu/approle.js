@@ -1,7 +1,9 @@
 var _language = commonData.language;
 var pagginationAppRole = $.extend({}, UtilPaggination);
+var _roleCodeInUsed = [];
 
 $(document).ready(function () {
+    loadRoleCodeInUsed();
     loadAllAppRole();
 });
 
@@ -109,17 +111,16 @@ $('#ResultAppRole').on('change', '[constraint=false]', function () {
 pagginationAppRole.setEventPaggingBtn("paggingAppRole", pagginationAppRole);
 pagginationAppRole.loadTable = function loadTable(jsonData) {
     $('#ResultAppRole').empty();
-
+    $('#chkCheckAll').prop('checked', false);
+    
     if (jsonData.length <= 0) {
         $('#ResultAppRole').append('<tr><td class="text-center" colspan="8">' + LABEL.NO_RESULT + '</td></tr>');
     } else {
         $('#ResultAppRole').empty();
         jsonData.forEach(function (v) {
-            $('#chkCheckAll').prop('checked', false);
-
             $('#ResultAppRole').append('<tr>' +
                 '<td class="text-center">' +
-                '<input type="checkbox" name="chkRole" roleId="'+v.id+'" constraint="' + v.constraint + '" />' +
+                '<input type="checkbox" name="chkRole" roleId="'+v.id+'" constraint="' + (v.constraint || $.inArray(v.roleCode, _roleCodeInUsed) >= 0 ) + '" />' +
                 '</td>' +
                 '<td class="text-center">' +
                 '<button name="btnEditRole" roleId="' + v.id + '" type="button" class="btn btn-xs btn-info"><span class="glyphicon glyphicon-pencil"><span/></button>' +
@@ -145,6 +146,7 @@ function loadAllAppRole() {
 }
 
 function openModalAddRole() {
+    $('#txtRoleCode').removeAttr('readonly');
     $('#txtRoleCode').val('').popover('hide');
     $('#txtRoleName').val('').popover('hide');
 
@@ -156,7 +158,8 @@ function openModalAddRole() {
     focus1stElement('txtRoleCode');
 }
 
-function openModalEditRole(roleId, roleCode, roleName) {    
+function openModalEditRole(roleId, roleCode, roleName) { 
+    $('#txtRoleCode').attr('readonly', 'readonly');   
     $('#txtRoleCode').val(roleCode).popover('hide');
     $('#txtRoleName').val(roleName).popover('hide');
 
@@ -167,7 +170,7 @@ function openModalEditRole(roleId, roleCode, roleName) {
 
     $('#modalRole').modal({backdrop: 'static'});
 
-    focus1stElement('txtRoleCode');
+    focus1stElement('txtRoleName');
 }
 
 function saveAddRole(roleCode, roleName) {
@@ -259,4 +262,22 @@ function focus1stElement(elementId) {
     setTimeout(function () {
         $('#' + elementId).focus();
     }, 200);
+}
+
+function loadRoleCodeInUsed(){
+    $.ajax({
+        type: "GET",
+        contentType: "application/json; charset=UTF-8",
+        dataType: "json",
+        headers: {
+            Accept: "application/json"
+        },
+        url: contextPath + '/approles/findRoleCodeInUsed',
+        success: function (data, status, xhr) {
+            if (xhr.status == 200) {
+                _roleCodeInUsed = data;
+            }
+        },
+        async: false
+    });
 }
