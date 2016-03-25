@@ -3,14 +3,12 @@ var pagginationAppMenuLv0 = $.extend({}, UtilPaggination);
 pagginationAppMenuLv0.setEventPaggingBtn("paggingAppMenuLv0", pagginationAppMenuLv0);
 pagginationAppMenuLv0.loadTable = function loadTable(jsonData) {
     $('#tbAppMenuLv0').empty();
-
+    $('#chkCheckAllLv0').prop('checked', false);
+    
     if (jsonData.length <= 0) {
         $('#tbAppMenuLv0').append('<tr><td class="text-center" colspan="8">' + LABEL.NO_RESULT + '</td></tr>');
     } else {
         jsonData.forEach(function (v) {
-
-            $('#chkCheckAllLv0').prop('checked', false);
-
             $('#tbAppMenuLv0').append('<tr>' +
                 '<td class="text-center">' +
                 '<input type="checkbox" id="chkMenuLv0_' + v.id + '"/>' +

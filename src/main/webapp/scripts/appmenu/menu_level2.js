@@ -3,7 +3,8 @@ var pagginationAppMenuLv2 = $.extend({}, UtilPaggination);
 pagginationAppMenuLv2.setEventPaggingBtn("paggingAppMenuLv2", pagginationAppMenuLv2);
 pagginationAppMenuLv2.loadTable = function loadTable(jsonData) {
     $('#tbAppMenuLv2').empty();
-
+    $('#chkCheckAllLv2').prop('checked', false);
+    
     if (jsonData.length <= 0) {
         $('#tbAppMenuLv2').append('<tr><td class="text-center" colspan="8">' + LABEL.NO_RESULT + '</td></tr>');
     } else {
@@ -16,8 +17,6 @@ pagginationAppMenuLv2.loadTable = function loadTable(jsonData) {
                     parentMenuName = v.parent_e_name;
                 }
             }
-
-            $('#chkCheckAllLv2').prop('checked', false);
 
             $('#tbAppMenuLv2').append('<tr>' +
                 '<td class="text-center">' +

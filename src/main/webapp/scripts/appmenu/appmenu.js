@@ -489,22 +489,9 @@ function deleteMenu(arrMenuId, menuLv) {
             data: JSON.stringify(arrMenuId),
             success: function (data, status, xhr) {
                 bootbox.alert(MESSAGE.ALERT_DELETE_COMPLETED);
-                // var notComplete = arrMenuId.length - data;
-                // var text = '';
-                // if (data > 0)
-                //     text = MESSAGE.ALERT_DELETE_COMPLETED +' '+ data +' '+ MESSAGE.ALERT_RECORD;
-                // if (notComplete > 0)
-                //     text = '<br/>'+ MESSAGE.ALERT_DELETE_FAILED +' '+ notComplete +' '+ MESSAGE.ALERT_RECORD;
-
-                // bootbox.alert(text);
-
-                // if (menuLv == 0) {
-                    loadAllMenuLevel_0();
-                // } else if (menuLv == 1) {
-                    loadAllMenuLevel_1();
-                // } else if (menuLv == 2) {
-                    loadAllMenuLevel_2();
-                // }
+                loadAllMenuLevel_0();
+                loadAllMenuLevel_1();
+                loadAllMenuLevel_2();
             },
             async: false
         }
