@@ -6,7 +6,7 @@ pagginationAppMenuLv1.loadTable = function loadTable(jsonData) {
     $('#chkCheckAllLv1').prop('checked', false);
     
     if (jsonData.length <= 0) {
-        $('#tbAppMenuLv1').append('<tr><td class="text-center" colspan="8">' + LABEL.NO_RESULT + '</td></tr>');
+        //$('#tbAppMenuLv1').append('<tr><td class="text-center" colspan="8">' + LABEL.NO_RESULT + '</td></tr>');
     } else {
         jsonData.forEach(function (v) {
             var parentMenuName = 'ไม่มี';

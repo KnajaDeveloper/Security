@@ -73,7 +73,7 @@
                                     <th width="45%" class="text-center">${LABEL_ROLE_NAME}</th>
                                 </tr>
                             </thead>
-                            <tbody id="ResultAppRole" style="cursor:pointer"></tbody>
+                            <tbody id="ResultAppRole"></tbody>
                         </table>
                     </div>
                     <div class="form-horizontal">
