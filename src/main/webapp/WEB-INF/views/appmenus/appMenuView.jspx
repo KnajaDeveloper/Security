@@ -99,7 +99,7 @@
                             <th width="20%" class="text-center">${LABEL_CONTROLLER}</th>
                         </tr>
                         </thead>
-                        <tbody id="tbAppMenuLv0" style="cursor:pointer"></tbody>
+                        <tbody id="tbAppMenuLv0"></tbody>
                     </table>
                 </div>
                 <div class="form-horizontal">
@@ -139,7 +139,7 @@
                             <th width="20%" class="text-center">${LABEL_PARENT}</th>
                         </tr>
                         </thead>
-                        <tbody id="tbAppMenuLv1" style="cursor:pointer"></tbody>
+                        <tbody id="tbAppMenuLv1"></tbody>
                     </table>
                 </div>
                 <div class="form-horizontal">
@@ -179,7 +179,7 @@
                             <th width="20%" class="text-center">${LABEL_PARENT}</th>
                         </tr>
                         </thead>
-                        <tbody id="tbAppMenuLv2" style="cursor:pointer"></tbody>
+                        <tbody id="tbAppMenuLv2"></tbody>
                     </table>
                 </div>
                 <div class="form-horizontal">

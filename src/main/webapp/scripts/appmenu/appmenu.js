@@ -508,7 +508,7 @@ function checkChangeData(){
     var icon = $('#ddlEditMenuIcon').attr('class').split(' ')[1];
     var roles = [];
     $('[id^=chkEditRole_]:checked').each(function(){
-        roles.push(this.id.split('_')[0]);
+        roles.push(this.id.split('_')[1]);
     });
 
     var changeRole = false;
