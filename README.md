@@ -1,3 +1,3 @@
 # Security
-mvn clean compile -Djetty.port=8080 jetty:run
+mvn clean compile -Djetty.port=8082 jetty:run
 
