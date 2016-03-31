@@ -29,6 +29,9 @@ pagginationAppMenuLv0.loadTable = function loadTable(jsonData) {
 };
 
 function loadAllMenuLevel_0() {
+    var pageNo = $('#paggingAppMenuLv0CurrentPage').val();
+    if(pageNo == 0)
+        pageNo = 1;
 
     pagginationAppMenuLv0.setOptionJsonData({
         url: contextPath + "/appmenus/findPaggingDataAppMenu",
@@ -39,6 +42,8 @@ function loadAllMenuLevel_0() {
         data: {level: 0}
     });
     pagginationAppMenuLv0.search(pagginationAppMenuLv0);
+
+    pagginationAppMenuLv0.loadPage(pageNo, pagginationAppMenuLv0);
 }
 
 
