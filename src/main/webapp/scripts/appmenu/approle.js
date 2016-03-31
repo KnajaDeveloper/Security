@@ -88,10 +88,20 @@ $('#btnDeleteRole').click(function () {
 
 // Checkbox management -------------------------------------------------------------------------------------------------
 $('#chkCheckAll').change(function () {
-    if($(this).prop('checked'))
-        $('[constraint=false]').prop('checked', true);
-    else
-        $('[constraint]').prop('checked', false);
+    var chkAllowCheck = $('[constraint=false]');
+    var chkTotal = $('[constraint]');
+
+    if($(this).prop('checked')) {
+        if(chkAllowCheck.length == 0){
+            $(this).prop('checked', false);
+            alert('No data to delete');
+        }else{
+            chkAllowCheck.prop('checked', true);    
+        }
+    }else{
+        chkTotal.prop('checked', false);
+    }
+
 });
 $('#ResultAppRole').on('change', '[constraint=true]', function () {
     bootbox.alert(MESSAGE.ALERT_DATA_IN_USED);
@@ -190,7 +200,11 @@ function saveAddRole(roleCode, roleName) {
             if (xhr.status == 201) {
                 bootbox.alert(MESSAGE.ALERT_SAVE_COMPLETED);
                 $('#modalRole').modal('hide');
+
+                var pageNo = $('#paggingAppRoleCurrentPage').val();
                 loadAllAppRole();
+                pagginationAppRole.loadPage(pageNo, pagginationAppRole);
+
             } else if(xhr.status == 200) {
                 bootbox.alert(MESSAGE.ALERT_DUPLICATE_ROLE_CODE);
             } else {
@@ -219,7 +233,11 @@ function saveEditRole(roleId, roleCode, roleName) {
             if (xhr.status == 201) {
                 bootbox.alert(MESSAGE.ALERT_SAVE_COMPLETED);
                 $('#modalRole').modal('hide');
+                
+                var pageNo = $('#paggingAppRoleCurrentPage').val();
                 loadAllAppRole();
+                pagginationAppRole.loadPage(pageNo, pagginationAppRole);
+
             } else if (xhr.status == 200) {
                 bootbox.alert(MESSAGE.ALERT_DUPLICATE_ROLE_CODE);
             } else {
@@ -251,7 +269,10 @@ function deleteRole(arrRoleId) {
                     text = '<br/>'+ MESSAGE.ALERT_DELETE_FAILED +' '+ notComplete +' '+ MESSAGE.ALERT_RECORD;
 
                 bootbox.alert(text);
+
+                var pageNo = $('#paggingAppRoleCurrentPage').val();
                 loadAllAppRole();
+                pagginationAppRole.loadPage(pageNo, pagginationAppRole);
             },
             async: false
         }

@@ -2,6 +2,7 @@ var _language = commonData.language;
 var _oldMenu;
 
 $(document).ready(function () {
+    
     loadAllMenuLevel_0();
     loadAllMenuLevel_1();
     loadAllMenuLevel_2();
