@@ -8,13 +8,13 @@
         <field:input field="status" id="c_com_app2_app2t_domain_security_AppMenu_status" z="zeWkKm5cHGgKZVJX/ClYmUHH15A="/>
         <field:datetime dateTimePattern="${appMenu_createddate_date_format}" field="createdDate" id="c_com_app2_app2t_domain_security_AppMenu_createdDate" z="IshsmeyZRI8Tw8+W4RSnsnAnP1A="/>
         <field:datetime dateTimePattern="${appMenu_updateddate_date_format}" field="updatedDate" id="c_com_app2_app2t_domain_security_AppMenu_updatedDate" z="4AroL3Z6YP3sCVODuZYPGSwQWAY="/>
-        <field:input field="link" id="c_com_app2_app2t_domain_security_AppMenu_link" z="b6KwfXQ/4At7KBsZ55OAygR9cNg="/>
-        <field:input field="controller" id="c_com_app2_app2t_domain_security_AppMenu_controller" z="M7ULpWH6YRXFY8kyrRidggjhBFU="/>
+        <field:textarea field="link" id="c_com_app2_app2t_domain_security_AppMenu_link" z="GpGl//669u82YsMNCBcVFGYC8gg="/>
+        <field:textarea field="controller" id="c_com_app2_app2t_domain_security_AppMenu_controller" z="kPlv8ddug+ydrVxmq9K+IkGgcLw="/>
         <field:input field="menuLevel" id="c_com_app2_app2t_domain_security_AppMenu_menuLevel" validationMessageCode="field_invalid_integer" z="wbF9SUCXrTvmftdg+9eCOKbsVUY="/>
         <field:input field="segment" id="c_com_app2_app2t_domain_security_AppMenu_segment" validationMessageCode="field_invalid_integer" z="ivF7S1iyu8JxB5V0kxXPHDy7cds="/>
         <field:input field="parent" id="c_com_app2_app2t_domain_security_AppMenu_parent" validationMessageCode="field_invalid_integer" z="ZHI7Ce1LcI22NPRUfgO7CzoysII="/>
-        <field:input field="menu_t_name" id="c_com_app2_app2t_domain_security_AppMenu_menu_t_name" z="JCBCfvTMER1VG9L3m5Tsc2p6mnQ="/>
-        <field:input field="menu_e_name" id="c_com_app2_app2t_domain_security_AppMenu_menu_e_name" z="EKoXGDpYRDm4NJ5cP/R9Xl4EJOA="/>
-        <field:input field="menuIcon" id="c_com_app2_app2t_domain_security_AppMenu_menuIcon" z="Ng4IyItkrNXBrsx5ZWoop27J3ZE="/>
+        <field:textarea field="menu_t_name" id="c_com_app2_app2t_domain_security_AppMenu_menu_t_name" z="xLnsuuxlfO5hnccZR5SPckCVjVk="/>
+        <field:textarea field="menu_e_name" id="c_com_app2_app2t_domain_security_AppMenu_menu_e_name" z="+bCFSbyE5CRKxeTJLi5wXX6/NJU="/>
+        <field:textarea field="menuIcon" id="c_com_app2_app2t_domain_security_AppMenu_menuIcon" z="38x+bzOheSGm9185EXKxGw5XkJw="/>
     </form:update>
 </div>

@@ -4,9 +4,9 @@ pagginationAppMenuLv2.setEventPaggingBtn("paggingAppMenuLv2", pagginationAppMenu
 pagginationAppMenuLv2.loadTable = function loadTable(jsonData) {
     $('#tbAppMenuLv2').empty();
     $('#chkCheckAllLv2').prop('checked', false);
-    
+
     if (jsonData.length <= 0) {
-        //$('#tbAppMenuLv2').append('<tr><td class="text-center" colspan="8">' + LABEL.NO_RESULT + '</td></tr>');
+        $('#tbAppMenuLv2').append('<tr><td class="text-center" colspan="8">' + LABEL.NO_RESULT + '</td></tr>');
     } else {
         jsonData.forEach(function (v) {
             var parentMenuName = 'ไม่มี';

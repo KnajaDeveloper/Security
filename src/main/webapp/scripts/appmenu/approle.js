@@ -31,7 +31,7 @@ $('#btnCancel').click(function () {
     if(mode == 'edit' && (roleCode != roleCodeOld || roleName != roleNameOld)) {
         bootbox.confirm(MESSAGE.ALERT_WAS_CHANGED, function (result) {
             if (result) {
-                $('#modalRole').modal('hide');        
+                $('#modalRole').modal('hide');
             }
         });
     } else {
@@ -59,7 +59,7 @@ $('#btnSaveRole').click(function() {
             if(roleCode == roleCodeOld && roleName == roleNameOld) {
                 bootbox.alert(MESSAGE.ALERT_NO_CHANGE);
             } else {
-                saveEditRole(roleId, roleCode, roleName);    
+                saveEditRole(roleId, roleCode, roleName);
             }
         } else {
             console.log('mode = ' + mode);
@@ -96,7 +96,7 @@ $('#chkCheckAll').change(function () {
             $(this).prop('checked', false);
             alert('No data to delete');
         }else{
-            chkAllowCheck.prop('checked', true);    
+            chkAllowCheck.prop('checked', true);
         }
     }else{
         chkTotal.prop('checked', false);
@@ -122,7 +122,7 @@ pagginationAppRole.setEventPaggingBtn("paggingAppRole", pagginationAppRole);
 pagginationAppRole.loadTable = function loadTable(jsonData) {
     $('#ResultAppRole').empty();
     $('#chkCheckAll').prop('checked', false);
-    
+
     if (jsonData.length <= 0) {
         $('#ResultAppRole').append('<tr><td class="text-center" colspan="8">' + LABEL.NO_RESULT + '</td></tr>');
     } else {
