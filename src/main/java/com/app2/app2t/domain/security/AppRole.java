@@ -5,6 +5,8 @@ import org.springframework.roo.addon.jpa.activerecord.RooJpaActiveRecord;
 import org.springframework.roo.addon.tostring.RooToString;
 import org.springframework.roo.addon.json.RooJson;
 
+import javax.persistence.Column;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @RooJavaBean
@@ -15,11 +17,15 @@ public class AppRole extends BaseEntity {
 
     /**
      */
-    @Size(max = 40)
+    @NotNull
+    @Column(unique = true)
+    @Size(max = 255)
     private String roleName;
 
     /**
      */
-    @Size(max = 15)
+    @NotNull
+    @Column(unique = true)
+    @Size(max = 255)
     private String roleCode;
 }
