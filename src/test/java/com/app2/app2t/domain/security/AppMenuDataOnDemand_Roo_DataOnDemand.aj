@@ -45,6 +45,9 @@ privileged aspect AppMenuDataOnDemand_Roo_DataOnDemand {
     
     public void AppMenuDataOnDemand.setController(AppMenu obj, int index) {
         String controller = "controller_" + index;
+        if (controller.length() > 100) {
+            controller = controller.substring(0, 100);
+        }
         obj.setController(controller);
     }
     
@@ -60,11 +63,17 @@ privileged aspect AppMenuDataOnDemand_Roo_DataOnDemand {
     
     public void AppMenuDataOnDemand.setLink(AppMenu obj, int index) {
         String link = "link_" + index;
+        if (link.length() > 100) {
+            link = link.substring(0, 100);
+        }
         obj.setLink(link);
     }
     
     public void AppMenuDataOnDemand.setMenuIcon(AppMenu obj, int index) {
         String menuIcon = "menuIcon_" + index;
+        if (menuIcon.length() > 40) {
+            menuIcon = menuIcon.substring(0, 40);
+        }
         obj.setMenuIcon(menuIcon);
     }
     
@@ -75,11 +84,17 @@ privileged aspect AppMenuDataOnDemand_Roo_DataOnDemand {
     
     public void AppMenuDataOnDemand.setMenu_e_name(AppMenu obj, int index) {
         String menu_e_name = "menu_e_name_" + index;
+        if (menu_e_name.length() > 40) {
+            menu_e_name = menu_e_name.substring(0, 40);
+        }
         obj.setMenu_e_name(menu_e_name);
     }
     
     public void AppMenuDataOnDemand.setMenu_t_name(AppMenu obj, int index) {
         String menu_t_name = "menu_t_name_" + index;
+        if (menu_t_name.length() > 40) {
+            menu_t_name = menu_t_name.substring(0, 40);
+        }
         obj.setMenu_t_name(menu_t_name);
     }
     

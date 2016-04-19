@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 @RooWebScaffold(path = "approles", formBackingObject = AppRole.class)
 @RooWebJson(jsonObject = AppRole.class)
 public class AppRoleController {
-	@Autowired
+
+    @Autowired
     EmRestService emRestService;
 }
