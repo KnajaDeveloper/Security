@@ -45,7 +45,7 @@ public class AppMenu extends BaseEntity {
 
     /**
      */
-    @Digits(integer= 10, fraction = 0)
+    @Digits(integer= 19, fraction = 0)
     @NotNull
     private Long parent;
 
