@@ -16,7 +16,7 @@
     <c:set var="BUTTON_CANCEL" scope="request"><spring:message code="B0004"/></c:set>
 
     <c:set var="MESSAGE_COMPLETE_FIELD" scope="request"><spring:message code="M0001"/></c:set>
-    
+
     <c:set var="MESSAGE_ALERT_SAVE_COMPLETED" scope="request"><spring:message code="M0006"/></c:set>
     <c:set var="MESSAGE_ALERT_SAVE_FAILED" scope="request"><spring:message code="M0007"/></c:set>
     <c:set var="MESSAGE_ALERT_DELETE_COMPLETED" scope="request"><spring:message code="M0008"/></c:set>
@@ -100,7 +100,8 @@
                             <label class="control-label col-xs-4 required">${LABEL_ROLE_CODE} </label>
                             <div class="col-xs-6">
                                 <input id="txtRoleCode" type="text" class="form-control"
-                                   data-placement="bottom" data-content=""/>
+                                   data-placement="bottom" data-content=""
+                                   maxlength="255"/>
                             </div>
                         </div>
                         <!-- Role name -->
@@ -108,7 +109,8 @@
                             <label class="control-label col-xs-4 required">${LABEL_ROLE_NAME} </label>
                             <div class="col-xs-6">
                                 <input id="txtRoleName" type="text" class="form-control"
-                                   data-placement="bottom" data-content=""/>
+                                   data-placement="bottom" data-content=""
+                                   maxlength="255"/>
                             </div>
                         </div>
                     </div>
