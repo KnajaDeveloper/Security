@@ -1,6 +1,7 @@
 package com.app2.app2t.service;
 
 // import com.spt.cas.doamin.Simple;
+import com.app2.app2t.util.AuthorizeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +24,10 @@ public class UserService implements AuthenticationUserDetailsService {
 
     @Override
     public UserDetails loadUserDetails(Authentication token) throws UsernameNotFoundException {
-        logger.debug("-= loadUserDetails [{}]=-",token);
+        logger.debug("-= loadUserDetails [{}]=-", token);
 
         User user = new User(token.getName(), "password", this.getAuthorities());
+        AuthorizeUtil.setUserName(token.getName());
         return user;
     }
 
