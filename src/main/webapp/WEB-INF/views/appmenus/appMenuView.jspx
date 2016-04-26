@@ -32,7 +32,7 @@
     <c:set var="MESSAGE_DUPLICATE_LINK" scope="request"><spring:message code="M0003"/></c:set>
     <c:set var="MESSAGE_DUPLICATE_SEQUENT" scope="request"><spring:message code="M0004"/></c:set>
     <c:set var="MESSAGE_DUPLICATE_CONTROLLER" scope="request"><spring:message code="M0005"/></c:set>
-    
+
     <c:set var="MESSAGE_ALERT_MENU_ICON" scope="request"><spring:message code="M0013"/></c:set>
     <c:set var="MESSAGE_ALERT_MENU_ROLE" scope="request"><spring:message code="M0014"/></c:set>
     <c:set var="MESSAGE_ALERT_SAVE_COMPLETED" scope="request"><spring:message code="M0006"/></c:set>
@@ -54,7 +54,7 @@
         MESSAGE.DUPLICATE_LINK = '${MESSAGE_DUPLICATE_LINK}';
         MESSAGE.DUPLICATE_SEQUENT = '${MESSAGE_DUPLICATE_SEQUENT}';
         MESSAGE.DUPLICATE_CONTROLLER = '${MESSAGE_DUPLICATE_CONTROLLER}';
-        
+
         MESSAGE.ALERT_MENU_ICON = '${MESSAGE_ALERT_MENU_ICON}';
         MESSAGE.ALERT_MENU_ROLE = '${MESSAGE_ALERT_MENU_ROLE}';
         MESSAGE.ALERT_SAVE_COMPLETED = '${MESSAGE_ALERT_SAVE_COMPLETED}';
@@ -64,7 +64,7 @@
         MESSAGE.ALERT_CONFIRM_DELETE = '${MESSAGE_ALERT_CONFIRM_DELETE}';
         MESSAGE.ALERT_SELECT_ROW = '${MESSAGE_ALERT_SELECT_ROW}';
         MESSAGE.ALERT_RECORD = '${MESSAGE_ALERT_RECORD}';
-        
+
         MESSAGE.ALERT_NO_CHANGE = '${MESSAGE_ALERT_NO_CHANGE}';
         MESSAGE.ALERT_WAS_CHANGED = '${MESSAGE_ALERT_WAS_CHANGED}';
 
@@ -82,7 +82,7 @@
                 <div class="form-group">
                     <button id="btnAddMenuLv0" class="btn btn-primary" type="button">${BUTTON_ADD_MENU}</button>
                     <button id="btnDeleteMenuLv0" class="btn btn-danger" type="button" style="margin-left: 5px;">${BUTTON_DELETE_MENU}</button>
-                </div>  
+                </div>
                 <div class="table-responsive">
                     <table class="table table-bordered table-stripted table-hover">
                         <thead>
@@ -206,7 +206,8 @@
 
                             <div class="col-xs-6">
                                 <input id="txtAddLink" type="text" class="form-control"
-                                       data-placement="bottom" data-content=""/>
+                                       data-placement="bottom" data-content=""
+                                       maxlength="255"/>
                             </div>
                         </div>
                         <!-- Menu thai -->
@@ -215,7 +216,8 @@
 
                             <div class="col-xs-6">
                                 <input id="txtAddMenuTh" type="text" class="form-control"
-                                       data-placement="bottom" data-content=""/>
+                                       data-placement="bottom" data-content=""
+                                       maxlength="255"/>
                             </div>
                         </div>
                         <!-- Menu english -->
@@ -224,7 +226,8 @@
 
                             <div class="col-xs-6">
                                 <input id="txtAddMenuEn" type="text" class="form-control"
-                                       data-placement="bottom" data-content=""/>
+                                       data-placement="bottom" data-content=""
+                                       maxlength="255"/>
                             </div>
                         </div>
                         <!-- Controller -->
@@ -233,7 +236,8 @@
 
                             <div class="col-xs-6">
                                 <input id="txtAddController" type="text" class="form-control"
-                                       data-placement="bottom" data-content=""/>
+                                       data-placement="bottom" data-content=""
+                                       maxlength="255"/>
                             </div>
                         </div>
                         <!-- Sequent -->
@@ -242,7 +246,8 @@
 
                             <div class="col-xs-6">
                                 <input id="txtAddSequent" type="text" class="form-control"
-                                       data-placement="bottom" data-content=""/>
+                                       data-placement="bottom" data-content=""
+                                       maxlength="3"/>
                             </div>
                         </div>
                         <!-- Parent -->
@@ -307,7 +312,8 @@
 
                             <div class="col-xs-6">
                                 <input id="txtEditLink" type="text" class="form-control"
-                                       data-placement="bottom" data-content=""/>
+                                       data-placement="bottom" data-content=""
+                                       maxlength="255"/>
                             </div>
                         </div>
                         <!-- Menu thai -->
@@ -316,7 +322,8 @@
 
                             <div class="col-xs-6">
                                 <input id="txtEditMenuTh" type="text" class="form-control"
-                                       data-placement="bottom" data-content=""/>
+                                       data-placement="bottom" data-content=""
+                                       maxlength="255"/>
                             </div>
                         </div>
                         <!-- Menu english -->
@@ -325,7 +332,8 @@
 
                             <div class="col-xs-6">
                                 <input id="txtEditMenuEn" type="text" class="form-control"
-                                       data-placement="bottom" data-content=""/>
+                                       data-placement="bottom" data-content=""
+                                       maxlength="255"/>
                             </div>
                         </div>
                         <!-- Controller -->
@@ -334,7 +342,8 @@
 
                             <div class="col-xs-6">
                                 <input id="txtEditController" type="text" class="form-control"
-                                       data-placement="bottom" data-content=""/>
+                                       data-placement="bottom" data-content=""
+                                       maxlength="255"/>
                             </div>
                         </div>
                         <!-- Sequent -->
@@ -343,7 +352,8 @@
 
                             <div class="col-xs-6">
                                 <input id="txtEditSequent" type="text" class="form-control"
-                                       data-placement="bottom" data-content=""/>
+                                       data-placement="bottom" data-content=""
+                                       maxlength="3"/>
                             </div>
                         </div>
                         <!-- Parent -->
@@ -394,7 +404,7 @@
     <script>
         var contextPath = '${pageContext.request.contextPath}';
     </script>
-    
+
     <spring:url value="/resources/scripts/component/UtilPagination.js" var="UtilPagination"/>
     <script src="${UtilPagination}" type="text/javascript"><!--Not Empty --></script>
     <spring:url value="/resources/scripts/appmenu/menu_level0.js" var="menu_level0"/>
