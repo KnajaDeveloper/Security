@@ -1,6 +1,7 @@
 package com.app2.app2t.manualtest;
 
 import com.app2.app2t.domain.security.AppRole;
+import com.app2.app2t.util.AuthorizeUtil;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.junit.After;
@@ -47,6 +48,8 @@ public class AppRoleTest {
     @Before
     public void setup() throws Exception {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
+        AuthorizeUtil.setUserName("admin");
+
         insertDataToAppRole("ADMIN", "Administrator");
         insertDataToAppRole("EM", "Employee");
         insertDataToAppRole("PM", "Project manager");

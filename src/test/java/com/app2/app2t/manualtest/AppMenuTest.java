@@ -3,6 +3,7 @@ package com.app2.app2t.manualtest;
 import com.app2.app2t.domain.security.AppMenu;
 import com.app2.app2t.domain.security.AppRole;
 import com.app2.app2t.domain.security.AppRoleMenu;
+import com.app2.app2t.util.AuthorizeUtil;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.junit.After;
@@ -49,6 +50,8 @@ public class AppMenuTest {
     @Before
     public void setup() throws Exception {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
+        AuthorizeUtil.setUserName("admin");
+
         AppRole appRole1 = insertDataToAppRole("ADMIN", "Administrator");
         AppRole appRole2 = insertDataToAppRole("EM", "Employee");
 
@@ -571,7 +574,7 @@ public class AppMenuTest {
     @Test
     public void insertAppMenuLv1Test() throws Exception {
         MvcResult mvcResult = this.mockMvc.perform(post("/appmenus/insertAppMenu")
-                        .content("{\"link\":\"Link - 1_4\",\"menuTh\":\"menu th 1_4\",\"menuEn\":\"Menu 1_4\",\"controller\":\"Controller - 1_4\",\"level\":\"1\",\"sequent\":\"7\",\"parent\":\"1\",\"menuIcon\":\"\",\"arrRoleId\":[\"1\", \"2\"]}")
+                        .content("{\"link\":\"Link - 1_4\",\"menuTh\":\"menu th 1_4\",\"menuEn\":\"Menu 1_4\",\"controller\":\"Controller - 1_4\",\"level\":\"1\",\"sequent\":\"4\",\"parent\":\"1\",\"menuIcon\":\"\",\"arrRoleId\":[\"1\", \"2\"]}")
         ).andDo(print())
                 .andExpect(status().isCreated())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
@@ -590,20 +593,23 @@ public class AppMenuTest {
                 .andExpect(jsonPath("$.menuIcon", is("")))
                 .andExpect(jsonPath("$.menuLevel", is(1)))
                 .andExpect(jsonPath("$.menu_e_name", is("Menu 1_4")))
-                .andExpect(jsonPath("$.menu_t_name", is("menu th 3")))
-                .andExpect(jsonPath("$.parent", is(0)))
-                .andExpect(jsonPath("$.sequent", is(3)))
+                .andExpect(jsonPath("$.menu_t_name", is("menu th 1_4")))
+                .andExpect(jsonPath("$.parent", is(1)))
+                .andExpect(jsonPath("$.sequent", is(4)))
                 .andExpect(jsonPath("$.role[0]", is(1)))
                 .andExpect(jsonPath("$.role[1]", is(2)))
                 .andReturn();
     }
     //-------------------------------------------------------------------------------------------
-    //-------------------------------------------------------------------------------------------
-
-    //-------------------------------------------------------------------------------------------
-
-
-
+    @Test
+    public void DeleteAppMenuLv0Test() throws Exception {
+        MvcResult mvcResult = this.mockMvc.perform(post("/appmenus/deleteAppMenu")
+                        .content("[\"1\"]")
+        ).andDo(print())
+                .andExpect(status().isOk())
+                .andReturn();
+        Assert.assertEquals(mvcResult.getResponse().getContentAsString(), "1");
+    }
     //-------------------------------------------------------------------------------------------
     @After
     public void afterTest() {
