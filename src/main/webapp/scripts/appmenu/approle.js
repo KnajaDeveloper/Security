@@ -168,8 +168,8 @@ function openModalAddRole() {
     focus1stElement('txtRoleCode');
 }
 
-function openModalEditRole(roleId, roleCode, roleName) { 
-    $('#txtRoleCode').attr('readonly', 'readonly');   
+function openModalEditRole(roleId, roleCode, roleName) {
+    $('#txtRoleCode').attr('readonly', 'readonly');
     $('#txtRoleCode').val(roleCode).popover('hide');
     $('#txtRoleName').val(roleName).popover('hide');
 
@@ -211,6 +211,9 @@ function saveAddRole(roleCode, roleName) {
                 bootbox.alert(MESSAGE.ALERT_SAVE_FAILED);
             }
         },
+        error: function(){
+            bootbox.alert(MESSAGE.ALERT_SAVE_FAILED);
+        },
         async: false
     });
 }
@@ -233,7 +236,7 @@ function saveEditRole(roleId, roleCode, roleName) {
             if (xhr.status == 201) {
                 bootbox.alert(MESSAGE.ALERT_SAVE_COMPLETED);
                 $('#modalRole').modal('hide');
-                
+
                 var pageNo = $('#paggingAppRoleCurrentPage').val();
                 loadAllAppRole();
                 pagginationAppRole.loadPage(pageNo, pagginationAppRole);
@@ -243,6 +246,9 @@ function saveEditRole(roleId, roleCode, roleName) {
             } else {
                 bootbox.alert(MESSAGE.ALERT_SAVE_FAILED);
             }
+        },
+        error: function(){
+            bootbox.alert(MESSAGE.ALERT_SAVE_FAILED);
         },
         async: false
     });
@@ -262,7 +268,7 @@ function deleteRole(arrRoleId) {
                 var countDelComplete = data.countRemove;
                 var notComplete = arrRoleId.length - countDelComplete;
                 var text = '';
-                
+
                 if (countDelComplete > 0)
                     text = MESSAGE.ALERT_DELETE_COMPLETED +' '+ countDelComplete +' '+ MESSAGE.ALERT_RECORD;
                 if (notComplete > 0)
@@ -273,6 +279,9 @@ function deleteRole(arrRoleId) {
                 var pageNo = $('#paggingAppRoleCurrentPage').val();
                 loadAllAppRole();
                 pagginationAppRole.loadPage(pageNo, pagginationAppRole);
+            },
+            error: function(){
+                bootbox.alert(MESSAGE.ALERT_DELETE_FAILED);
             },
             async: false
         }
