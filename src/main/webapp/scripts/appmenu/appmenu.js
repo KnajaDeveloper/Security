@@ -119,6 +119,9 @@ $('#btnSaveAddMenu').click(function () {
                     bootbox.alert(MESSAGE.ALERT_SAVE_FAILED);
                 }
             },
+            error: functon(){
+                bootbox.alert(MESSAGE.ALERT_SAVE_FAILED);
+            },
             async: false
         });
     }
@@ -162,7 +165,7 @@ $('#btnSaveEditMenu').click(function () {
     var sequent = $('#txtEditSequent').val();
     var parent = $('#ddlEditParent').val();
     var menuIcon = $('#ddlEditMenuIcon').attr('class').split(' ')[1];
-    
+
     var roles = [];
     $('[id^=chkEditRole_]').each(function () {
         var id = this.id.split('_')[1];
@@ -238,12 +241,15 @@ $('#btnSaveEditMenu').click(function () {
                         bootbox.alert(MESSAGE.ALERT_SAVE_FAILED);
                     }
                 },
+                error: function(){
+                    bootbox.alert(MESSAGE.ALERT_SAVE_FAILED);
+                },
                 async: false
             });
         }else{
             bootbox.alert(MESSAGE.ALERT_NO_CHANGE);
         }
-        
+
     }
 });
 
@@ -521,11 +527,10 @@ function checkChangeData(){
                 changeRole = true;
         });
     }
-    if(link != _oldMenu.link || menuTh != _oldMenu.menu_t_name || menuEn != _oldMenu.menu_e_name || 
-        controller != _oldMenu.controller || sequent != _oldMenu.sequent || parent != _oldMenu.parent || 
+    if(link != _oldMenu.link || menuTh != _oldMenu.menu_t_name || menuEn != _oldMenu.menu_e_name ||
+        controller != _oldMenu.controller || sequent != _oldMenu.sequent || parent != _oldMenu.parent ||
         icon != _oldMenu.menuIcon || changeRole) {
         return true;
     }
     return false;
 }
-
